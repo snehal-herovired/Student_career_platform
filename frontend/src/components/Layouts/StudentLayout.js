@@ -1,58 +1,83 @@
 import React from 'react'
-import { Outlet,NavLink,useNavigate } from "react-router-dom"
-
+import { Outlet, NavLink, useNavigate } from "react-router-dom"
+import '../../styles/drawer.css'
 export default function StudentLayout() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    let btnStyle = {
+        border: "1px solid rgb(128,128,128,0.2)",
+        height: '30px',
+        width: '70px',
+        color: 'black',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
 
+    }
+    let headerstyle = {
+        boxShadow: "-4px 19px 28px -24px rgba(0,0,0,0.32)",
+        color:'black',
+        height: "10%",
+        width: "100%",
+       background:'white'
+        
+
+  }
+    let fontstyle = {
+        color: 'black',
+        
+    }
     return (
-        <div style={{height:"100%",width:"100%"}}>
+        <div style={{ height: "100%", width: "100%" }}>
             {/* Header  */}
-            <nav class="navbar sticky-top navbar-expand-lg navbar-dark  bg-dark" style={{height:"10%",width:"100%"}}>
+            <nav class="navbar sticky-top navbar-expand-lg  " style={headerstyle}>
                 <div class="container-fluid">
-                    <NavLink className="navbar-brand" to="/student/">Student PortFolio</NavLink>
+                    <NavLink className="navbar-brand" to="/student/" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width:"20%", fontSize: '1.5rem' ,background:'red',borderRadius:"4px"}}>Scholar's Corner</NavLink>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <NavLink className="nav-link " aria-current="page" to='resume'>Create Resume</NavLink>
-                            </li>
-                            <li class="nav-item">
-                                <NavLink className="nav-link " aria-current="page" to='home'>View Template</NavLink>
-                            </li>
-                            
-                            <li class="nav-item">
-                            <NavLink className="nav-link " aria-current="page" to='myresume'>My resume</NavLink>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <NavLink className="nav-link " aria-current="page">Projects</NavLink>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <NavLink className="nav-link " aria-current="page">Projects</NavLink>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <NavLink className="nav-link " aria-current="page" to='/login'>Login</NavLink>
-                                
-                            </li>
-                            <li class="nav-item">
-                            <NavLink className="nav-link " aria-current="page">Logout</NavLink>
-                                
-                            </li>
-                        </ul>
-                        {/* <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form> */}
+
+                    <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <div style={{}}><i class="fa fa-bars" ></i></div>
+
+                    </button>
+
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header drawer-header" style={{background:'white',color:'red'}}>
+                            <h5 class="offcanvas-title" id="offcanvasExampleLabel" style={{fontWeight:"bolder"}}>Student Menu</h5>
+                            <button type="button" class=" custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i className='fa fa-share-square-o'></i></button>
+                        </div>
+                        <div class="offcanvas-body drawer-body" >
+                            <div>
+                                <ul class="menu-list">
+                                    <li class="menu-item" onClick={()=>navigate('/student/resume')}>
+                                        <i class="fa fa-edit menu-icon"></i> &nbsp; Create Resume
+                                    </li>
+                                    <li class="menu-item" onClick={()=>navigate('/student/home')}>
+                                        <i class="fa fa-edit menu-icon"></i> &nbsp; View Editable Template
+                                    </li>
+                                    <li class="menu-item" onClick={()=>navigate('')}>
+                                        <i class="fa fa-share menu-icon"></i> &nbsp; Projects
+                                    </li>
+                                    <li class="menu-item" onClick={()=>navigate('/student/myresume')}>
+                                        <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resume PDF
+                                    </li>
+                                    <li class="menu-item" onClick={()=>navigate('/student/uploadresume')}>
+                                        <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; Upload Resume
+                                    </li>
+                                    <li class="menu-item" onClick={()=>navigate('/student/template')}>
+                                        <i class="fa fa-share menu-icon"></i> &nbsp; View Final Template
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+
+                   
                 </div>
             </nav>
 
             {/* other outlets here :------ */}
-            <Outlet/>
+            <Outlet />
         </div>
     )
 }

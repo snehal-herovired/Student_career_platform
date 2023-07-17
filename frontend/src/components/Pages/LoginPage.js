@@ -17,14 +17,15 @@ export default function Login() {
       localStorage.setItem("token", JSON.stringify({ token: maindata.token }))
       localStorage.setItem('studentId',maindata.student._id)
       localStorage.setItem('batchId',maindata.student.batchId)
-      if (!isStudent) {
       
-        navigate('/')
-        return;
-      }
-      navigate('/student')
       
     }
+    if (!isStudent) {
+      
+      navigate('/')
+      return;
+    }
+    navigate('/student')
   };
 
   return (
@@ -64,7 +65,7 @@ export default function Login() {
                 Login
               </button>
               {
-                  mutation.isSuccess ? <h6 style={{ color: 'red' }}>Login SuccessFull</h6> : <h6 style={{ color: 'red' }}>Login Unsuccessful</h6>
+                  mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6>
                 }
               <Link to='/'>Not registered? Register here</Link>
             </form>
@@ -103,7 +104,7 @@ export default function Login() {
                   Login
                 </button>
                 {
-                  mutation.isSuccess ? <h6 style={{ color: 'red' }}>Login SuccessFull</h6> : <h6 style={{ color: 'red' }}>Login Unsuccessful</h6>
+                  mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6> 
                 }
                 <Link to='/'>Not registered? Register here</Link>
               </form>

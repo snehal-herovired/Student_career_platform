@@ -1,19 +1,33 @@
-import React from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import '../../styles/drawer.css'
 export default function ResumeLayout() {
   const resumeHeader = {
-    height: '30%',
-    width: '100%',
+    height: '5%',
+    width: '90%',
     display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginBottom: '20px',
+    marginBottom: '5px',
+    marginTop: '10px',
+  
+    border:'rgb(192, 194, 192,0.1)',
+    
+
   };
+  const navigate = useNavigate();
+  let btnStyle = {
+      border: "1px solid rgb(120, 125, 120,0.2)",
+      height: '30px',
+      width: '70px',
+      color: 'red',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+  }
 
   const resumeBody = {
-    height: '70%',
-    width: '80%',
+
+    width: '90%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
@@ -24,13 +38,92 @@ export default function ResumeLayout() {
     overflowY: 'auto', // Add scrollable overflow for the content
   };
 
+
+  const [resume, setResume] = useState({
+    studentId: '',
+    batchId: '',
+    about: '',
+    twitter: '',
+    lindkedIn: '',
+    facebook: '',
+    github: '',
+    contactInformation: {
+      email: '',
+      phone: '',
+      address: '',
+    },
+    education: [
+      {
+        institution: '',
+        degree: '',
+        year: 0,
+      },
+    ],
+    experience: [
+      {
+        company: 'XYZ Corp',
+        position: 'Software Developer',
+        duration: '',
+      },
+    ],
+    skills: [
+      {
+        name: '',
+        proficiency: '',
+      },
+    ],
+    projects: [
+      {
+        title: '',
+        description: '',
+        technologies: [],
+        link: '',
+      },
+    ],
+    image: '',
+    resumePdf: '',
+  })
   return (
     <div style={{ height: '100%', width: '100%', padding: '2px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <div style={resumeHeader}>
-        <h2>Create your resume here...</h2>
-        <h5>Provide the following information here...</h5>
+        {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width:"20%", fontSize: '1.5rem' ,background:'red',borderRadius:"4px"}}>Career Chronicles</div> */}
+        <div style={{ marginRight: '20px' }}>
+          <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#resumecanvasExample" aria-controls="resumecanvasExample">
+            <div><i class="fa fa-bars" ></i></div>
 
-        <nav aria-label="breadcrumb">
+          </button>
+
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="resumecanvasExample" aria-labelledby="resumecanvasExampleLabel">
+            <div class="offcanvas-header drawer-header" >
+              <h5 class="offcanvas-title" id="resumecanvasExampleLabel" style={{ fontWeight: "bolder" }}>Resume menu</h5>
+              <button type="button" class=" custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i className='fa fa-share-square-o'></i></button>
+            </div>
+            <div class="offcanvas-body drawer-body" >
+              <div>
+                <ul class="menu-list">
+                  <li class="menu-item" onClick={() => navigate('/student/resume')}>
+                    <i class="fa fa-edit menu-icon"></i> &nbsp;Edit Personal Information
+                  </li>
+                  <li class="menu-item" onClick={() => navigate('/student/resume/education')}>
+                    <i class="fa fa-edit menu-icon"></i> &nbsp; Edit Education Information
+                  </li>
+                  <li class="menu-item" onClick={() => navigate('/student/resume/experience')}>
+                    <i class="fa fa-edit menu-icon"></i> &nbsp; Edit Experience Information
+                  </li>
+                  <li class="menu-item" onClick={() => navigate('/student/resume/skills')}>
+                    <i class="fa fa-edit menu-icon"></i> &nbsp; Edit Skill Information
+                  </li>
+                  <li class="menu-item" onClick={() => navigate('/student/resume/projects')}>
+                    <i class="fa fa-edit menu-icon"></i> &nbsp; Edit Project Information
+                  </li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
               <NavLink to="info">Personal Information</NavLink>
@@ -48,9 +141,9 @@ export default function ResumeLayout() {
               <NavLink to="projects">Projects</NavLink>
             </li>
           </ol>
-        </nav>
+        </nav> */}
       </div>
-      <div style={resumeBody}>
+      <div style={resumeBody} >
         <Outlet />
       </div>
     </div>

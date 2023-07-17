@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../../../styles/personalinfo.css'
 export default function Education() {
   const [educationFields, setEducationFields] = useState([{ institution: '', degree: '', year: '' }]);
 
@@ -26,7 +26,7 @@ export default function Education() {
   };
 
   return (
-    <div style={{ color: 'black', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ color: 'black', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}  className='herox'>
       <form style={{ width: '45%' }} onSubmit={handleSubmit}>
         {educationFields.map((field, index) => (
           <div key={index}>
@@ -77,10 +77,10 @@ export default function Education() {
             <hr />
           </div>
         ))}
-        <button type="button" className="btn btn-primary" onClick={handleAddField}>
+        <button type="button" className="btn " onClick={handleAddField}  style={{background:'red',color:'white',margin:'2px'}}>
           Add Education
         </button>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn" style={{background:'red',color:'white'}}>
           Submit
         </button>
       </form>

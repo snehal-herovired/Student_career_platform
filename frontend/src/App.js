@@ -37,7 +37,7 @@ function App() {
           path: 'resume',
           element: <ResumeLayout />,
           children: [
-            { path: 'info', element: <Personalinfo /> },
+            { index:true, element: <Personalinfo /> },
             { path: 'experience', element: <Experience /> },
             { path: 'education', element: <Education /> },
             { path: 'skills', element: <Skillpage /> },

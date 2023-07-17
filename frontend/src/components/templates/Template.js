@@ -3,7 +3,7 @@ import './css/template.css'
 export default function Template() {
     return (
         <>
-            <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="400">
+            {/* <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="400">
                 <div class="container">
                     <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">Creative CV</a>
                         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
@@ -21,18 +21,18 @@ export default function Template() {
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> */}
             <div class="page-content">
                 <div>
-                    <div class="profile-page">
+                    <div class="profile-page" >
                         <div class="wrapper">
                             <div class="page-header page-header-small" filter-color="green">
                                 <div class="page-header-image" data-parallax="true" style={{ backgroundImage: "url('images/cc-bg-1.jpg')" }}>
                                 </div>
-                                <div class="container">
-                                    <div class="content-center">
+                                <div class="container"style={{width:'1200px'}}>
+                                    <div class="content-center" >
                                         <div class="cc-profile-image"><a href="#"><img src="/images/anthony.jpg" alt="Image" /></a></div>
-                                        <div class="h2 title" >Anthony Barnett</div>
+                                        <div class="h4 " >Anthony Barnett</div>
                                         <p class="category" style={{ color: 'black' }}>Web Developer, Graphic Designer, Photographer</p><a
                                             class="btn btn-design smooth-scroll mr-2" href="#contact">Hire Me</a>
                                         <a

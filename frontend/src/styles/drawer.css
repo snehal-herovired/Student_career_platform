@@ -1,0 +1,56 @@
+.offcanvas-body {
+    padding: 15px;
+  }
+  
+  .menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-item {
+    cursor: pointer;
+    padding: 10px 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .menu-icon {
+    margin-right: 10px;
+  }
+  .custom-btn-close{
+    color: red;
+    font-weight: bold;
+    border: none;
+    background:none;
+   
+
+  }
+
+  .drawer-header {
+    background: white;
+    color: red;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .drawer-body {
+    background-color: rgb(238, 235, 235,0.1);
+  }
+  
+  .menu-item {
+   
+    margin-left: 20px;
+    margin-bottom: 4px;
+    border-bottom: 0.5px solid rgb(238, 235, 235);
+  }
+  .menu-list >li >i{
+    color: red;
+  }
+  .menu-list{
+    display: flex;
+    flex-direction: column;
+   
+  }

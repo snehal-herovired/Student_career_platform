@@ -1,7 +1,145 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { FaEdit } from 'react-icons/fa';
+
 
 export default function Home() {
+  const [resumeData, setResumeData] = useState({
+    studentId: '',
+    batchId: '',
+    about: 'Sunil Chhetri, often hailed as the "Captain Fantastic," is a renowned Indian footballer and the captain of the Indian national team, widely regarded as one of the countrys greatest footballing icons.',
+    contactInformation: {
+      email: 'fake@fake.com',
+      phone: '91212232428',
+      address: '123 Main Street,Cityville, Stateland,Countryland, 12345.',
+      github: 'email@example.com',
+      facebook: 'email@example.com',
+      lindkedIn: 'email@example.com',
+      twitter: 'email@example.com',
+      image: '/images/hero.jpg',
+    },
+    education: [
+      {
+        institution: '',
+        degree: '',
+        year: 0,
+      },
+    ],
+    experience: [
+      {
+        company: 'XYZ Corp',
+        position: 'Software Developer',
+        duration: '',
+      },
+    ],
+    skills: [
+      {
+        name: '',
+        proficiency: '',
+      },
+    ],
+    projects: [
+      {
+        title: '',
+        description: '',
+        technologies: [],
+        link: '',
+      },
+    ],
+    resumePdf: '',
+  });
+
+  const [isEditingAbout, setIsEditingAbout] = useState(false);
+  const [isEditingPersonal, setIsEditingPersonal] = useState(false);
+  const [isEditingEducation, setIsEditingEducation] = useState(false);
+  const [isEditingExperience, setIsEditingExperience] = useState(false);
+  const [isEditingProjects, setIsEditingProjects] = useState(false);
+
+  // ABOUT CHANGE FUNCTION
+  const handleAboutChange = (e) => {
+    setResumeData((prevData) => ({
+      ...prevData,
+      about: e.target.value,
+    }));
+  };
+
+  const saveAboutChanges = () => {
+    // Save about section changes to backend or update state as required
+    setIsEditingAbout(false);
+  };
+  // *******************************************************************************************
+  // ABOUT PERSONAL INFORMATION FUNCTION
+  const handleContactChange = (field, value) => {
+    setResumeData((prevData) => ({
+      ...prevData,
+      contactInformation: {
+        ...prevData.contactInformation,
+        [field]: value,
+      },
+    }));
+  };
+
+  const saveContactChanges = () => {
+    // Save contact information changes to backend or update state as required
+    setIsEditingPersonal(false);
+  };
+  // ****************************************************************************************************  
+  const handleEducationChange = (index, field, value) => {
+    setResumeData((prevData) => {
+      const updatedEducation = [...prevData.education];
+      updatedEducation[index] = {
+        ...updatedEducation[index],
+        [field]: value,
+      };
+      return {
+        ...prevData,
+        education: updatedEducation,
+      };
+    });
+  };
+
+  const saveEducationChanges = () => {
+    // Save education section changes to backend or update state as required
+    setIsEditingEducation(false);
+  };
+
+  const handleExperienceChange = (index, field, value) => {
+    setResumeData((prevData) => {
+      const updatedExperience = [...prevData.experience];
+      updatedExperience[index] = {
+        ...updatedExperience[index],
+        [field]: value,
+      };
+      return {
+        ...prevData,
+        experience: updatedExperience,
+      };
+    });
+  };
+
+  const saveExperienceChanges = () => {
+    // Save experience section changes to backend or update state as required
+    setIsEditingExperience(false);
+  };
+
+  const handleProjectsChange = (index, field, value) => {
+    setResumeData((prevData) => {
+      const updatedProjects = [...prevData.projects];
+      updatedProjects[index] = {
+        ...updatedProjects[index],
+        [field]: value,
+      };
+      return {
+        ...prevData,
+        projects: updatedProjects,
+      };
+    });
+  };
+
+  const saveProjectsChanges = () => {
+    // Save projects section changes to backend or update state as required
+    setIsEditingProjects(false);
+  };
 
 
   let beginner = {
@@ -16,23 +154,45 @@ export default function Home() {
   let expert = {
     width: "100%"
   }
+
   return (
     <>
       <main id="main">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item " aria-current="page"><NavLink to='/student/uploadresume'>Upload Resume</NavLink></li>
-            <li class="breadcrumb-item"><NavLink to='/student/template'>View Template</NavLink></li>
-          </ol>
-        </nav>
+
+
         <section id="about" className="about" style={{ marginBottom: "3px", background: '' }}>
           <div className="container" data-aos="fade-up">
 
             <div className="section-title" style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
               <br />
               <br />
-              <h2 style={{ fontWeight: "bold" }}>About</h2>
-              <p style={{ textAlign: "center" }}>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+
+              <h2 style={{ fontWeight: "bold", position: 'relative' }}>
+                About
+                <span
+                  style={{ position: 'absolute', top: '-14px', fontSize: '30px', cursor: 'pointer', color: 'rgb(128,128,128,0.6)', marginLeft: '3px' }}
+                  onClick={() => setIsEditingAbout(!isEditingAbout)}
+                >
+                  <FaEdit />
+                </span>
+
+              </h2>
+              {isEditingAbout ? (
+                <textarea
+                  style={{
+                    width: '100%', marginBottom: '10px', textDecoration: 'none', border: '1px solid rgb(128,128,128,0.6)',
+                    borderRadius: '10px',
+
+                  }}
+                  value={resumeData.about}
+                  onChange={handleAboutChange}
+                />
+              ) : (
+                <p style={{ textAlign: "center" }}>{resumeData.about}</p>
+              )}
+              {isEditingAbout && (
+                <button type='button' className='btn btn-success' onClick={saveAboutChanges}>Save</button>
+              )}
             </div>
 
             <div className="row" style={{ background: "" }}>
@@ -40,25 +200,128 @@ export default function Home() {
                 <img src='/images/hero.jpg' alt="" style={{ height: "100%", width: "100%" }} />
               </div>
               <div className="col-lg-8 pt-4 pt-lg-0 content" style={{ padding: "2px" }}>
-                <h3>Personal Information</h3>
+                <h3 style={{ fontWeight: "bold", position: 'relative' }}>
+                  Personal Information
+                  <span
+                    style={{ position: 'absolute', top: '-14px', fontSize: '30px', cursor: 'pointer', color: 'rgb(128,128,128,0.6)', marginLeft: '3px' }}
+                    onClick={() => setIsEditingPersonal(!isEditingPersonal)}
+                  >
+                    <FaEdit />
+                  </span>
 
-                <div className="row" >
-                  <div className="col-lg-6" >
-                    <ul>
-                      <li><i className="bi bi-rounded-right"></i> <strong>Email:</strong> 1 May 1995</li>
-                      <li><i className="bi bi-rounded-right"></i> <strong>LindkedIn:</strong> www.example.com</li>
-                      <li><i className="bi bi-rounded-right"></i> <strong>Phone:</strong> +123 456 7890</li>
-                      <li><i className="bi bi-rounded-right"></i> <strong>Address:</strong> Address : New York, USA</li>
-                    </ul>
-                  </div>
-                  <div className="col-lg-6">
-                    <ul>
+                </h3>
+                {
+                  isEditingPersonal ?
+                    <div className="row">
+                      <div className="col-lg-6" >
+                        <ul>
+                          <li>
+                            <input
+                              type="email"
+                              placeholder='email'
+                              value={resumeData.contactInformation.email}
+                              onChange={(e) =>
+                                handleContactChange("email", e.target.value)
+                              }
+                            />
+                          </li>
+                          <li>
+                            <input
+                              type="number"
+                              placeholder='phone'
+                              value={resumeData.contactInformation.phone}
+                              onChange={(e) =>
+                                handleContactChange("phone", e.target.value)
+                              }
+                            />
+                          </li>
+                          <li>
+                            <textarea
+                              value={resumeData.contactInformation.address}
+                              placeholder='address here'
+                              rows={5}
+                              cols={25}
+                              onChange={(e) =>
+                                handleContactChange("address", e.target.value)
+                              }
+                            />
+                          </li>
+                          <li>
+                            <input
+                              type="text"
+                              value={resumeData.contactInformation.lindkedIn}
+                              placeholder='linkedin link'
+                              onChange={(e) =>
+                                handleContactChange("lindkedIn", e.target.value)
+                              }
+                            />
+                          </li>
+                        </ul>
 
-                      <li><i className="bi bi-rounded-right"></i> <strong>Twitter:</strong> email@example.com</li>
-                      <li><i className="bi bi-rounded-right"></i> <strong>Github:</strong> Available</li>
-                    </ul>
-                  </div>
-                </div>
+
+
+
+                      </div>
+                      <div className="col-lg-6" >
+                        <ul>
+                          <li>
+                          <input
+                          type="text"
+                          value={resumeData.contactInformation.github}
+                          placeholder='github'
+                          onChange={(e) =>
+                            handleContactChange("github", e.target.value)
+                          }
+                        />
+                          </li>
+                          <li>
+                          <input
+                          type="text"
+                          value={resumeData.contactInformation.facebook}
+                          placeholder='facbook'
+                          onChange={(e) =>
+                            handleContactChange("facebook", e.target.value)
+                          }
+                        />
+                          </li>
+                          <li>
+                          <input
+                          type="text"
+                          value={resumeData.contactInformation.twitter}
+                          placeholder='twitter link'
+                          onChange={(e) =>
+                            handleContactChange("twitter", e.target.value)
+                          }
+                        />
+                          </li>
+                        </ul>
+                       
+                       
+
+                    
+                      <button onClick={saveContactChanges} type='button' className='btn btn-success'>Save</button>
+                      </div>
+                    </div>
+                    :
+                    <div className="row" >
+                      <div className="col-lg-6" >
+                        <ul>
+                          <li><i className="bi bi-rounded-right"></i> <strong>Email:</strong> {resumeData.contactInformation.email}</li>
+                          <li><i className="bi bi-rounded-right"></i> <strong>LindkedIn:</strong> {resumeData.contactInformation.lindkedIn}</li>
+                          <li><i className="bi bi-rounded-right"></i> <strong>Phone:</strong> {resumeData.contactInformation.phone}</li>
+                          <li><i className="bi bi-rounded-right"></i> <strong>Address:</strong>{resumeData.contactInformation.address}</li>
+                        </ul>
+                      </div>
+                      <div className="col-lg-6">
+                        <ul>
+
+                          <li><i className="bi bi-rounded-right"></i> <strong>Twitter:</strong>{resumeData.contactInformation.twitter}</li>
+                          <li><i className="bi bi-rounded-right"></i> <strong>Github:</strong>{resumeData.contactInformation.github}</li>
+                        </ul>
+                      </div>
+                    </div>
+                }
+
 
               </div>
             </div>

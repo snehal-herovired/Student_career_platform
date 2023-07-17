@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../../../styles/personalinfo.css'
 export default function Skillpage() {
   return (
-    <div style={{ color: "black", height: "100%", width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ color: "black", height: "100%", width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}  className='herox'>
       <form style={{ width: "45%" }}>
 
 
@@ -34,7 +34,7 @@ export default function Skillpage() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn "style={{background:'red',color:'white',margin:'2px'}}>
           Submit
         </button>
         

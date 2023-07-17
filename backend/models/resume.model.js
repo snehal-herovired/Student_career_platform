@@ -80,6 +80,21 @@ const resumeSchema = new mongoose.Schema({
     ref: 'Batch',
     required: true
   },
+  about: {
+    type:String
+  },
+  github: {
+    type:String
+  },
+  twitter: {
+    type:String
+  },
+  lindkedIn: {
+    type:String
+  },
+  facebook: {
+    type:String
+  },
   contactInformation: {
     email: {
       type: String,

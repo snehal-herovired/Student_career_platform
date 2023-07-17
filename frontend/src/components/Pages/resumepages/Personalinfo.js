@@ -1,5 +1,6 @@
 import React from 'react';
-
+import '../../../styles/background.css'
+import '../../../styles/personalinfo.css'
 export default function PersonalInfo() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -16,11 +17,13 @@ export default function PersonalInfo() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        
       }}
+      className='herox'
     >
-      <form style={{ width: '70%', maxWidth: '600px' }}>
-        <div className="row">
-          <div className="col-md-4 mb-3">
+      <form style={{ width: '80%', maxWidth: '600px' }}>
+        <div className="row" style={{width:'100%'}}>
+          <div className="col-md-4 mb-3" >
             <label htmlFor="email" className="form-label">
               Email
             </label>
@@ -40,13 +43,13 @@ export default function PersonalInfo() {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-3"style={{width:'50%'}}>
             <label htmlFor="address" className="form-label">
               Address
             </label>
             <textarea className="form-control" id="address" name="address" rows="3"></textarea>
           </div>
-          <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-3"style={{width:'50%'}}>
             <label htmlFor="about" className="form-label">
               About
             </label>
@@ -81,7 +84,7 @@ export default function PersonalInfo() {
             <input type="file" className="form-control" id="image" name="image" onChange={handleFileChange} />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn" style={{background:'red',color:'white'}}>
           Submit
         </button>
       </form>
