@@ -55,8 +55,13 @@ const StudentPage = () => {
                         <div key={student._id} className="col">
                             <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
                                 <div className="card-body">
-                                    <img src="/images/hero.jpg" alt="" srcset="" style={{ height: "60px", width: '60px', borderRadius: '50%' }} />
-                                    <h6 className="card-title text-white">Email : {student.email}</h6>
+                                    <div className="row">
+                                        <div className="col-4">
+
+                                    <img src="/images/hero.jpg" alt="" srcset="" style={{ height: "100%", width: '100%', borderRadius: '10px' }} />
+                                        </div>
+                                        <div className="col-8">
+                                        <h6 className="card-title text-white">Email : {student.email}</h6>
                                     <h6 className="card-title text-white">Username : {student.username}</h6>
                                     <h6 className="card-title text-white">Batch : {student.batchId.name}</h6>
                                     <Link to={`/admin/${student._id}`}>
@@ -64,6 +69,9 @@ const StudentPage = () => {
                                             View Student Detail
                                         </button>
                                     </Link>
+                                        </div>
+                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>

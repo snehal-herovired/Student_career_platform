@@ -39,7 +39,7 @@ export default function Register() {
       <div className="col-md-6  masterlogo">
 
 </div>
-        <div className="col-md-6 " style={{ padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <div className="col-md-6 " style={{ padding: '20px',boxShadow:" 0px 7px 12px -3px #6b050b" }}>
           <h2 style={{ textAlign: 'center' }}>Register</h2>
           {
             <form onSubmit={handleSubmit(onSubmit)}>

@@ -37,7 +37,7 @@ export default function Login({setLogin,login}) {
 
         </div>
           {
-            !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
+            !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px',boxShadow:" 0px 7px 12px -3px #6b050b",display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
               <h5 style={{ textAlign: 'center' ,cursor:'pointer'}} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +76,7 @@ export default function Login({setLogin,login}) {
               </form>
             </div>
               :
-              <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
+              <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow:" 0px 7px 12px -3px #6b050b",display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
                 <h5 style={{ textAlign: 'center',cursor:'pointer' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
                 <h2 style={{ textAlign: 'center' }}>Student Login</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>

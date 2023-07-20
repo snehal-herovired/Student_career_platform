@@ -68,9 +68,9 @@ export default function NormalLayout() {
                   <li class="menu-item" onClick={() => navigate('')}>
                     <i class="fa fa-share menu-icon"></i> &nbsp; View all Projects
                   </li>
-                  <li class="menu-item" onClick={() => navigate('/student/myresume')}>
+                  {/* <li class="menu-item" onClick={() => navigate('/student/myresume')}>
                     <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
-                  </li>
+                  </li> */}
                   <li class="menu-item" onClick={handleLogout}>
                     <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; Logout 
                   </li>
