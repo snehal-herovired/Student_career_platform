@@ -21,9 +21,9 @@ export default function Login({setLogin,login}) {
       }
       const { data: maindata } = mutation;
       console.log(maindata, "MAINDATA");
-      localStorage.setItem("token", JSON.stringify({ token: maindata.token }))
-      localStorage.setItem('studentId', maindata._id)
-      localStorage.setItem('batchId', maindata.batchId)
+      localStorage.setItem("token", JSON.stringify({ token: maindata.student.token }))
+      localStorage.setItem('studentId', maindata.student._id)
+      localStorage.setItem('batchId', maindata.student.batchId)
 
 
       navigate('/student')
@@ -38,7 +38,7 @@ export default function Login({setLogin,login}) {
         </div>
           {
             !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
-              <h5 style={{ textAlign: 'center' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
+              <h5 style={{ textAlign: 'center' ,cursor:'pointer'}} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
@@ -69,15 +69,15 @@ export default function Login({setLogin,login}) {
                 <button type="submit" className="btn btn-danger">
                   Login
                 </button>
-                {
-                  mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6>
-                }
                 <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
+                {
+                  mutation.isSuccess && <p style={{ color: 'red' ,margin:'2px'}}>Login SuccessFull</p>
+                }
               </form>
             </div>
               :
               <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
-                <h5 style={{ textAlign: 'center' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
+                <h5 style={{ textAlign: 'center',cursor:'pointer' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
                 <h2 style={{ textAlign: 'center' }}>Student Login</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-3">

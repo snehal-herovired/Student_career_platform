@@ -46,7 +46,7 @@ const StudentLandingPage = () => {
 
                 <div className='col-md-6 ' style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
                       {
-                          isSuccess &&  <Link to={`/resume/${SingleStudentData._id}`} style={getrequestLoading ?blurredStyle :visibleStyle}>
+                          isSuccess &&  <Link to={`/admin/resume/${SingleStudentData._id}`} style={getrequestLoading ?blurredStyle :visibleStyle}>
                           <button className="btn btn-danger  mt-4" style={{boxShadow:" 0px 7px 12px -3px #6b050b",fontWeight:'bold'}} >Go to Resume</button>
                       </Link>
                    }

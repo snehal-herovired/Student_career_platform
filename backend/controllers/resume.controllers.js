@@ -86,10 +86,11 @@ const createResume= async (req, res) => {
 //   }
 // }
 
+const path = require('path');
+
 const uploadResume = async (req, res) => {
   try {
     const { studentId, batchId } = req.body;
-    console.log(studentId,batchId,"ids from request body");
 
     // Find the existing resume or create a new one
     let resume = await Resume.findOne({ studentId });
@@ -98,14 +99,16 @@ const uploadResume = async (req, res) => {
       resume = new Resume({ studentId, batchId });
     }
 
-    if (req.file) {
-      // Check if it's an 'image' or 'resume' file and update the corresponding field
-      if (req.file.fieldname === 'image') {
-        resume.image = req.file.path;
-      } else if (req.file.fieldname === 'resume') {
-        resume.resumePdf = req.file.path;
+    if (req.files) {
+      // Check if 'image' and 'resume' files were uploaded and update the corresponding fields
+      if (req.files['image']) {
+        resume.image = path.normalize(req.files['image'][0].path);
+      }
+      if (req.files['resume']) {
+        resume.resumePdf = path.normalize(req.files['resume'][0].path);
       }
     }
+
     await resume.save();
 
     return res.status(200).json({ message: 'Files uploaded successfully' });
@@ -118,18 +121,20 @@ const uploadResume = async (req, res) => {
 
 
 
+
+
 // Get Resume by ID
 const getresumebyId= async (req, res) => {
     const { id } = req.params;
   
     try {
-      const resume = await Resume.findOne({studentId:id})
+      const resume = await Resume.findOne({studentId:id}).populate('studentId')
        
       if (!resume) {
         return res.status(404).json({ message: 'Resume not found' });
       }
   
-      return res.status(200).json({ resume });
+      return res.status(200).json( resume );
     } catch (error) {
       return res.status(500).json({ message: 'Error retrieving resume', error });
     }

@@ -3,15 +3,17 @@ const resumerouter = express.Router();
 const multer = require('multer');
 const { createResume,deleteresumebyId,getresumebyId,uploadResume} = require("../controllers/resume.controllers")
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/'); // Set the destination folder for uploaded files
-    },
-    filename: function (req, file, cb) {
-      // Set a custom filename for the uploaded file (you can use a unique filename here)
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
-    },
-  });
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    // Set a custom filename for the uploaded file
+    const originalName = file.originalname.split('.')[0]; // Get the original filename without the extension
+    const uniqueSuffix = Date.now(); // We don't need random characters here
+    cb(null, file.fieldname + '-' + uniqueSuffix + '-' + originalName + '.' + file.originalname.split('.').pop());
+  },
+});
+
   
   const upload = multer({ storage: storage });
   

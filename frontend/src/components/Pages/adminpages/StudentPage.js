@@ -59,7 +59,7 @@ const StudentPage = () => {
                                     <h6 className="card-title text-white">Email : {student.email}</h6>
                                     <h6 className="card-title text-white">Username : {student.username}</h6>
                                     <h6 className="card-title text-white">Batch : {student.batchId.name}</h6>
-                                    <Link to={`/${student._id}`}>
+                                    <Link to={`/admin/${student._id}`}>
                                         <button type="button" className="btn btn-danger" onClick={()=>navigate('')}>
                                             View Student Detail
                                         </button>

@@ -117,11 +117,11 @@ const resumeSchema = new mongoose.Schema({
   projects: [projectSchema],
   image: {
     type: String,
-    default: ''
+ 
   },
   resumePdf: {
     type: String,
-    default: ''
+    
   }
 });
 

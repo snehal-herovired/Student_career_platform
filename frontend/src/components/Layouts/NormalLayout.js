@@ -59,10 +59,10 @@ export default function NormalLayout() {
             <div class="offcanvas-body drawer-body" >
               <div>
                 <ul class="menu-list">
-                  <li class="menu-item" onClick={() => navigate('/batches')}>
+                  <li class="menu-item" onClick={() => navigate('/admin')}>
                     <i class="fa fa-edit menu-icon"></i> &nbsp; View Batches
                   </li>
-                  <li class="menu-item" onClick={() => navigate('/students')}>
+                  <li class="menu-item" onClick={() => navigate('/admin/students')}>
                     <i class="fa fa-edit menu-icon"></i> &nbsp; View Students
                   </li>
                   <li class="menu-item" onClick={() => navigate('')}>

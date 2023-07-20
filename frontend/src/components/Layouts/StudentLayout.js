@@ -28,7 +28,8 @@ export default function StudentLayout() {
     }
 
     function handleLogout() {
-        
+        localStorage.removeItem("login");
+        navigate('/')
     }
     return (
         <div style={{ height: "100%", width: "100%" }}>
@@ -69,6 +70,7 @@ export default function StudentLayout() {
                                     <li class="menu-item" onClick={()=>navigate('/student/template')}>
                                         <i class="fa fa-share menu-icon"></i> &nbsp; View Final Template
                                     </li>
+                                   
                                     <li class="menu-item" onClick={handleLogout}>
                                         <i class="fa fa-share menu-icon"></i> &nbsp; Logout
                                     </li>

@@ -85,19 +85,25 @@ export default function Register() {
               </div>
               <div className="mb-3">
                 <label htmlFor="registerPassword" className="form-label">
-                  Batch
+                  Batch  
                 </label>
-                <select multiple style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
+                <select  style={{ackgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
 
+                 <option selected>Select batch  </option>
                   {
-                    batchdata.length !== 0 && batchdata.map((ele) => (
-                      <option value={ele._id}
+                    batchdata.length !== 0 && batchdata.map((ele, i) => (
+                      <>
+                      
+                      <option value={ele._id} key={i}
 
-                      >{ele.name}</option>
-                    ))
+                      >{ele.name}<i className="fa fa-chevron-down"style={{color:'black'}}></i></option>
+                      </>
+                        ))
+                        
                   }
 
                 </select>
+               
                 {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
 
               </div>
