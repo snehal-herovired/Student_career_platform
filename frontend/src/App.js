@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import LoginFallback from './components/Pages/LoginFallback';
 import Error from './components/Pages/ErrorPage';
 import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
+import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -79,6 +80,7 @@ function App() {
         },
         { path: ':id', element: <StudentLandingPage /> },
         { path: 'resume/:id', element: <StudentResumeTemplate /> },
+        {path:'batch/:id' ,element:<BatchLandingPage/>}
       ],
     },
     {path:'*',element:<Error/>},

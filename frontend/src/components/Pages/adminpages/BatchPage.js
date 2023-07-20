@@ -61,7 +61,7 @@ const BatchPage = () => {
                                         <div className='col-8'>
 
                                             <h5 className="card-title text-white">Batch : {batch.name}</h5>
-                                            <Link to={`/batch/${batch._id}`}>
+                                            <Link to={`/admin/batch/${batch._id}`}>
                                                 <button type="button" className="btn btn-danger">
                                                     View Batch
                                                 </button>

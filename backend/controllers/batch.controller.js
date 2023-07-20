@@ -15,7 +15,7 @@ const getBatchdetailbyid = async (req, res) => {
       return res.status(404).json({ message: 'Batch not found' });
     }
 
-    return res.status(200).json({ batch });
+    return res.status(200).json({batch} );
   } catch (error) {
     return res.status(500).json({ message: 'Error retrieving batch', error });
   }

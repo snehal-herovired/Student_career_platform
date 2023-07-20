@@ -15,8 +15,8 @@ export default function StudentResumeTemplate() {
     if (isError) {
         return (
           <div>
-            Error loading resumeData.{' '}
-            <button onClick={() => refetch()} style={{ cursor: 'pointer' }}>
+            Error Loading data or the data is not available ...
+            <button type='button' className='btn btn-danger' onClick={() => refetch()} style={{ cursor: 'pointer' }}>
               Retry
             </button>
           </div>
