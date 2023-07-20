@@ -1,9 +1,10 @@
 import React from 'react'
 import '../../templates/css/template.css'
-import { useParams } from "react-router-dom"
+import { useParams ,useNavigate} from "react-router-dom"
 import useGetRequest from '../../customeHooks/timerFetchData';
 import { Url } from '../../../connection';
 export default function StudentResumeTemplate() {
+    const navigate=useNavigate()
     const { id } = useParams();
     const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${id}`)
     console.log(id, resumeData, 'FORM TEMPLATE');
@@ -12,11 +13,15 @@ export default function StudentResumeTemplate() {
     if (isLoading) {
         return <div>Loading data...</div>
     }
+    function handlestate() {
+        refetch();
+        navigate('/admin')
+    }
     if (isError) {
         return (
           <div>
             Error Loading data or the data is not available ...
-            <button type='button' className='btn btn-danger' onClick={() => refetch()} style={{ cursor: 'pointer' }}>
+            <button type='button' className='btn btn-danger' onClick={handlestate} style={{ cursor: 'pointer' }}>
               Retry
             </button>
           </div>

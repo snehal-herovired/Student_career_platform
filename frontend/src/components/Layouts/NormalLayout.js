@@ -34,7 +34,7 @@ export default function NormalLayout() {
       {/* Header  */}
       <nav class="navbar sticky-top navbar-expand-lg  " style={headerstyle}>
         <div class="container-fluid">
-          <NavLink className="navbar-brand" to="/student/" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: "20%", fontSize: '1.5rem', background: '#6b050b', borderRadius: "4px" }}>Vired's Corner</NavLink>
+          <NavLink className="navbar-brand" to="/admin" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: "20%", fontSize: '1.5rem', background: '#6b050b', borderRadius: "4px" }}>Vired's Corner</NavLink>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

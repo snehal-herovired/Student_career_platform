@@ -349,8 +349,7 @@ const handleImageUpload = async () => {
 
   return (
     <>{
-      isSuccess
-        ?
+      isSuccess && data ?
         <main id="main">
 
       <section id="about" className="about" style={{ marginBottom: "3px", background: '' }}>
@@ -395,7 +394,7 @@ const handleImageUpload = async () => {
           <div className="row" style={{ }}>
             <h4 style={{fontWeight: "bold",textAlign:'center',marginTop:'4px',marginBottom:'4px'}}>Personal Information</h4>
           <div className="col-lg-4">
-              <img crossorigin="anonymous" src={`${Url}/${data.image}`} alt="image here" style={{ height: "100%", width: "100%", }} />
+              <img crossOrigin="anonymous" src={`${Url}/${data.image}`} alt="image here" style={{ height: "100%", width: "100%", }} />
               <h6 style={{ textAlign: 'center', position: 'relative', margin: '3px' }}>
                 Profile Picture
                 <span

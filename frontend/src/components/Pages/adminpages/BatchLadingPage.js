@@ -51,7 +51,7 @@ const BatchLandingPage = () => {
             </div>
 
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {filteredStudents.length !== 0 ?
+                {filteredStudents.length !== 0 &&
                     filteredStudents.map((student, id) => (
                         <div key={student._id} className="col">
                             <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
@@ -78,8 +78,7 @@ const BatchLandingPage = () => {
                         </div>
 
                     ))
-                    :
-                    <p>No Student data found !!</p>
+                    
                 }
             </div>
         </div>
