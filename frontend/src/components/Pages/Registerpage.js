@@ -105,7 +105,7 @@ export default function Register() {
                 Register
               </button>
               {mutation.isSuccess && <h6 style={{ color: 'red' }}>Data inserted sucessfully</h6>}
-              <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='login'>Login here</Link></span>
+              <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='login' style={{textDecoration:'none'}}>Login here</Link></span>
             </form>
           }
         </div>

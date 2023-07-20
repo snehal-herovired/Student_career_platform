@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import useGetRequest from '../../customeHooks/fetchData';
 import useTimerRequest from '../../customeHooks/timerFetchData';
 import { Url } from '../../../connection';
 const StudentLandingPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { data: SingleStudentData, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useTimerRequest(`${Url}/student/students/${id}`)
     console.log(SingleStudentData,"this is Single Student Data");
     const blurredStyle = { filter: 'blur(2px)' };
@@ -44,9 +45,11 @@ const StudentLandingPage = () => {
             <div className="row mt-5">
 
                 <div className='col-md-6 ' style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <Link to="/resume">
-                        <button className="btn btn-danger  mt-4" style={{boxShadow:" 0px 7px 12px -3px #6b050b",fontWeight:'bold'}}>Go to Resume</button>
-                    </Link>
+                      {
+                          isSuccess &&  <Link to={`/resume/${SingleStudentData._id}`} style={getrequestLoading ?blurredStyle :visibleStyle}>
+                          <button className="btn btn-danger  mt-4" style={{boxShadow:" 0px 7px 12px -3px #6b050b",fontWeight:'bold'}} >Go to Resume</button>
+                      </Link>
+                   }
                 </div>
                 <div className="col-md-6 text-center" style={getrequestLoading ? blurredStyle : visibleStyle} >
                     {/* Batch Details */}
@@ -57,7 +60,7 @@ const StudentLandingPage = () => {
                         <p>Batch Name: {isSuccess && SingleStudentData.batchId.name }</p>
                         <p>Course: {isSuccess && SingleStudentData.batchId.course }</p>
                           <p>Start Date: { isSuccess && SingleStudentData.batchId.startDate}</p>
-                        <p>End Date: 31 December 2023</p>
+                          <p>End Date: {isSuccess && SingleStudentData.batchId.endDate }</p>
                         {/* Add more batch details here */}
 
                     </div>

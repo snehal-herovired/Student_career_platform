@@ -18,10 +18,11 @@ import ResumeViewer from './components/Pages/ViewResumePage';
 import BatchPage from './components/Pages/adminpages/BatchPage';
 import StudentPage from './components/Pages/adminpages/StudentPage';
 import StudentLandingPage from './components/Pages/adminpages/StudentLandingPage';
+import { useState } from 'react';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
-  
+  const [login, setLogin] = useState(false);
   
   // Define your conditional routes here
   const router = createBrowserRouter([
@@ -53,17 +54,18 @@ function App() {
     // Add more conditional routes if needed
     {
       path: '/',
-      element: <NormalLayout />,
+      element: <NormalLayout login={login} />,
       children: [
         { index: true, element: <Register /> },
-        { path: 'login', element: <Login /> },
+        { path: 'login', element: <Login setLogin={setLogin } /> },
         { path: 'batches', element: <BatchPage /> },
         {
           path: 'students',
           element: <StudentPage />,
           
         },
-        {path:':id', element: <StudentLandingPage/>}
+        { path: ':id', element: <StudentLandingPage /> },
+        {path:'resume/:id',element:<Template/>}
       ],
     },
   ]);

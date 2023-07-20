@@ -1,6 +1,9 @@
 import React from 'react'
 import './css/template.css'
+import {useParams} from "react-router-dom"
 export default function Template() {
+    const { id } = useParams();
+    console.log(id,'FORM TEMPLATE');
     return (
         <>
             {/* <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="400">

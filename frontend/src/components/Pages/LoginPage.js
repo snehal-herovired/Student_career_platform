@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
 import { Url } from '../../connection';
-export default function Login() {
+export default function Login({setLogin}) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate()
   const [isStudent, setIsStudent] = React.useState(false)
@@ -12,18 +12,19 @@ export default function Login() {
   const onSubmit = (data) => {
     mutation.mutate(data)
     if (mutation.isSuccess) {
+      
+      if (!isStudent) {
+        setLogin(true)
+        navigate('/batches')
+        return;
+      }
       const { data: maindata } = mutation;
       console.log(maindata, "MAINDATA");
       localStorage.setItem("token", JSON.stringify({ token: maindata.token }))
-      localStorage.setItem('studentId', maindata.student._id)
-      localStorage.setItem('batchId', maindata.student.batchId)
+      localStorage.setItem('studentId', maindata._id)
+      localStorage.setItem('batchId', maindata.batchId)
 
 
-      if (!isStudent) {
-
-        navigate('/')
-        return;
-      }
       navigate('/student')
     }
   };
@@ -70,7 +71,7 @@ export default function Login() {
                 {
                   mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6>
                 }
-                <Link to='/'>Not registered? Register here</Link>
+                <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
               </form>
             </div>
               :
@@ -109,7 +110,7 @@ export default function Login() {
                   {
                     mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6>
                   }
-                   <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/'>Login here</Link></span>
+                  <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
                 </form>
               </div>
           }

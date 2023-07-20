@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../App.css'
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import '../../styles/drawer.css'
-export default function NormalLayout() {
+export default function NormalLayout({login}) {
   const navigate = useNavigate();
   let btnStyle = {
     border: "1px solid rgb(128,128,128,0.2)",
@@ -23,6 +23,7 @@ export default function NormalLayout() {
 
 
   }
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       {/* Header  */}
@@ -32,11 +33,18 @@ export default function NormalLayout() {
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
-          <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
-            <div style={{}}><i class="fa fa-bars" ></i></div>
+          
+          {
+            login &&   <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
+            <div style={{}}>
+            <i class="fa fa-bars" ></i>
+            
+            </div>
 
           </button>
+            } 
+  
+          
 
           <div class="offcanvas offcanvas-start" tabindex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
             <div class="offcanvas-header drawer-header" style={{ background: 'white', color: 'red' }}>

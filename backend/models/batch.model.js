@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 
-
 const batchSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true
+  name: {
+    type: String,
+    required: true,
   },
   course: {
     type: String,
@@ -14,18 +13,24 @@ const batchSchema = new mongoose.Schema({
   },
   startDate: {
     type: Date,
-    default:Date.now()
+    default: function () {
+      const currentDate = new Date();
+      return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    },
   },
   endDate: {
     type: Date,
-    default:new Date(Date.now()).getMonth()+9
+    default: function () {
+      const currentDate = new Date();
+      return new Date(currentDate.getFullYear(), currentDate.getMonth() + 9, currentDate.getDate());
+    },
   },
-    students: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student'
-    }]
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student',
+  }],
 });
-  
+
 const Batch = mongoose.model('Batch', batchSchema);
 
 module.exports = Batch;
