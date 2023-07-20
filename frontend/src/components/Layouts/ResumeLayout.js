@@ -15,7 +15,7 @@ export default function ResumeLayout() {
   };
   const navigate = useNavigate();
   let btnStyle = {
-      border: "1px solid rgb(120, 125, 120,0.2)",
+      border: "1px solid #6b050b",
       height: '30px',
       width: '70px',
       color: 'red',
@@ -89,7 +89,7 @@ export default function ResumeLayout() {
         {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width:"20%", fontSize: '1.5rem' ,background:'red',borderRadius:"4px"}}>Career Chronicles</div> */}
         <div style={{ marginRight: '20px' }}>
           <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#resumecanvasExample" aria-controls="resumecanvasExample">
-            <div><i class="fa fa-bars" ></i></div>
+            <div><i class="fa fa-bars" style={{color:'#6b050b'}}></i></div>
 
           </button>
 

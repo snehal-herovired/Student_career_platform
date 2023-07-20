@@ -1,0 +1,9 @@
+.masterlogo {
+    background-image: url('../../public/images/masterlogo.png');
+    /* Replace with the actual path to your image */
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Adjust the background size as needed */
+    /* Add any other background properties or styles as desired */
+}

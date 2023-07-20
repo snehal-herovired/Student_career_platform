@@ -91,11 +91,23 @@ const getstudentdetailbyId =async  (req, res) => {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    return res.status(200).json({ student });
+    return res.status(200).json( student );
   } catch (error) {
     return res.status(500).json({ message: 'Error retrieving student', error });
   }
 };
+
+const getAllStudent = async (req, res) => {
+  try {
+    const StudentData =await Student.find().populate('batchId');
+    if (!StudentData) {
+      return res.status(401).send('No Data')
+    }
+    return res.status(200).json(StudentData);
+  } catch (error) {
+    return res.status(500).send(error)
+  }
+}
 
 // Get Student by Email
 // /students/email/:email'
@@ -164,5 +176,5 @@ const deleteStudent= async (req, res) => {
 
 module.exports = {
     registerStudent, loginStudent,
-    updateStudentdetails,deleteStudent,getstudentbyEmail,getstudentdetailbyId
+    updateStudentdetails,deleteStudent,getstudentbyEmail,getstudentdetailbyId,getAllStudent
 }

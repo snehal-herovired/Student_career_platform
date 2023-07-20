@@ -4,7 +4,7 @@ import '../../styles/drawer.css'
 export default function StudentLayout() {
     const navigate = useNavigate();
     let btnStyle = {
-        border: "1px solid rgb(128,128,128,0.2)",
+        border: "1px solid #6b050b",
         height: '30px',
         width: '70px',
         color: 'black',
@@ -31,13 +31,13 @@ export default function StudentLayout() {
             {/* Header  */}
             <nav class="navbar sticky-top navbar-expand-lg  " style={headerstyle}>
                 <div class="container-fluid">
-                    <NavLink className="navbar-brand" to="/student/" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width:"20%", fontSize: '1.5rem' ,background:'red',borderRadius:"4px"}}>Scholar's Corner</NavLink>
+                    <NavLink className="navbar-brand" to="/student/" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width:"20%", fontSize: '1.5rem' ,background:'#6b050b',borderRadius:"4px"}}>Scholar's Corner</NavLink>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                        <div style={{}}><i class="fa fa-bars" ></i></div>
+                        <div style={{color:'#6b050b'}}><i class="fa fa-bars" ></i></div>
 
                     </button>
 

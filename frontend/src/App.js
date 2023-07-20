@@ -15,6 +15,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Template from './components/templates/Template';
 import ResumeUploader from './components/Pages/UploadResume';
 import ResumeViewer from './components/Pages/ViewResumePage';
+import BatchPage from './components/Pages/adminpages/BatchPage';
+import StudentPage from './components/Pages/adminpages/StudentPage';
+import StudentLandingPage from './components/Pages/adminpages/StudentLandingPage';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -54,6 +57,13 @@ function App() {
       children: [
         { index: true, element: <Register /> },
         { path: 'login', element: <Login /> },
+        { path: 'batches', element: <BatchPage /> },
+        {
+          path: 'students',
+          element: <StudentPage />,
+          
+        },
+        {path:':id', element: <StudentLandingPage/>}
       ],
     },
   ]);

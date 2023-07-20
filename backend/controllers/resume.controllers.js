@@ -9,6 +9,7 @@ const createResume= async (req, res) => {
   const {
     studentId,
     batchId,
+    about,
     contactInformation,
     education,
     experience,
@@ -23,13 +24,13 @@ const createResume= async (req, res) => {
 
     if (resume) {
       // Update existing resume
+      resume.about = about;
       resume.contactInformation = contactInformation;
       resume.education = education;
       resume.experience = experience;
       resume.skills = skills;
       resume.projects = projects;
-      resume.image = image;
-      resume.resumePdf = resumePdf;
+
 
       await resume.save();
 
@@ -38,14 +39,14 @@ const createResume= async (req, res) => {
       // Create new resume
       const newResume = new Resume({
         studentId,
+        about,
         batchId,
         contactInformation,
         education,
         experience,
         skills,
         projects,
-        image,
-        resumePdf
+      
       });
 
       await newResume.save();
@@ -58,33 +59,61 @@ const createResume= async (req, res) => {
 };
 
 //upload resume
-const uploadResume =  async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: 'No file uploaded' });
-    }
+// const uploadResume =  async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ message: 'No file uploaded' });
+//     }
 
-    const { studentId,batchId } = req.body;
+//     const { studentId,batchId } = req.body;
+
+//     // Find the existing resume or create a new one
+//     let resume = await Resume.findOne({ studentId});
+
+//     if (!resume) {
+//       resume = new Resume({ studentId ,batchId});
+//     }
+//     resume.image =req.file.path
+//     resume.resumePdf = req.file.path;
+//     resume.batchId=batchId // Store the file path in the resume model
+
+//     await resume.save();
+
+//     return res.status(200).json({ message: 'File uploaded successfully' });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: 'Error uploading file' });
+//   }
+// }
+
+const uploadResume = async (req, res) => {
+  try {
+    const { studentId, batchId } = req.body;
+    console.log(studentId,batchId,"ids from request body");
 
     // Find the existing resume or create a new one
-    let resume = await Resume.findOne({ studentId});
+    let resume = await Resume.findOne({ studentId });
 
     if (!resume) {
-      resume = new Resume({ studentId ,batchId});
+      resume = new Resume({ studentId, batchId });
     }
 
-    resume.resumePdf = req.file.path;
-    resume.batchId=batchId // Store the file path in the resume model
-
+    if (req.file) {
+      // Check if it's an 'image' or 'resume' file and update the corresponding field
+      if (req.file.fieldname === 'image') {
+        resume.image = req.file.path;
+      } else if (req.file.fieldname === 'resume') {
+        resume.resumePdf = req.file.path;
+      }
+    }
     await resume.save();
 
-    return res.status(200).json({ message: 'File uploaded successfully' });
+    return res.status(200).json({ message: 'Files uploaded successfully' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Error uploading file' });
+    return res.status(500).json({ message: 'Error uploading files' });
   }
-}
-
+};
 
 
 

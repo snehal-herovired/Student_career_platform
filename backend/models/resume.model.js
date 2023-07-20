@@ -11,8 +11,8 @@ const experienceSchema = new mongoose.Schema({
     default: ''
   },
   duration: {
-    type: String,
-    default: ''
+    type: Number,
+    default: 0
   }
 });
 
@@ -40,7 +40,8 @@ const skillSchema = new mongoose.Schema({
   },
   proficiency: {
     type: String,
-    default: ''
+    
+    default: 'basic'
   }
 });
 
@@ -81,20 +82,9 @@ const resumeSchema = new mongoose.Schema({
     required: true
   },
   about: {
-    type:String
+    type: String
   },
-  github: {
-    type:String
-  },
-  twitter: {
-    type:String
-  },
-  lindkedIn: {
-    type:String
-  },
-  facebook: {
-    type:String
-  },
+
   contactInformation: {
     email: {
       type: String,
@@ -107,6 +97,18 @@ const resumeSchema = new mongoose.Schema({
     address: {
       type: String,
       default: ''
+    },
+    github: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+    lindkedIn: {
+      type: String
+    },
+    facebook: {
+      type: String
     }
   },
   education: [educationSchema],
@@ -115,7 +117,7 @@ const resumeSchema = new mongoose.Schema({
   projects: [projectSchema],
   image: {
     type: String,
-    default: 'default.jpg'
+    default: ''
   },
   resumePdf: {
     type: String,
@@ -129,5 +131,5 @@ const Resume = mongoose.model('Resume', resumeSchema);
 
 module.exports = {
   Resume,
- 
+
 };

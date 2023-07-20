@@ -52,6 +52,7 @@ const ResumeUploader = () => {
         <label htmlFor="resume-file" className="file-input-label">
           <input
             id="resume-file"
+            name="resume"
             type="file"
             accept=".pdf"
             onChange={handleFileUpload}
