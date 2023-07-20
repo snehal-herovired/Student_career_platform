@@ -26,6 +26,10 @@ export default function StudentLayout() {
         color: 'black',
         
     }
+
+    function handleLogout() {
+        
+    }
     return (
         <div style={{ height: "100%", width: "100%" }}>
             {/* Header  */}
@@ -58,14 +62,15 @@ export default function StudentLayout() {
                                     <li class="menu-item" onClick={()=>navigate('')}>
                                         <i class="fa fa-share menu-icon"></i> &nbsp; Projects
                                     </li>
-                                    <li class="menu-item" onClick={()=>navigate('/student/myresume')}>
-                                        <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resume PDF
-                                    </li>
+                                    
                                     <li class="menu-item" onClick={()=>navigate('/student/uploadresume')}>
                                         <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; Upload Resume
                                     </li>
                                     <li class="menu-item" onClick={()=>navigate('/student/template')}>
                                         <i class="fa fa-share menu-icon"></i> &nbsp; View Final Template
+                                    </li>
+                                    <li class="menu-item" onClick={handleLogout}>
+                                        <i class="fa fa-share menu-icon"></i> &nbsp; Logout
                                     </li>
                                 </ul>
                             </div>

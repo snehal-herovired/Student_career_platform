@@ -18,17 +18,28 @@ import ResumeViewer from './components/Pages/ViewResumePage';
 import BatchPage from './components/Pages/adminpages/BatchPage';
 import StudentPage from './components/Pages/adminpages/StudentPage';
 import StudentLandingPage from './components/Pages/adminpages/StudentLandingPage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import LoginFallback from './components/Pages/LoginFallback';
+import Error from './components/Pages/ErrorPage';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
-  const [login, setLogin] = useState(false);
-  
+  const [login, setLogin] = useState(localStorage.getItem('login')==='true');
+  useEffect(() => {
+    if (login) {
+      // If logged in, set 'login' to 'true' in localStorage
+      localStorage.setItem('login', 'true');
+    } else {
+      // If not logged in, remove 'login' from localStorage
+      localStorage.removeItem('login');
+    }
+  }, [login]);
   // Define your conditional routes here
+  
   const router = createBrowserRouter([
-    {
+   login && {
       path: '/student',
-      element: <StudentLayout />,
+      element: <StudentLayout login={ login} />,
       children: [
         { index: true, element: <LandingPage /> },
         { path: 'home', element: <Home /> },
@@ -46,28 +57,30 @@ function App() {
             { path: 'education', element: <Education /> },
             { path: 'skills', element: <Skillpage /> },
             { path: 'projects', element: <Projectpage /> },
+            {path:'*',element:<Error/>}
             
           ],
         },
       ],
     },
     // Add more conditional routes if needed
-    {
-      path: '/',
-      element: <NormalLayout login={login} />,
+    { path: '/login', element: <Login setLogin={setLogin} login={ login} /> },
+    {  path :'/',element: <Register /> },
+    login && {
+      path: '/admin',
+      element: <NormalLayout  />,
       children: [
-        { index: true, element: <Register /> },
-        { path: 'login', element: <Login setLogin={setLogin } /> },
-        { path: 'batches', element: <BatchPage /> },
+        {index: true, element: <BatchPage /> },
         {
           path: 'students',
           element: <StudentPage />,
           
         },
         { path: ':id', element: <StudentLandingPage /> },
-        {path:'resume/:id',element:<Template/>}
+        { path: 'resume/:id', element: <Template /> },
       ],
     },
+    {path:'*',element:<Error/>},
   ]);
 
   return (

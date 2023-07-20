@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
 import { Url } from '../../connection';
-export default function Login({setLogin}) {
+export default function Login({setLogin,login}) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate()
   const [isStudent, setIsStudent] = React.useState(false)
@@ -13,9 +13,10 @@ export default function Login({setLogin}) {
     mutation.mutate(data)
     if (mutation.isSuccess) {
       
+      setLogin(true)
+      localStorage.setItem('login','true')
       if (!isStudent) {
-        setLogin(true)
-        navigate('/batches')
+        navigate('/admin')
         return;
       }
       const { data: maindata } = mutation;
@@ -36,7 +37,7 @@ export default function Login({setLogin}) {
 
         </div>
           {
-            !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
               <h5 style={{ textAlign: 'center' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +76,7 @@ export default function Login({setLogin}) {
               </form>
             </div>
               :
-              <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+              <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)',display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
                 <h5 style={{ textAlign: 'center' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
                 <h2 style={{ textAlign: 'center' }}>Student Login</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
