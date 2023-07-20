@@ -9,7 +9,7 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   let ApiUrl = `${Url}/student/register`;
   const mutation = usePostRequest(ApiUrl);
-  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch } = useGetRequest(`${Url}/batch/all`)
+  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch ,isSuccess} = useGetRequest(`${Url}/batch/all`)
   console.log("batchData :", batchdata);
   const onSubmit = async (data) => {
     // Perform register logic here
@@ -90,17 +90,11 @@ export default function Register() {
                 <select  style={{ackgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
 
                  <option selected>Select batch  </option>
-                  {
-                    batchdata.length !== 0 && batchdata.map((ele, i) => (
-                      <>
-                      
-                      <option value={ele._id} key={i}
-
-                      >{ele.name}<i className="fa fa-chevron-down"style={{color:'black'}}></i></option>
-                      </>
-                        ))
-                        
-                  }
+                 {isSuccess && batchdata.length>0 && batchdata.map((ele, i) => (
+                    <option value={ele._id} key={i}>
+                      {ele.name}<i className="fa fa-chevron-down" style={{ color: 'black' }}></i>
+                    </option>
+                  ))}
 
                 </select>
                

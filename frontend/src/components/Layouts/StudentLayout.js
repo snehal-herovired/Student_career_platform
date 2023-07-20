@@ -29,7 +29,7 @@ export default function StudentLayout() {
 
     function handleLogout() {
         localStorage.removeItem("login");
-        navigate('/')
+        navigate('/login')
     }
     return (
         <div style={{ height: "100%", width: "100%" }}>
