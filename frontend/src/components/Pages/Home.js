@@ -523,17 +523,17 @@ const handleImageUpload = async () => {
                   <div className="row" >
                     <div className="col-lg-6" >
                       <ul>
-                        <li><i className="bi bi-rounded-right"></i> <strong>Email:</strong> {data.contactInformation.email}</li>
-                        <li><i className="bi bi-rounded-right"></i> <strong>LindkedIn:</strong> {data.contactInformation.lindkedIn}</li>
-                        <li><i className="bi bi-rounded-right"></i> <strong>Phone:</strong> {data.contactInformation.phone}</li>
-                        <li><i className="bi bi-rounded-right"></i> <strong>Address:</strong>{data.contactInformation.address}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>Email:</strong> {data?.contactInformation?.email}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>LindkedIn:</strong> {data?.contactInformation?.lindkedIn}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>Phone:</strong> {data?.contactInformation?.phone}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>Address:</strong>{data?.contactInformation?.address}</li>
                       </ul>
                     </div>
                     <div className="col-lg-6">
                       <ul>
 
-                        <li><i className="bi bi-rounded-right"></i> <strong>Twitter:</strong>{data.contactInformation.twitter}</li>
-                        <li><i className="bi bi-rounded-right"></i> <strong>Github:</strong>{data.contactInformation.github}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>Twitter:</strong>{data?.contactInformation?.twitter}</li>
+                        <li><i className="bi bi-rounded-right"></i> <strong>Github:</strong>{data?.contactInformation?.github}</li>
                       </ul>
                     </div>
                   </div>
@@ -613,7 +613,7 @@ const handleImageUpload = async () => {
                 ) : (
                   <div  >
                     <ul>
-                      {data.education.map((edu, index) => (
+                      {data?.education?.map((edu, index) => (
                         <li key={index}>
                           {edu.institution} - {edu.degree} ({edu.year})
                         </li>
@@ -695,7 +695,7 @@ const handleImageUpload = async () => {
                 ) : (
                   <div  >
                     <ul>
-                      {data.experience.map((exp, index) => (
+                      {data?.experience?.map((exp, index) => (
                         <li key={index}>
                           {exp.company} - {exp.position} (Duration :{exp.duration}year)
                         </li>
@@ -797,7 +797,7 @@ const handleImageUpload = async () => {
                 </div>
               ) : (
                 <div>
-                  {data.projects.map((project, index) => (
+                  {data?.projects?.map((project, index) => (
                     <ul key={index}>
                       <li>Title: {project.title}</li>
                       <li>Description: {project.description}</li>
