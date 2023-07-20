@@ -22,12 +22,13 @@ export default function Template() {
             </button>
           </div>
         );
-      }
-    return (
-        <>
+    }
+    if (isSuccess && resumeData && resumeData.studentId) {
+        return (
+            <>
 
-            {
-                <div class="page-content">
+                {
+                    <div class="page-content">
                         <div>
                             <div class="profile-page" >
                                 <div class="wrapper">
@@ -36,13 +37,15 @@ export default function Template() {
                                         </div>
                                         <div class="container" style={{ width: '1200px' }}>
                                             <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={`${Url}/${resumeData.image}`} alt="Image" style={{boxShadow:" 0px 7px 12px -3px #6b050b"}}/></a></div>
-                                                <div class="h4 " style={{ marginLeft: '30px' ,marginTop:"10px"}}>{resumeData?.studentId?.username.toUpperCase()}  </div>
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={`${Url}/${resumeData.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
                                                 <p class="category" style={{ color: 'black' }}></p><a
                                                     class="btn btn-danger smooth-scroll mr-2" href="#contact">Hire Me</a>
                                                 <a
                                                     class="btn btn-danger" href="#" style={{ marginLeft: "3px", marginRight: "3px" }}>Download CV</a>
+                                                <a
+                                                    class="btn btn-danger" onClick={ ()=>refetch()} style={{ marginLeft: "3px", marginRight: "3px" }}>Reload CV</a>
 
                                                 <a class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.facebook}
                                                     rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a>
@@ -63,7 +66,7 @@ export default function Template() {
                             </div>
                             <div class="section" id="about">
                                 <div class="container" >
-                                    <div class="card" style={{boxShadow:" 0px 7px 12px -3px #6b050b"}}>
+                                    <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         <div class="row">
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="card-body">
@@ -98,7 +101,7 @@ export default function Template() {
                             <div class="section" id="skill">
                                 <div class="container">
                                     <div class="h4 text-center mb-4 title">Professional Skills</div>
-                                    <div class="card" style={{boxShadow:" 0px 7px 12px -3px #6b050b"}}>
+                                    <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -206,52 +209,52 @@ export default function Template() {
                                     </div>
                                     {
                                         resumeData?.experience?.map((exp) => (
-                                            <div class="card" style={{boxShadow:" 0px 7px 12px -3px #6b050b"}}>
-                                            <div class="row">
-                                                <div class="col-md-3 " style={{ display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#6b050b'}}>
+                                            <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                                <div class="row">
+                                                    <div class="col-md-3 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#6b050b' }}>
                                                         <div class="card-body experience-header" >
-                                                            <h5>{exp.company }</h5>
+                                                            <h5>{exp.company}</h5>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="card-body">
-                                                            <h5>{ exp.position}</h5>
-                                                            <p>Duration : { exp.duration} years</p>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5>{exp.position}</h5>
+                                                            <p>Duration : {exp.duration} years</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         ))
-                                   }
+                                    }
                                    
                                 </div>
                             </div>
 
-                            <div class="education-section"style={{marginTop:'50px'}}>
+                            <div class="education-section" style={{ marginTop: '50px' }}>
                                 <div class="container">
                                     <div class="education-heading text-center mb-4">
                                         <h4 class="title" >Education</h4>
                                     </div>
-                                    <div class="card animate" style={{boxShadow:" 0px 7px 12px -3px #6b050b"}}>
+                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         {
-                                            resumeData?.education?.map((edu,i) => (
+                                            resumeData?.education?.map((edu, i) => (
                                                 <div class="row" key={i}>
-                                                <div class="col-md-3 " style={{display:'flex',alignItems:'center',backgroundColor:'#6b050b'}}>
-                                                    <div class="card-body cc-education-header" >
+                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div class="card-body cc-education-header" >
                                                    
                                                             <h5>{edu.degree}</h5>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="card-body">
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
                                                             <h5>{edu.degree}</h5>
-                                                            <p class="category">Institution : { edu.institution}</p>
-                                                            <p>Duration :{ edu.year} years</p>
+                                                            <p class="category">Institution : {edu.institution}</p>
+                                                            <p>Duration :{edu.year} years</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             ))
-                                       }
+                                        }
                                     </div>
                                    
                                 </div>
@@ -916,14 +919,15 @@ export default function Template() {
                     //     </div >
                     // </div >
                     // <div style={{textAlign:'center'}}>No Resume data for Id : {`${id}` }</div>
-            }
-            <footer class="footer">
+                }
+                <footer class="footer">
 
-                <div class="text-center text-muted">
-                    <p>&copy; Creative CV. All rights reserved.</p>
+                    <div class="text-center text-muted">
+                        <p>&copy; Creative CV. All rights reserved.</p>
 
-                </div>
-            </footer>
-        </>
-    )
+                    </div>
+                </footer>
+            </>
+        )
+    }
 }

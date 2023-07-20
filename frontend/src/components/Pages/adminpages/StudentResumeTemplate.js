@@ -1,4 +1,69 @@
-   {/* <div class="section" id="about">
+import React from 'react'
+import '../../templates/css/template.css'
+import { useParams } from "react-router-dom"
+import useGetRequest from '../../customeHooks/timerFetchData';
+import { Url } from '../../../connection';
+export default function StudentResumeTemplate() {
+    const { id } = useParams();
+    const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${id}`)
+    console.log(id, resumeData, 'FORM TEMPLATE');
+    // const isObjectIdEmpty = Object.keys(data).length === 0;
+    //     console.log(isObjectIdEmpty,"isobjectempty");
+    if (isLoading) {
+        return <div>Loading data...</div>
+    }
+    if (isError) {
+        return (
+          <div>
+            Error loading resumeData.{' '}
+            <button onClick={() => refetch()} style={{ cursor: 'pointer' }}>
+              Retry
+            </button>
+          </div>
+        );
+    }
+    if (isSuccess && resumeData && resumeData.studentId) {
+        return (
+            <>
+
+                {
+                    <div class="page-content">
+                        <div>
+                            <div class="profile-page" >
+                                <div class="wrapper">
+                                    <div class="page-header page-header-small" filter-color="green">
+                                        <div class="page-header-image" data-parallax="true" >
+                                        </div>
+                                        <div class="container" style={{ width: '1200px' }}>
+                                            <div class="content-center" >
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={`${Url}/${resumeData.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
+
+                                                <p class="category" style={{ color: 'black' }}></p><a
+                                                    class="btn btn-danger smooth-scroll mr-2" href="#contact">Hire Me</a>
+                                                <a
+                                                    class="btn btn-danger" href="#" style={{ marginLeft: "3px", marginRight: "3px" }}>Download CV</a>
+                                                 <button
+                                                    class="btn btn-danger" onClick={()=>refetch()} style={{ marginLeft: "3px", marginRight: "3px" }}>Reload CV</button>
+
+                                                <a class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.facebook}
+                                                    rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a>
+                                                <a
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.twitter} rel="tooltip"
+                                                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a>
+                                                <a
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} rel="tooltip"
+                                                    title="Follow me on Google+"><i class="fa fa-github"></i></a>
+                                                <a
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} rel="tooltip"
+                                                    title="Follow me on Instagram"><i class="fa fa-linkedin"></i></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                               <div class="section" id="about">
                                 <div class="container" >
                                     <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         <div class="row">
@@ -358,4 +423,20 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div > */}
+                            </div >
+                         
+                        </div >
+                    </div >
+                    
+                }
+                <footer class="footer">
+
+                    <div class="text-center text-muted">
+                        <p>&copy; Creative CV. All rights reserved.</p>
+
+                    </div>
+                </footer>
+            </>
+        )
+    }
+}

@@ -21,6 +21,7 @@ import StudentLandingPage from './components/Pages/adminpages/StudentLandingPage
 import { useEffect, useState } from 'react';
 import LoginFallback from './components/Pages/LoginFallback';
 import Error from './components/Pages/ErrorPage';
+import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -77,7 +78,7 @@ function App() {
           
         },
         { path: ':id', element: <StudentLandingPage /> },
-        { path: 'resume/:id', element: <Template /> },
+        { path: 'resume/:id', element: <StudentResumeTemplate /> },
       ],
     },
     {path:'*',element:<Error/>},
