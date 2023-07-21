@@ -1,1 +1,1 @@
-export const Url =`http://3.109.55.95`
+export const Url =`https://viredstoreapi.prashantdey.in`
