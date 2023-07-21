@@ -56,7 +56,7 @@ const BatchPage = () => {
                                 <div className="card-body">
                                     <div className='row'>
                                         <div className='col-4'>
-                                            <img src="/images/heroxWhite.png" alt="" style={{ height: "60px", width: '60px', borderRadius: '50%' }} />
+                                            <img src="/images/heroRed.png" alt="" style={{ height: "60px", width: '60px', borderRadius: '50%' }} />
                                         </div>
                                         <div className='col-8'>
 

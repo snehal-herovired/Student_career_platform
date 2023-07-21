@@ -1,10 +1,11 @@
 
 const express = require("express");
-const path =require('path')
+const path = require('path')
 const morgan = require("morgan");
 const helmet = require('helmet')
 const cors = require("cors");
 const app = express();
+const axios =require('axios')
 require("dotenv").config();
 
 // middleware enabling
@@ -24,6 +25,26 @@ configDb();
 
 console.log(path.join(__dirname, 'uploads'));
 // ROUTE IMPORTS
+// app.get('/github/:username', async (req, res) => {
+//     const { username } = req.params;
+//     console.log(username);
+//     try {
+//         const apiUrl = `https://api.github.com/users/${username}`;
+//         const response = await axios.get(apiUrl);
+//         console.log(response.data);
+//         const userData = {
+//             username: response.data.login,
+//             total_repositories: response.data.public_repos,
+//             name: response.data.name || 'Not specified',
+//             bio: response.data.bio || 'Not specified',
+//             location: response.data.location || 'Not specified',
+//         };
+//         res.json(userData);
+//     } catch (error) {
+//         res.status(error.response?.status || 500).json({ error: 'Error fetching GitHub account details' });
+//     }
+// });
+
 app.use('/student', require('./routes/student.route'));
 app.use('/user', require('./routes/user.route'))
 app.use('/batch', require('./routes/batch.route'))
@@ -31,8 +52,8 @@ app.use('/resume', require('./routes/resume.route'))
 
 app.get('/fetch-resume/uploads/:filename', (req, res) => {
     const { filename } = req.params;
-    console.log(filename,"filename");
-    const filePath = path.join(__dirname,'uploads', filename); // Adjust the path to the location of your resume files
+    console.log(filename, "filename");
+    const filePath = path.join(__dirname, 'uploads', filename); // Adjust the path to the location of your resume files
 
     res.sendFile(filePath);
 });

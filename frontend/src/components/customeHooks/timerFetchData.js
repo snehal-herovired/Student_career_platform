@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useGetRequest = (url, delayTime = 200) => {
+const useGetRequest = (url, delayTime = 50) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -3,11 +3,17 @@ import './css/template.css'
 import { useParams } from "react-router-dom"
 import useGetRequest from '../customeHooks/fetchData';
 import { Url } from '../../connection';
+import { useQuery } from '@tanstack/react-query';
+import axios from "axios"
 export default function Template() {
     const { id } = useParams();
     const studentId = localStorage.getItem('studentId')
     const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${studentId}`)
     console.log(id, resumeData, 'FORM TEMPLATE');
+    const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
+        const response = await axios.get(`${Url}/student/github/${studentId}`);
+        return response.data;
+    })
     // const isObjectIdEmpty = Object.keys(data).length === 0;
     //     console.log(isObjectIdEmpty,"isobjectempty");
     if (isLoading) {
@@ -23,7 +29,7 @@ export default function Template() {
           </div>
         );
     }
-    if (isSuccess && resumeData && resumeData.studentId) {
+    if (isSuccess && resumeData && gitdata && resumeData.studentId) {
         return (
             <>
 
@@ -37,7 +43,7 @@ export default function Template() {
                                         </div>
                                         <div class="container" style={{ width: '1200px' }}>
                                             <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={`${Url}/${resumeData.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata.gitdata.avatar}` :`${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
                                                 <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
                                                 <p class="category" style={{ color: 'black' }}></p><a

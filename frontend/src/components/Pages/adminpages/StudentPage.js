@@ -56,14 +56,14 @@ const StudentPage = () => {
                             <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
                                 <div className="card-body">
                                     <div className="row">
-                                        <div className="col-4">
+                                        <div className="col-3">
 
-                                    <img src="/images/hero.jpg" alt="" srcset="" style={{ height: "100%", width: '100%', borderRadius: '10px' }} />
+                                    <img src="/images/heroRed.png" alt="" srcSet="" style={{ height: "80%", width: '100%', borderRadius: '10px' }} />
                                         </div>
-                                        <div className="col-8">
-                                        <h6 className="card-title text-white">Email : {student.email}</h6>
-                                    <h6 className="card-title text-white">Username : {student.username}</h6>
-                                    <h6 className="card-title text-white">Batch : {student?.batchId?.name}</h6>
+                                        <div className="col-9">
+                                        <h6 className="card-title text-white"> {student.email}</h6>
+                                    <h6 className="card-title text-white">  {student.username}</h6>
+                                    <h6 className="card-title text-white"> {student?.batchId?.name}</h6>
                                     <Link to={`/admin/${student._id}`}>
                                         <button type="button" className="btn btn-danger" onClick={()=>navigate('')}>
                                             View Student Detail

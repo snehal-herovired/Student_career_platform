@@ -99,12 +99,13 @@ const resumeSchema = new mongoose.Schema({
       default: ''
     },
     github: {
-      type: String
+      type: String,
+      required:true
     },
     twitter: {
       type: String
     },
-    lindkedIn: {
+    linkedIn: {
       type: String
     },
     facebook: {

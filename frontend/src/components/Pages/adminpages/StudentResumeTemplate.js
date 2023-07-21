@@ -2,12 +2,18 @@ import React from 'react'
 import '../../templates/css/template.css'
 import { useParams ,useNavigate} from "react-router-dom"
 import useGetRequest from '../../customeHooks/timerFetchData';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { Url } from '../../../connection';
 export default function StudentResumeTemplate() {
     const navigate=useNavigate()
     const { id } = useParams();
-    const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${id}`)
-    console.log(id, resumeData, 'FORM TEMPLATE');
+    const { data: resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${id}`)
+    const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
+        const response = await axios.get(`${Url}/student/github/${id}`);
+        return response.data;
+    })
+    console.log(id, resumeData,gitdata, 'FORM TEMPLATE');
     // const isObjectIdEmpty = Object.keys(data).length === 0;
     //     console.log(isObjectIdEmpty,"isobjectempty");
     if (isLoading) {
@@ -27,7 +33,7 @@ export default function StudentResumeTemplate() {
           </div>
         );
     }
-    if (isSuccess && resumeData && resumeData.studentId) {
+    if (isSuccess && resumeData && gitdata && resumeData.studentId) {
         return (
             <>
 
@@ -41,27 +47,22 @@ export default function StudentResumeTemplate() {
                                         </div>
                                         <div class="container" style={{ width: '1200px' }}>
                                             <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={`${Url}/${resumeData.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata.gitdata.avatar}` :`${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
                                                 <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
                                                 <p class="category" style={{ color: 'black' }}></p><a
                                                     class="btn btn-danger smooth-scroll mr-2" href="#contact">Hire Me</a>
                                                 <a
                                                     class="btn btn-danger" href="#" style={{ marginLeft: "3px", marginRight: "3px" }}>Download CV</a>
-                                                 <button
-                                                    class="btn btn-danger" onClick={()=>refetch()} style={{ marginLeft: "3px", marginRight: "3px" }}>Reload CV</button>
+                                                 
 
-                                                <a class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.facebook}
-                                                    rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a>
+                                               
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.twitter} rel="tooltip"
-                                                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a>
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
+                                                    title="Visit me on Github"><i class="fa fa-github"></i></a>
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} rel="tooltip"
-                                                    title="Follow me on Google+"><i class="fa fa-github"></i></a>
-                                                <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} rel="tooltip"
-                                                    title="Follow me on Instagram"><i class="fa fa-linkedin"></i></a>
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} target='_blank' rel="tooltip"
+                                                    title="Follow me on LinkedIn"><i class="fa fa-linkedin"></i></a>
                                             </div>
                                         </div>
 
