@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
 import { Url } from '../../connection';
+import "../../styles/normallayout.css"
 export default function Login({setLogin,login}) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate()
@@ -31,22 +32,27 @@ export default function Login({setLogin,login}) {
   };
 
   return (
-    <div className="container" style={{ padding: '20px', height: "90%", width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    
+
+
+<div class="animation-container">
+<div className="container" style={{ padding: '20px', height: "100%", width: '100%', }}>
       <div className="row" style={{ height: '100%', width: '100%' }}>
-        <div className="col-md-6  masterlogo">
+        <div className="col-md-6  ">
 
         </div>
           {
-            !isStudent ? <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px',boxShadow:" 0px 7px 12px -3px #6b050b",display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
+            !isStudent ? <div className="col-md-6 " style={{display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
               <h5 style={{ textAlign: 'center' ,cursor:'pointer'}} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} style={{width:'100%'}}>
                 <div className="mb-3">
-                  <label htmlFor="registerEmail" className="form-label">
+                  <label htmlFor="registerEmail" className="form-label" style={{marginLeft:"30px"}}>
                     Email
                   </label>
                   <input
                     type="email"
+                    style={{width:'80%',marginLeft:"30px"}}
                     className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                     id="registerEmail"
                     {...register('email', { required: 'Email is required' })}
@@ -55,10 +61,11 @@ export default function Login({setLogin,login}) {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="registerPassword" className="form-label">
+                  <label htmlFor="registerPassword" className="form-label" style={{marginLeft:"30px"}}>
                     Password
                   </label>
                   <input
+                   style={{width:'80%',marginLeft:"30px"}}
                     type="password"
                     className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                     id="registerPassword"
@@ -66,7 +73,7 @@ export default function Login({setLogin,login}) {
                   />
                   {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                 </div>
-                <button type="submit" className="btn btn-danger">
+                <button type="submit" className="btn btn-danger" style={{marginLeft:"30px"}}>
                   Login
                 </button>
                 <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
@@ -76,16 +83,17 @@ export default function Login({setLogin,login}) {
               </form>
             </div>
               :
-              <div className="col-md-6 " style={{ background: '#ffffff', padding: '20px', boxShadow:" 0px 7px 12px -3px #6b050b",display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
+              <div className="col-md-6 " style={{ display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
                 <h5 style={{ textAlign: 'center',cursor:'pointer' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
                 <h2 style={{ textAlign: 'center' }}>Student Login</h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{width:'100%'}}>
                   <div className="mb-3">
-                    <label htmlFor="registerEmail" className="form-label">
+                    <label htmlFor="registerEmail" className="form-label" style={{marginLeft:"30px"}}>
                       Email
                     </label>
                     <input
                       type="email"
+                      style={{width:'80%',marginLeft:"30px"}}
                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                       id="registerEmail"
                       {...register('email', { required: 'Email is required' })}
@@ -94,18 +102,19 @@ export default function Login({setLogin,login}) {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="registerPassword" className="form-label">
+                    <label htmlFor="registerPassword" className="form-label" style={{marginLeft:"30px"}}>
                       Password
                     </label>
                     <input
                       type="password"
+                      style={{width:'80%',marginLeft:"30px"}}
                       className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                       id="registerPassword"
                       {...register('password', { required: 'Password is required' })}
                     />
                     {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                   </div>
-                  <button type="submit" className="btn btn-danger">
+                  <button type="submit" className="btn btn-danger" style={{marginLeft:"30px"}}>
                     Login
                   </button>
                   {
@@ -117,6 +126,27 @@ export default function Login({setLogin,login}) {
           }
         </div>
     </div>
+<div class="lightning-container">
+  <div class="lightning white"></div>
+  <div class="lightning red"></div>
+</div>
+<div class="boom-container">
+  <div class="shape circle big white"></div>
+  <div class="shape circle white"></div>
+  <div class="shape triangle big yellow"></div>
+  <div class="shape disc white"></div>
+  <div class="shape triangle blue"></div>
+</div>
+<div class="boom-container second">
+  <div class="shape circle big white"></div>
+  <div class="shape circle white"></div>
+  <div class="shape disc white"></div>
+  <div class="shape triangle blue"></div>
+</div>
+<div class="hero-text">Hero Vired
+  <div class="sub-text">Be Made For Big Things</div>
+</div>
+</div>
 
 
   );

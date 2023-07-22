@@ -9,7 +9,7 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   let ApiUrl = `${Url}/student/register`;
   const mutation = usePostRequest(ApiUrl);
-  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch ,isSuccess} = useGetRequest(`${Url}/batch/all`)
+  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useGetRequest(`${Url}/batch/all`)
   console.log("batchData :", batchdata);
   const onSubmit = async (data) => {
     // Perform register logic here
@@ -34,83 +34,105 @@ export default function Register() {
   }
 
   return (
-    <div className="container " style={{ padding: '20px', height: "90%", width: '100%' }}>
-      <div className="row" style={{ height: '100%', width: '100%' }}>
-      <div className="col-md-6  masterlogo">
+    <div class="animation-container">
+      <div className="container " style={{ padding: '20px', height: "90%", width: '100%' }}>
 
-</div>
-        <div className="col-md-6 " style={{ padding: '20px',boxShadow:" 0px 7px 12px -3px #6b050b" }}>
-          <h2 style={{ textAlign: 'center' }}>Register</h2>
-          {
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="row" style={{ height: '100%', width: '100%' }}>
+          <div className='col-md-6'></div>
+          <div className="col-md-6 " style={{ padding: '20px' }}>
+            <h2 style={{ textAlign: 'center' }}>Register</h2>
+            {
+              <form onSubmit={handleSubmit(onSubmit)}>
 
-              <div className="mb-3">
-                <label htmlFor="registerEmail" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                  id="registerEmail"
-                  {...register('email', { required: 'Email is required' })}
-                />
-                {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
-              </div>
-              <div className="mb-3" >
-                <label htmlFor="registerUsername" className="form-label">
-                  Username
-                </label>
-                <input
-                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-                  type="text"
-                  className={`form-control ${errors.username ? 'is-invalid' : ''}`}
-                  id="registerUsername"
-                  {...register('username', { required: 'Username is required' })}
-                />
-                {errors.username && <div className="invalid-feedback">{errors.username.message}</div>}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="registerPassword" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                  id="registerPassword"
-                  {...register('password', { required: 'Password is required' })}
-                />
-                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="registerPassword" className="form-label">
-                  Batch  
-                </label>
-                <select  style={{ackgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
+                <div className="mb-3">
+                  <label htmlFor="registerEmail" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    id="registerEmail"
+                    {...register('email', { required: 'Email is required' })}
+                  />
+                  {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
+                </div>
+                <div className="mb-3" >
+                  <label htmlFor="registerUsername" className="form-label">
+                    Username
+                  </label>
+                  <input
+                    style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+                    type="text"
+                    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+                    id="registerUsername"
+                    {...register('username', { required: 'Username is required' })}
+                  />
+                  {errors.username && <div className="invalid-feedback">{errors.username.message}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="registerPassword" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                    id="registerPassword"
+                    {...register('password', { required: 'Password is required' })}
+                  />
+                  {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="registerPassword" className="form-label">
+                    Batch
+                  </label>
+                  <select style={{ ackgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
 
-                 <option selected>Select batch  </option>
-                 {isSuccess && batchdata.length>0 && batchdata.map((ele, i) => (
-                    <option value={ele._id} key={i}>
-                      {ele.name}<i className="fa fa-chevron-down" style={{ color: 'black' }}></i>
-                    </option>
-                  ))}
+                    <option selected>Select batch  </option>
+                    {isSuccess && batchdata.length > 0 && batchdata.map((ele, i) => (
+                      <option value={ele._id} key={i}>
+                        {ele.name}<i className="fa fa-chevron-down" style={{ color: 'black' }}></i>
+                      </option>
+                    ))}
 
-                </select>
-               
-                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                  </select>
 
-              </div>
-              <button type="submit" className="btn btn-danger">
-                Register
-              </button>
-              {mutation.isSuccess && <h6 style={{ color: 'red' }}>Data inserted sucessfully</h6>}
-              <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='login' style={{textDecoration:'none'}}>Login here</Link></span>
-            </form>
-          }
+                  {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+
+                </div>
+                <button type="submit" className="btn btn-danger">
+                  Register
+                </button>
+                {mutation.isSuccess && <h6 style={{ color: 'red' }}>Data inserted sucessfully</h6>}
+                <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='login' style={{ textDecoration: 'none' }}>Login here</Link></span>
+              </form>
+            }
+          </div>
+
         </div>
-      
+      </div >
+      <div class="lightning-container">
+        <div class="lightning white"></div>
+        <div class="lightning red"></div>
       </div>
-    </div >
+      <div class="boom-container">
+        <div class="shape circle big white"></div>
+        <div class="shape circle white"></div>
+        <div class="shape triangle big yellow"></div>
+        <div class="shape disc white"></div>
+        <div class="shape triangle blue"></div>
+      </div>
+      <div class="boom-container second">
+        <div class="shape circle big white"></div>
+        <div class="shape circle white"></div>
+        <div class="shape disc white"></div>
+        <div class="shape triangle blue"></div>
+      </div>
+      <div class="hero-text">Hero Vired
+        <div class="sub-text">Be Made For Big Things</div>
+      </div>
+    </div>
+
   );
 }
