@@ -11,9 +11,10 @@ export default function Template() {
     const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${studentId}`)
     console.log(id, resumeData, 'FORM TEMPLATE');
     const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
-        const response = await axios.get(`${Url}/student/github/${studentId}`);
+        const response = await axios.get(`${Url}/gitdata/${studentId}`);
         return response.data;
     })
+    console.log(gitdata,resumeData);
     // const isObjectIdEmpty = Object.keys(data).length === 0;
     //     console.log(isObjectIdEmpty,"isobjectempty");
     if (isLoading) {
@@ -43,27 +44,23 @@ export default function Template() {
                                         </div>
                                         <div class="container" style={{ width: '1200px' }}>
                                             <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata.gitdata.avatar}` :`${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
-                                                <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata?.userData?.avatar}` :`${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="h4 " style={{  marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
-                                                <p class="category" style={{ color: 'black' }}></p><a
-                                                    class="btn btn-danger smooth-scroll mr-2" href="#contact">Hire Me</a>
-                                                <a
-                                                    class="btn btn-danger" href="#" style={{ marginLeft: "3px", marginRight: "3px" }}>Download CV</a>
-                                                <a
-                                                    class="btn btn-danger" onClick={ ()=>refetch()} style={{ marginLeft: "3px", marginRight: "3px" }}>Reload CV</a>
+                                                <p class="category" style={{ color: 'black' }}></p>
+                                              
 
-                                                <a class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.facebook}
+                                                {/* <a class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.facebook}
                                                     rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a>
                                                 <a
                                                     class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.twitter} rel="tooltip"
-                                                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a>
+                                                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a> */}
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} rel="tooltip"
-                                                    title="Follow me on Google+"><i class="fa fa-github"></i></a>
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={gitdata?.userData?.githubLink} rel="tooltip" target='_blank'
+                                                    title="Follow me on Github"><i class="fa fa-github"></i></a>
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} rel="tooltip"
-                                                    title="Follow me on Instagram"><i class="fa fa-linkedin"></i></a>
+                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} rel="tooltip" target='_blank'
+                                                    title="Follow me on linkedin"><i class="fa fa-linkedin"></i></a>
                                             </div>
                                         </div>
 
@@ -77,7 +74,6 @@ export default function Template() {
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="card-body">
                                                     <div class="h4 mt-0 title">About</div>
-                                                    <p>Hello! I am {resumeData.studentId.username.toUpperCase()}.I am a Web Developer, Graphic Designer and Photographer.</p>
                                                     <p>{resumeData?.about} </p>
                                                 </div>
                                             </div>
@@ -106,73 +102,92 @@ export default function Template() {
                             </div>
                             <div class="section" id="skill">
                                 <div class="container">
-                                    <div class="h4 text-center mb-4 title">Professional Skills</div>
+                                    <div class="h4 text-center mb-4 title">Technical Skills</div>
                                     <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">HTML</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "80%" }}>
-                                                            </div><span class="progress-value">80%</span>
-                                                        </div>
+                                    {
+                                            gitSuccess && (
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        {Object.entries(gitdata.averageLanguagesPercentage).map(([key, value], index) => (
+                                                            <div class="col-md-6" key={key}>
+                                                                <div class="progress-container">
+                                                                    <span class="progress-label">{key}</span>
+                                                                    <div class="custom-progress-bar">
+                                                                        <div
+                                                                            class="progress-fill"
+                                                                            style={{ width: `${value}%`, backgroundColor: '#6b050b' }}
+                                                                        ></div>
+                                                                    </div>
+                                                                    <span class="progress-value">{value}%</span>
+                                                                </div>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">CSS</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "75%" }}>
-                                                            </div><span class="progress-value">75%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">JavaScript</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "60%" }}>
-                                                            </div><span class="progress-value">60%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">SASS</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "60%" }}>
-                                                            </div><span class="progress-value">60%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">Bootstrap</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "75%" }}>
-                                                            </div><span class="progress-value">75%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">Photoshop</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "70%" }}>
-                                                            </div><span class="progress-value">70%</span>
-                                                        </div>
-                                                    </div>
-                                                </div >
-                                            </div >
-                                        </div >
+                                            )
+                                        }
                                     </div >
                                 </div >
                             </div >
+                     
+
+                            <div class="experience-section">
+                                <div class="container">
+                                    <div class="experience-heading text-center mb-4">
+                                        <h4 class="title">Work Experience</h4>
+                                    </div>
+                                    {
+                                        resumeData?.experience?.map((exp) => (
+                                            <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                                <div class="row">
+                                                    <div class="col-md-3 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div class="card-body experience-header" >
+                                                            <h5>{exp.company}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5>{exp.position}</h5>
+                                                            <p>Duration : {exp.duration} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                   
+                                </div>
+                            </div>
+
+                            <div class="education-section" style={{ marginTop: '50px' }}>
+                                <div class="container">
+                                    <div class="education-heading text-center mb-4">
+                                        <h4 class="title" >Education</h4>
+                                    </div>
+                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                        {
+                                            resumeData?.education?.map((edu, i) => (
+                                                <div class="row" key={i}>
+                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div class="card-body cc-education-header" >
+                                                   
+                                                            <h5>{edu.degree}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5>{edu.degree}</h5>
+                                                            <p class="category">Institution : {edu.institution}</p>
+                                                            <p>Duration :{edu.year} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                   
+                                </div>
+                            </div>
                             <div class="portfolio-section" style={{ marginBottom: "50px" }}>
                                 <div class="container">
 
@@ -208,65 +223,7 @@ export default function Template() {
                                 </div>
                             </div>
 
-                            <div class="experience-section">
-                                <div class="container">
-                                    <div class="experience-heading text-center mb-4">
-                                        <h4 class="title">Work Experience</h4>
-                                    </div>
-                                    {
-                                        resumeData?.experience?.map((exp) => (
-                                            <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                                <div class="row">
-                                                    <div class="col-md-3 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#6b050b' }}>
-                                                        <div class="card-body experience-header" >
-                                                            <h5>{exp.company}</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5>{exp.position}</h5>
-                                                            <p>Duration : {exp.duration} years</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-                                   
-                                </div>
-                            </div>
-
-                            <div class="education-section" style={{ marginTop: '50px' }}>
-                                <div class="container">
-                                    <div class="education-heading text-center mb-4">
-                                        <h4 class="title" >Education</h4>
-                                    </div>
-                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        {
-                                            resumeData?.education?.map((edu, i) => (
-                                                <div class="row" key={i}>
-                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
-                                                        <div class="card-body cc-education-header" >
-                                                   
-                                                            <h5>{edu.degree}</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5>{edu.degree}</h5>
-                                                            <p class="category">Institution : {edu.institution}</p>
-                                                            <p>Duration :{edu.year} years</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                   
-                                </div>
-                            </div>
-
-                            <section id="testimonials" class="testimonials">
+                            {/* <section id="testimonials" class="testimonials">
                                 <div class="container" data-aos="fade-up">
                                     <div class="section-title">
                                         <h2>Testimonials</h2>
@@ -353,84 +310,10 @@ export default function Template() {
                                     </div>
                                 </div>
                                 <br />
-                            </section>
+                            </section> */}
 
 
 
-                            <div class="section" id="contact">
-                                <div class="cc-contact-information" style={{ backgroundImage: "url('/images/staticmap.png')" }}>
-                                    <div class="container">
-                                        <div class="cc-contact">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="card mb-0">
-                                                        <div class="h4 text-center title">Contact Me</div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="card-body">
-                                                                    <form action="https://formspree.io/your@email.com" method="POST">
-                                                                        <div class="p pb-3"><strong>Feel free to contact me </strong></div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-user-circle"></i></span>
-                                                                                    <input class="form-control" type="text" name="name" placeholder="Name"
-                                                                                        required="required" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-file-text"></i></span>
-                                                                                    <input class="form-control" type="text" name="Subject" placeholder="Subject"
-                                                                                        required="required" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-envelope"></i></span>
-                                                                                    <input class="form-control" type="email" name="_replyto" placeholder="E-mail"
-                                                                                        required="required" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="form-group">
-                                                                                    <textarea class="form-control" name="message" placeholder="Your Message"
-                                                                                        required="required"></textarea>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <button class="btn btn-primary" type="submit">Send</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="card-body">
-                                                                    <p class="mb-0"><strong>Address </strong></p>
-                                                                    <p class="pb-2">140, City Center, New York, U.S.A</p>
-                                                                    <p class="mb-0"><strong>Phone</strong></p>
-                                                                    <p class="pb-2">+1718-111-0011</p>
-                                                                    <p class="mb-0"><strong>Email</strong></p>
-                                                                    <p>anthony@company.com</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div >
                         </div >
                     </div >
                     

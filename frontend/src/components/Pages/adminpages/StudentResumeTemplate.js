@@ -1,21 +1,38 @@
 import React from 'react'
 import '../../templates/css/template.css'
-import { useParams ,useNavigate} from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import useGetRequest from '../../customeHooks/timerFetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Url } from '../../../connection';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 export default function StudentResumeTemplate() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const { id } = useParams();
     const { data: resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${id}`)
     const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
-        const response = await axios.get(`${Url}/student/github/${id}`);
+        const response = await axios.get(`${Url}/gitdata/${id}`);
         return response.data;
     })
-    console.log(id, resumeData,gitdata, 'FORM TEMPLATE');
+    console.log(id, resumeData, gitdata, 'FORM TEMPLATE');
     // const isObjectIdEmpty = Object.keys(data).length === 0;
     //     console.log(isObjectIdEmpty,"isobjectempty");
+    // Inside the StudentResumeTemplate component...
+    const handleDownloadPDF = () => {
+        const resumeSection = document.getElementById('resume-section');
+
+        html2canvas(resumeSection).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            const pdfWidth = 210; // A4 width in mm
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('resume.pdf');
+        });
+    };
+
     if (isLoading) {
         return <div>Loading data...</div>
     }
@@ -25,12 +42,12 @@ export default function StudentResumeTemplate() {
     }
     if (isError) {
         return (
-          <div>
-            Error Loading data or the data is not available ...
-            <button type='button' className='btn btn-danger' onClick={handlestate} style={{ cursor: 'pointer' }}>
-              Retry
-            </button>
-          </div>
+            <div>
+                Error Loading data or the data is not available ...
+                <button type='button' className='btn btn-danger' onClick={handlestate} style={{ cursor: 'pointer' }}>
+                    Retry
+                </button>
+            </div>
         );
     }
     if (isSuccess && resumeData && gitdata && resumeData.studentId) {
@@ -38,7 +55,7 @@ export default function StudentResumeTemplate() {
             <>
 
                 {
-                    <div class="page-content">
+                    <div class="page-content" id="resume-section">
                         <div>
                             <div class="profile-page" >
                                 <div class="wrapper">
@@ -47,16 +64,21 @@ export default function StudentResumeTemplate() {
                                         </div>
                                         <div class="container" style={{ width: '1200px' }}>
                                             <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata.gitdata.avatar}` :`${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
-                                                <div class="h4 " style={{ marginLeft: '30px', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
+                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata?.userData?.avatar}` : `${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div class="h4 " style={{ marginLeft: '', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
-                                                <p class="category" style={{ color: 'black' }}></p><a
-                                                    class="btn btn-danger smooth-scroll mr-2" href="#contact">Hire Me</a>
-                                                <a
-                                                    class="btn btn-danger" href="#" style={{ marginLeft: "3px", marginRight: "3px" }}>Download CV</a>
-                                                 
+                                                <p class="category" style={{ color: 'black' }}></p>
+                                                {/* <a
+                                                    className="btn btn-danger"
+                                                    href="#"
+                                                    style={{ marginLeft: "3px", marginRight: "3px" }}
+                                                    onClick={handleDownloadPDF}
+                                                >
+                                                    Download CV
+                                                </a> */}
 
-                                               
+
+
                                                 <a
                                                     class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
                                                     title="Visit me on Github"><i class="fa fa-github"></i></a>
@@ -69,14 +91,14 @@ export default function StudentResumeTemplate() {
                                     </div>
                                 </div>
                             </div>
-                               <div class="section" id="about">
+                            <div class="section" id="about">
                                 <div class="container" >
                                     <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         <div class="row">
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="card-body">
                                                     <div class="h4 mt-0 title">About</div>
-                                                    <p>Hello! I am {resumeData.studentId.username.toUpperCase()}.I am a Web Developer, Graphic Designer and Photographer.</p>
+                                                    {/* <p>Hello! I am {resumeData.studentId.username.toUpperCase()}.</p> */}
                                                     <p>{resumeData?.about} </p>
                                                 </div>
                                             </div>
@@ -105,108 +127,64 @@ export default function StudentResumeTemplate() {
                             </div>
                             <div class="section" id="skill">
                                 <div class="container">
-                                    <div class="h4 text-center mb-4 title">Professional Skills</div>
+                                    <div class="h4 text-center mb-4 title">Technical Skills</div>
                                     <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">HTML</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "80%" }}>
-                                                            </div><span class="progress-value">80%</span>
-                                                        </div>
+                                        {
+                                            gitSuccess && (
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        {Object.entries(gitdata.averageLanguagesPercentage).map(([key, value], index) => (
+                                                            <div class="col-md-6" key={key}>
+                                                                <div class="progress-container">
+                                                                    <span class="progress-label">{key}</span>
+                                                                    <div class="custom-progress-bar">
+                                                                        <div
+                                                                            class="progress-fill"
+                                                                            style={{ width: `${value}%`, backgroundColor: '#6b050b' }}
+                                                                        ></div>
+                                                                    </div>
+                                                                    <span class="progress-value">{value}%</span>
+                                                                </div>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">CSS</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "75%" }}>
-                                                            </div><span class="progress-value">75%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">JavaScript</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "60%" }}>
-                                                            </div><span class="progress-value">60%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">SASS</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "60%" }}>
-                                                            </div><span class="progress-value">60%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">Bootstrap</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "75%" }}>
-                                                            </div><span class="progress-value">75%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="progress-container progress-primary"><span class="progress-badge">Photoshop</span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-primary"
-                                                                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: "70%" }}>
-                                                            </div><span class="progress-value">70%</span>
-                                                        </div>
-                                                    </div>
-                                                </div >
-                                            </div >
-                                        </div >
+                                            )
+                                        }
+
+
                                     </div >
                                 </div >
                             </div >
-                            <div class="portfolio-section" style={{ marginBottom: "50px" }}>
+                            <div class="education-section" style={{ marginTop: '50px' }}>
                                 <div class="container">
-
-                                    <div class="tab-content gallery mt-5">
-                                        <h2 class="title">Portfolio</h2>
-                                        <div class="tab-pane active" id="web-development">
-                                            <div class="ml-auto mr-auto">
-                                                <div class="row">
-                                                    {
-                                                        resumeData?.projects?.map((project) => (
-                                                            <div class="col-md-6">
-                                                                <div class="portfolio-item">
-                                                                    <a href={project.link} target='_blank' >
-                                                                        <figure class="effect">
-                                                                            <img src="/images/project-1.jpg" alt="Image" />
-                                                                            <figcaption>
-                                                                                <h4 class="title">{project.title}</h4>
-                                                                                <p>{project.description}</p>
-                                                                                
-                                                                            </figcaption>
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        ))
-                                                    }
-
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="education-heading text-center mb-4">
+                                        <h4 class="title" >Education</h4>
                                     </div>
+                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                        {
+                                            resumeData?.education?.map((edu, i) => (
+                                                <div class="row" key={i}>
+                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div class="card-body cc-education-header" >
+
+                                                            <h5>{edu.degree}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5>{edu.degree}</h5>
+                                                            <p class="category">Institution: {edu.institution}</p>
+                                                            <p>Passing Year: {edu.year} years</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+
                                 </div>
                             </div>
-
                             <div class="experience-section">
                                 <div class="container">
                                     <div class="experience-heading text-center mb-4">
@@ -231,41 +209,49 @@ export default function StudentResumeTemplate() {
                                             </div>
                                         ))
                                     }
-                                   
+
                                 </div>
                             </div>
-
-                            <div class="education-section" style={{ marginTop: '50px' }}>
+                            <div class="portfolio-section" style={{ marginBottom: "50px" }}>
                                 <div class="container">
-                                    <div class="education-heading text-center mb-4">
-                                        <h4 class="title" >Education</h4>
-                                    </div>
-                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        {
-                                            resumeData?.education?.map((edu, i) => (
-                                                <div class="row" key={i}>
-                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
-                                                        <div class="card-body cc-education-header" >
-                                                   
-                                                            <h5>{edu.degree}</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5>{edu.degree}</h5>
-                                                            <p class="category">Institution : {edu.institution}</p>
-                                                            <p>Duration :{edu.year} years</p>
-                                                        </div>
-                                                    </div>
+
+                                    <div class="tab-content gallery mt-5">
+                                        <h2 class="title">Portfolio</h2>
+                                        <div class="tab-pane active" id="web-development">
+                                            <div class="ml-auto mr-auto">
+                                                <div class="row">
+                                                    {
+                                                        resumeData?.projects?.map((project) => (
+                                                            <div class="col-md-6">
+                                                                <div class="portfolio-item">
+                                                                    <a href={project.link} target='_blank' >
+                                                                        <figure class="effect">
+                                                                            <img src="/images/project-1.jpg" alt="Image" />
+                                                                            <figcaption>
+                                                                                <h4 class="title">{project.title}</h4>
+                                                                                <p>{project.description}</p>
+
+                                                                            </figcaption>
+                                                                        </figure>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                        ))
+                                                    }
+
                                                 </div>
-                                            ))
-                                        }
+                                            </div>
+                                        </div>
                                     </div>
-                                   
                                 </div>
                             </div>
 
-                            <section id="testimonials" class="testimonials">
+
+
+
+
+                            {/* <section id="testimonials" class="testimonials">
                                 <div class="container" data-aos="fade-up">
                                     <div class="section-title">
                                         <h2>Testimonials</h2>
@@ -352,11 +338,11 @@ export default function StudentResumeTemplate() {
                                     </div>
                                 </div>
                                 <br />
-                            </section>
+                            </section> */}
 
 
 
-                            <div class="section" id="contact">
+                            {/* <div class="section" id="contact">
                                 <div class="cc-contact-information" style={{ backgroundImage: "url('/images/staticmap.png')" }}>
                                     <div class="container">
                                         <div class="cc-contact">
@@ -365,7 +351,7 @@ export default function StudentResumeTemplate() {
                                                     <div class="card mb-0">
                                                         <div class="h4 text-center title">Contact Me</div>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <div class="card-body">
                                                                     <form action="https://formspree.io/your@email.com" method="POST">
                                                                         <div class="p pb-3"><strong>Feel free to contact me </strong></div>
@@ -412,16 +398,7 @@ export default function StudentResumeTemplate() {
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="card-body">
-                                                                    <p class="mb-0"><strong>Address </strong></p>
-                                                                    <p class="pb-2">140, City Center, New York, U.S.A</p>
-                                                                    <p class="mb-0"><strong>Phone</strong></p>
-                                                                    <p class="pb-2">+1718-111-0011</p>
-                                                                    <p class="mb-0"><strong>Email</strong></p>
-                                                                    <p>anthony@company.com</p>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -429,19 +406,19 @@ export default function StudentResumeTemplate() {
                                         </div>
                                     </div>
                                 </div>
-                            </div >
-                         
+                            </div > */}
+
                         </div >
                     </div >
-                    
+
                 }
-                <footer class="footer">
+                {/* <footer class="footer">
 
                     <div class="text-center text-muted">
                         <p>&copy; Creative CV. All rights reserved.</p>
 
                     </div>
-                </footer>
+                </footer> */}
             </>
         )
     }

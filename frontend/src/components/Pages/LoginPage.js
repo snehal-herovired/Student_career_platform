@@ -1,58 +1,72 @@
-import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
 import { Url } from '../../connection';
 import "../../styles/normallayout.css"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 export default function Login({setLogin,login}) {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate()
-  const [isStudent, setIsStudent] = React.useState(false)
-  const ApiUrl = isStudent ? `${Url}/student/login` : `${Url}/user/login`
-  const mutation = usePostRequest(ApiUrl);
-  const onSubmit = (data) => {
-    mutation.mutate(data)
-    if (mutation.isSuccess) {
-      
-      setLogin(true)
-      localStorage.setItem('login','true')
-      if (!isStudent) {
-        navigate('/admin')
-        return;
+  const navigate = useNavigate();
+  const [isStudent, setIsStudent] = useState(false);
+  // const [login, setLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (login) {
+      if (isStudent) {
+        navigate('/student');
+      } else {
+        navigate('/admin');
       }
-      const { data: maindata } = mutation;
-      console.log(maindata, "MAINDATA");
-      localStorage.setItem("token", JSON.stringify({ token: maindata.student.token }))
-      localStorage.setItem('studentId', maindata.student._id)
-      localStorage.setItem('batchId', maindata.student.batchId)
+    }
+  }, [login, isStudent]);
 
+  const onSubmit = async (data) => {
+    try {
+      const ApiUrl = isStudent ? `${Url}/student/login` : `${Url}/user/login`;
+      const response = await axios.post(ApiUrl, data);
+      const maindata = response.data;
+      console.log("LOGIN RES DATA",maindata);
 
-      navigate('/student')
+      setLogin(true);
+      localStorage.setItem('login', 'true');
+      localStorage.setItem("token", JSON.stringify({ token: maindata.token }));
+      localStorage.setItem('studentId', maindata.student._id);
+      localStorage.setItem('batchId', maindata.student.batchId);
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Login Error:', error);
+      setErrorMessage('Invalid credentials. Please try again.');
     }
   };
 
+  function handleSet() {
+    setIsStudent((prev) => !prev);
+    setErrorMessage('')
+  }
   return (
-    
 
 
-<div class="animation-container">
-<div className="container" style={{ padding: '20px', height: "100%", width: '100%', }}>
-      <div className="row" style={{ height: '100%', width: '100%' }}>
-        <div className="col-md-6  ">
 
-        </div>
+    <div className="animation-container">
+      <div className="container" style={{ padding: '20px', height: "100%", width: '100%', }}>
+        <div className="row" style={{ height: '100%', width: '100%' }}>
+          <div className="col-md-6  ">
+
+          </div>
           {
-            !isStudent ? <div className="col-md-6 " style={{display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
-              <h5 style={{ textAlign: 'center' ,cursor:'pointer'}} onClick={() => setIsStudent((prev) => !prev)}>GO TO STUDENT LOGIN</h5>
+            !isStudent ? <div className="col-md-6 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+              <h5 style={{ textAlign: 'center', cursor: 'pointer' }}type="button" className='btn btn-danger' onClick={handleSet}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
-              <form onSubmit={handleSubmit(onSubmit)} style={{width:'100%'}}>
+              <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                 <div className="mb-3">
-                  <label htmlFor="registerEmail" className="form-label" style={{marginLeft:"30px"}}>
+                  <label htmlFor="registerEmail" className="form-label" style={{ marginLeft: "30px" }}>
                     Email
                   </label>
                   <input
                     type="email"
-                    style={{width:'80%',marginLeft:"30px"}}
+                    style={{ width: '80%', marginLeft: "30px" }}
                     className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                     id="registerEmail"
                     {...register('email', { required: 'Email is required' })}
@@ -61,11 +75,11 @@ export default function Login({setLogin,login}) {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="registerPassword" className="form-label" style={{marginLeft:"30px"}}>
+                  <label htmlFor="registerPassword" className="form-label" style={{ marginLeft: "30px" }}>
                     Password
                   </label>
                   <input
-                   style={{width:'80%',marginLeft:"30px"}}
+                    style={{ width: '80%', marginLeft: "30px" }}
                     type="password"
                     className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                     id="registerPassword"
@@ -73,27 +87,28 @@ export default function Login({setLogin,login}) {
                   />
                   {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                 </div>
-                <button type="submit" className="btn btn-danger" style={{marginLeft:"30px"}}>
+                <button type="submit" className="btn btn-danger" style={{ marginLeft: "30px" }}>
                   Login
                 </button>
-                <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
+                <span style={{ marginLeft: '5px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 {
-                  mutation.isSuccess && <p style={{ color: 'red' ,margin:'2px'}}>Login SuccessFull</p>
+                  login && <p style={{ color: 'red', margin: '2px' }}>Login su</p>
                 }
+                 {errorMessage && <p style={{ color: 'red', marginLeft: "30px",marginTop:'5px' }}>{errorMessage}</p>}
               </form>
             </div>
               :
-              <div className="col-md-6 " style={{ display:'flex',justifyContent: 'center',alignItems:'center',flexDirection:'column' }}>
-                <h5 style={{ textAlign: 'center',cursor:'pointer' }} onClick={() => setIsStudent((prev) => !prev)}>GO TO ADMIN LOGIN</h5>
+              <div className="col-md-6 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <h5 style={{ textAlign: 'center', cursor: 'pointer' }} type="button" className='btn btn-danger' onClick={handleSet}>GO TO ADMIN LOGIN</h5>
                 <h2 style={{ textAlign: 'center' }}>Student Login</h2>
-                <form onSubmit={handleSubmit(onSubmit)} style={{width:'100%'}}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                   <div className="mb-3">
-                    <label htmlFor="registerEmail" className="form-label" style={{marginLeft:"30px"}}>
+                    <label htmlFor="registerEmail" className="form-label" style={{ marginLeft: "30px" }}>
                       Email
                     </label>
                     <input
                       type="email"
-                      style={{width:'80%',marginLeft:"30px"}}
+                      style={{ width: '80%', marginLeft: "30px" }}
                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                       id="registerEmail"
                       {...register('email', { required: 'Email is required' })}
@@ -102,51 +117,52 @@ export default function Login({setLogin,login}) {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="registerPassword" className="form-label" style={{marginLeft:"30px"}}>
+                    <label htmlFor="registerPassword" className="form-label" style={{ marginLeft: "30px" }}>
                       Password
                     </label>
                     <input
                       type="password"
-                      style={{width:'80%',marginLeft:"30px"}}
+                      style={{ width: '80%', marginLeft: "30px" }}
                       className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                       id="registerPassword"
                       {...register('password', { required: 'Password is required' })}
                     />
                     {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                   </div>
-                  <button type="submit" className="btn btn-danger" style={{marginLeft:"30px"}}>
+                  <button type="submit" className="btn btn-danger" style={{ marginLeft: "30px" }}>
                     Login
                   </button>
                   {
-                    mutation.isSuccess && <h6 style={{ color: 'red' }}>Login SuccessFull</h6>
+                    login && <p style={{ color: 'red', margin: '2px' }}>Login SuccessFull</p>
                   }
-                  <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{textDecoration:'none'}}>Register here</Link></span>
+                   {errorMessage && <p style={{ color: 'red', margin: '2px' }}>{errorMessage}</p>}
+                  <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 </form>
               </div>
           }
         </div>
+      </div>
+      <div className="lightning-container">
+        <div className="lightning white"></div>
+        <div className="lightning red"></div>
+      </div>
+      <div className="boom-container">
+        <div className="shape circle big white"></div>
+        <div className="shape circle white"></div>
+        <div className="shape triangle big yellow"></div>
+        <div className="shape disc white"></div>
+        <div className="shape triangle blue"></div>
+      </div>
+      <div className="boom-container second">
+        <div className="shape circle big white"></div>
+        <div className="shape circle white"></div>
+        <div className="shape disc white"></div>
+        <div className="shape triangle blue"></div>
+      </div>
+      <div className="hero-text">Hero Vired
+        <div className="sub-text">Be Made For Big Things</div>
+      </div>
     </div>
-<div class="lightning-container">
-  <div class="lightning white"></div>
-  <div class="lightning red"></div>
-</div>
-<div class="boom-container">
-  <div class="shape circle big white"></div>
-  <div class="shape circle white"></div>
-  <div class="shape triangle big yellow"></div>
-  <div class="shape disc white"></div>
-  <div class="shape triangle blue"></div>
-</div>
-<div class="boom-container second">
-  <div class="shape circle big white"></div>
-  <div class="shape circle white"></div>
-  <div class="shape disc white"></div>
-  <div class="shape triangle blue"></div>
-</div>
-<div class="hero-text">Hero Vired
-  <div class="sub-text">Be Made For Big Things</div>
-</div>
-</div>
 
 
   );

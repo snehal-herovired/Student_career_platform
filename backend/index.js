@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const helmet = require('helmet')
 const cors = require("cors");
 const app = express();
-const axios =require('axios')
+const axios = require('axios')
+const bodyParser = require('body-parser');
 require("dotenv").config();
 
 // middleware enabling
@@ -13,7 +14,9 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+// app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static('uploads'));
 
 //PORT
@@ -46,6 +49,7 @@ console.log(path.join(__dirname, 'uploads'));
 // });
 
 app.use('/student', require('./routes/student.route'));
+app.use('/gitdata',require("./routes/gitdata.route"))
 app.use('/user', require('./routes/user.route'))
 app.use('/batch', require('./routes/batch.route'))
 app.use('/resume', require('./routes/resume.route'))

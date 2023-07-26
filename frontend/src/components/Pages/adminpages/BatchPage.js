@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useGetRequest from '../../customeHooks/fetchData';
 import { Url } from '../../../connection';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 const BatchPage = () => {
-    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess} = useGetRequest(`${Url}/batch/all`)
+    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(['batch'], async () => {
+        let response = await axios.get(`${Url}/batch/all`)
+        return response.data
+    })
     console.log("batchData :", batchdata);
     let filteredBatches = [];
     // Sample batch data (replace this with your actual batch data)
@@ -34,7 +39,7 @@ const BatchPage = () => {
       return <div>Data Loading...</div>
     }
     if (getrequestError) {
-        return <div>Error loading data...</div>
+        return <div>Error loading data...<button type='button' className='btn btn-success' onClick={refetch}>Reload data</button></div>
     }
     return (
         <div className="container mt-5">

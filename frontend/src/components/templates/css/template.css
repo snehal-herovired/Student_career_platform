@@ -357,3 +357,29 @@
     opacity: 1;
   }
   
+
+  /* Add your custom CSS to style the progress bar */
+.progress-container {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.progress-label {
+  font-weight: bold;
+}
+
+.custom-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s;
+  background-color: #007bff; /* Change the progress bar color */
+  text-align: center;
+  line-height: 20px;
+  color: #fff; /* Change the text color inside the progress bar */
+}

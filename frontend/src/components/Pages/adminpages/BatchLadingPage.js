@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Link ,useNavigate,useParams} from 'react-router-dom';
 import { Url } from '../../../connection';
 import useGetRequest from '../../customeHooks/fetchData';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 const BatchLandingPage = () => {
     const {id} =useParams()
     const [searchTerm, setSearchTerm] = useState('');
-    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useGetRequest(`${Url}/batch/${id}`)
+    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(['batchdata'], async () => {
+        let response = await axios.get(`${Url}/batch/${id}`)
+        return response.data
+    })
     console.log("batchdata :", data);
     const navigate = useNavigate();
     let filteredStudents = [];
@@ -59,7 +64,7 @@ const BatchLandingPage = () => {
                                     <div className="row">
                                         <div className="col-3">
 
-                                    <img src="/images/heroRed.png" alt="" srcset="" style={{ height: "80%", width: '100%', borderRadius: '10px' }} />
+                                    <img src="/images/heroRed.png" alt="" srcSet="" style={{ height: "80%", width: '100%', borderRadius: '10px' }} />
                                         </div>
                                         <div className="col-9">
                                         <h6 className="card-title text-white">{student.email}</h6>

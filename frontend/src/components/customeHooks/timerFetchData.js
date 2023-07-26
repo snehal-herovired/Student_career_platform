@@ -23,6 +23,8 @@ const useGetRequest = (url, delayTime = 50) => {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       retry: false,
+   
+      
     }
   );
 

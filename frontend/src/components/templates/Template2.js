@@ -1,0 +1,293 @@
+import React from 'react'
+import "./css/template2.css"
+export default function Template2() {
+    return (
+        <>
+            <article class="resume-wrapper text-center position-relative">
+                <div class="resume-wrapper-inner mx-auto text-left bg-white shadow-lg">
+                    <header class="resume-header pt-4 pt-md-0">
+                        <div class="media flex-column flex-md-row">
+                            <a href="https://imgbb.com/"><img src="https://i.ibb.co/V9w0tqm/image.jpg" alt="image" border="0" width="220" height="220" /></a>
+                            <img class="mr-3 img-fluid picture mx-auto" src="assets/images/фотощька.jpg" alt="" />
+                            <div class="media-body p-4 ">
+                                <div class="primary-info">
+                                    <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">Snehal Mishra</h1>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fa fa-envelope"></i> sample@gmail.com</li>
+                                        <li><a><i class="fa fa-mobile" ></i> +91 912012123</a></li>
+                                    </ul>
+                                </div>
+                                <div class="secondary-info ml-md-auto mt-2">
+                                    <ul class="resume-social list-unstyled">
+                                       
+                                        <li class="mb-3"><a href="https://behance.net/twstrblg"><span class="fa-container text-center mr-2"><i class="fa fa-linkedin"></i></span>LinkedIn</a></li>
+                                        <li><a href="https://psnprofiles.com/twisterblog"><span class="fa-container text-center mr-2"><i class="fa fa-github"></i></span>Github</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="resume-body p-5">
+                        <section class="resume-section summary-section mb-5">
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">About</h2>
+                            <div class="resume-section-content">
+                                <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur similique, nesciunt repellendus voluptas incidunt sapiente maxime quaerat nemo est libero.</p>
+                            </div>
+                        </section>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <section class="resume-section experience-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Работаю</h2>
+                                    <div class="resume-section-content">
+                                        <div class="resume-timeline position-relative">
+                                            <article class="resume-timeline-item position-relative pb-5">
+
+                                                <div class="resume-timeline-item-header mb-2">
+                                                    <div class="d-flex flex-column flex-md-row">
+                                                        <h3 class="resume-position-title font-weight-bold mb-1">Редактором</h3>
+                                                        <div class="resume-company-name ml-auto">
+                                                            ГК «Основа»</div>
+                                                    </div>
+                                                    <div class="resume-position-time">2018 — 2019</div>
+                                                </div>
+
+                                                <div class="resume-timeline-item-desc">
+                                                    <p>Делаю всё, что связано с соцсетями и текстами. Пишу рассылки и посты. Верстаю лендинги, перевожу пресс-релизы, делаю спецпроекты.</p>
+                                                    <ul>
+                                                        <li><a href="https://vk.com/@russianimp-top-5-faktov-ob-internete-v-metro-vo-vremena-rossiiskoi-impe?ref=group_block" target="_blank">«Метро в Российской империи»</a></li>
+                                                        <li><a href="https://vk.com/russianimp?w=wall-44693766_143639" target="_blank">Смешные дореволюционные журналы</a></li>
+                                                        <li><a href="https://www.instagram.com/p/ByzmsdVopko/" target="_blank">Политические мемы</a></li>
+                                                    </ul>
+                                                </div>
+
+                                            </article>
+
+                                            <article class="resume-timeline-item position-relative pb-5">
+
+                                                <div class="resume-timeline-item-header mb-2">
+                                                    <div class="d-flex flex-column flex-md-row">
+                                                        <h3 class="resume-position-title font-weight-bold mb-1">Копирайтером</h3>
+                                                        <div class="resume-company-name ml-auto">Текстерра</div>
+                                                    </div>
+                                                    <div class="resume-position-time">2018 — 2019</div>
+                                                </div>
+                                                <div class="resume-timeline-item-desc">
+                                                    <p>Написал много текстов, разобрался в куче тем. Теперь не боюсь SEO-ключей и делаю вэнити-серч на заказ.</p>
+                                                    <ul>
+                                                        <li><a href="https://docs.google.com/document/d/1iklxr2ouDfpWy2oLBvaYV86htCMz92rsEYtqV0JmDsU/edit" target="_blank">Как протезировать зубы</a></li>
+                                                        <li><a href="https://docs.google.com/document/d/1aehTEK9_h4LxfCoUifVDXXIc8T3LOVgoZK6ITh_Fka4/edit" target="_blank">Зачем чистить кондиционеры</a></li>
+                                                        <li><a href="https://docs.google.com/document/d/1apokmN9otgZ2iSTMzgwElkuRLKS_QKM5G4WvHbT2iCM/edit" target="_blank">Почему Москва растёт на Юго-Запад</a></li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                            <article class="resume-timeline-item position-relative pb-5">
+                                                <div class="resume-timeline-item-header mb-2">
+                                                    <div class="d-flex flex-column flex-md-row">
+                                                        <h3 class="resume-position-title font-weight-bold mb-1">Автором</h3>
+                                                        <div class="resume-company-name ml-auto">Мамихлапинатана</div>
+                                                    </div>
+                                                    <div class="resume-position-time">2019</div>
+                                                </div>
+                                                <div class="resume-timeline-item-desc">
+                                                    <p>Взял три интервью и написал на их основе текст в блог Mail.ru. </p>
+                                                    <ul>
+                                                        <li><a href="https://mcs.mail.ru/blog/ml-business/" target="_blank">Машинное обучение для торговли</a></li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                            <article class="resume-timeline-item position-relative">
+                                                <div class="resume-timeline-item-header mb-2">
+                                                    <div class="d-flex flex-column flex-md-row">
+                                                        <h3 class="resume-position-title font-weight-bold mb-1">СММ</h3>
+                                                        <div class="resume-company-name ml-auto">Студенческие журналы</div>
+                                                    </div>
+                                                    <div class="resume-position-time">2015 — 2019</div>
+                                                </div>
+                                                <div class="resume-timeline-item-desc">
+                                                    <p>Руководил Телеграм-каналом, учил стажёров писать смешные посты, рисовал картинки и вёл прямые репортажи в одном студмедиа. Писал подборки, обзоры и переводил материалы в университетский академический журнал в другом </p>
+                                                    <ul>
+                                                        <li><a href="https://thevyshka.ru/16885-zasedanie-studsoveta-niu-vshe-tragediya-pgas/" target="_blank">Репортаж с заседания Студсовета</a></li>
+                                                        <li><a href="https://t-do.ru/thevyshka/2927" target="_blank">Инструкция к блокирующим оценкам</a></li>
+                                                        <li><a href="https://doxajournal.ru/translations/accelerate" target="_blank">Перевод книги Марка Фишера </a></li>
+                                                        <li><a href="https://thevyshka.ru/16885-zasedanie-studsoveta-niu-vshe-tragediya-pgas/" target="_blank">Рецензия на «Снежного человека»</a></li>
+                                                        <li><a href="https://doxa.tilda.ws/texts/reviews/games_05_10_17" target="_blank">Дайджест видеоигр в сентябре 2018</a></li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                            <article class="resume-timeline-item position-relative pb-5">
+                                                <div class="resume-timeline-item-header mb-2">
+                                                    <div class="d-flex flex-column flex-md-row">
+                                                        <h3 class="resume-position-title font-weight-bold mb-1">И ещё раз автором</h3>
+                                                        <div class="resume-company-name ml-auto">IGM</div>
+                                                    </div>
+                                                    <div class="resume-position-time">2018</div>
+                                                </div>
+                                                <div class="resume-timeline-item-desc">
+                                                    <p>Сочинял подборки игр, описывал инфоповоды в игровой индустрии.</p>
+                                                    <ul>
+                                                        <li><a href="https://vk.com/@igm-igrovaya-impotenciya-top-samyh-unylyh-igr" target="_blank">Игровая импотенция</a></li>
+                                                        <li><a href="https://vk.com/@igm-geforce-gaming-celebration-na-gamescom-2018" target="_blank">Обзор мероприятия GeForce</a></li>
+                                                        <li><a href="https://vk.com/@igm-6-prichin-pochemu-my-vozvraschaemsya-v-igry" target="_blank">Исследование причин реиграбельности</a></li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-lg-3">
+                                <section class="resume-section skills-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Умею</h2>
+                                    <div class="resume-section-content">
+                                        <div class="resume-skill-item">
+                                            <h4 class="resume-skills-cat font-weight-bold">В Адоуб</h4>
+                                            <ul class="list-unstyled mb-4">
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Фотошоп</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "75%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Афтер эффектс</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{width: "53%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Аудишн</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "77%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Иллюстратор</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "23%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Премьер</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "44%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="resume-skill-item">
+                                            <h4 class="resume-skills-cat font-weight-bold">В другое</h4>
+                                            <ul class="list-unstyled">
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">ХТМЛ/КСС</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "56%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Эксель</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "76%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Питон</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "35%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">Аудасити</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style={{ width: "82%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="resume-skill-item">
+                                            <h4 class="resume-skills-cat font-weight-bold">Не рабочее</h4>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><span class="badge badge-light">Верховая езда</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Гитара</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Фортепиано</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Гребля</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Видеоигры</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Типографика</span></li>
+                                                <li class="list-inline-item"><span class="badge badge-light">Плавание</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="resume-section education-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Знаю</h2>
+                                    <div class="resume-section-content">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <div class="resume-degree font-weight-bold">Философию</div>
+                                                <div class="resume-degree-org">Бакалавриат ВШЭ</div>
+                                                <div class="resume-degree-time">2015 — 2019</div>
+                                            </li>
+                                            <li>
+                                                <div class="resume-degree font-weight-bold">Культурологию</div>
+                                                <div class="resume-degree-org">Магистратура ВШЭ</div>
+                                                <div class="resume-degree-time">2019 — 2021</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="resume-section reference-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Хвалюсь</h2>
+                                    <div class="resume-section-content">
+                                        <ul class="list-unstyled resume-awards-list">
+                                            <li class="mb-2 pl-4 position-relative">
+                                                <i class="resume-award-icon fas fa-trophy position-absolute" data-fa-transform="shrink-2"></i>
+                                                <div class="resume-award-name">Знаниями нейроэкономики</div>
+                                                <div class="resume-award-desc"><a href="https://www.coursera.org/account/accomplishments/verify/DPCCM39K7M8F" target="_blank">Подтверждёнными сертификатом</a></div>
+                                            </li>
+                                            <li class="mb-0 pl-4 position-relative">
+                                                <i class="resume-award-icon fas fa-trophy position-absolute" data-fa-transform="shrink-2"></i>
+                                                <div class="resume-award-name">Школой редакторов Бюро Горбунова</div>
+                                                <div class="resume-award-desc"><a href="https://bureau.ru/burosfera/stas-zveryanov" target="_blank">И кабинетом в Бюросфере</a></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="resume-section language-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Разговариваю на</h2>
+                                    <div class="resume-section-content">
+                                        <ul class="list-unstyled resume-lang-list">
+                                            <li class="mb-2"><span class="resume-lang-name font-weight-bold">Русском</span> <small class="text-muted font-weight-normal">(Он ведь родной)</small></li>
+                                            <li class="mb-2 align-middle"><span class="resume-lang-name font-weight-bold">Английском</span> <small class="text-muted font-weight-normal">(С1)</small></li>
+                                            <li><span class="resume-lang-name font-weight-bold">Немецком</span> <small class="text-muted font-weight-normal">(В1)</small></li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="resume-section interests-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Интересуюсь</h2>
+                                    <div class="resume-section-content">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-1">Видеоиграми</li>
+                                            <li class="mb-1">Редактурой</li>
+                                            <li class="mb-1">Дизайном</li>
+                                        </ul>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </article>
+        </>
+    )
+}

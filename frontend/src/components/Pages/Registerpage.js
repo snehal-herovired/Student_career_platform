@@ -34,7 +34,7 @@ export default function Register() {
   }
 
   return (
-    <div class="animation-container">
+    <div className="animation-container">
       <div className="container " style={{ padding: '20px', height: "90%", width: '100%' }}>
 
         <div className="row" style={{ height: '100%', width: '100%' }}>
@@ -89,10 +89,10 @@ export default function Register() {
                   </label>
                   <select style={{ ackgroundColor: 'rgba(255, 255, 255, 0.8)' }} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="batch" name="batch"   {...register('batchId', { required: 'batch is required' })}>
 
-                    <option selected>Select batch  </option>
+                    <option defaultValue={''}>Select batch  </option>
                     {isSuccess && batchdata.length > 0 && batchdata.map((ele, i) => (
                       <option value={ele._id} key={i}>
-                        {ele.name}<i className="fa fa-chevron-down" style={{ color: 'black' }}></i>
+                        {ele.name}
                       </option>
                     ))}
 
@@ -105,32 +105,32 @@ export default function Register() {
                   Register
                 </button>
                 {mutation.isSuccess && <h6 style={{ color: 'red' }}>Data inserted sucessfully</h6>}
-                <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='login' style={{ textDecoration: 'none' }}>Login here</Link></span>
+                <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='/login' style={{ textDecoration: 'none' }}>Login here</Link></span>
               </form>
             }
           </div>
 
         </div>
       </div >
-      <div class="lightning-container">
-        <div class="lightning white"></div>
-        <div class="lightning red"></div>
+      <div className="lightning-container">
+        <div className="lightning white"></div>
+        <div className="lightning red"></div>
       </div>
-      <div class="boom-container">
-        <div class="shape circle big white"></div>
-        <div class="shape circle white"></div>
-        <div class="shape triangle big yellow"></div>
-        <div class="shape disc white"></div>
-        <div class="shape triangle blue"></div>
+      <div className="boom-container">
+        <div className="shape circle big white"></div>
+        <div className="shape circle white"></div>
+        <div className="shape triangle big yellow"></div>
+        <div className="shape disc white"></div>
+        <div className="shape triangle blue"></div>
       </div>
-      <div class="boom-container second">
-        <div class="shape circle big white"></div>
-        <div class="shape circle white"></div>
-        <div class="shape disc white"></div>
-        <div class="shape triangle blue"></div>
+      <div className="boom-container second">
+        <div className="shape circle big white"></div>
+        <div className="shape circle white"></div>
+        <div className="shape disc white"></div>
+        <div className="shape triangle blue"></div>
       </div>
-      <div class="hero-text">Hero Vired
-        <div class="sub-text">Be Made For Big Things</div>
+      <div className="hero-text">Hero Vired
+        <div className="sub-text">Be Made For Big Things</div>
       </div>
     </div>
 

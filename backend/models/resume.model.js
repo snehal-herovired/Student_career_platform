@@ -11,8 +11,7 @@ const experienceSchema = new mongoose.Schema({
     default: ''
   },
   duration: {
-    type: Number,
-    default: 0
+    type: String
   }
 });
 
@@ -27,8 +26,8 @@ const educationSchema = new mongoose.Schema({
     default: ''
   },
   year: {
-    type: Number,
-    default: 0
+    type: String,
+    
   }
 });
 
@@ -102,15 +101,10 @@ const resumeSchema = new mongoose.Schema({
       type: String,
       required:true
     },
-    twitter: {
-      type: String
-    },
     linkedIn: {
       type: String
     },
-    facebook: {
-      type: String
-    }
+   
   },
   education: [educationSchema],
   experience: [experienceSchema],

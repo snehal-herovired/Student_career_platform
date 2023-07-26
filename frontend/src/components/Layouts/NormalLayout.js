@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../../App.css'
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import '../../styles/drawer.css'
-export default function NormalLayout() {
+export default function NormalLayout({setLogin}) {
   const navigate = useNavigate();
   
   let btnStyle = {
@@ -25,9 +25,9 @@ export default function NormalLayout() {
 
   }
   function handleLogout() {
-    
-    navigate('/');
+    setLogin(false)
     localStorage.removeItem('login')
+    navigate('/login');
 }
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -60,19 +60,17 @@ export default function NormalLayout() {
               <div>
                 <ul class="menu-list">
                   <li class="menu-item" onClick={() => navigate('/admin')}>
-                    <i class="fa fa-edit menu-icon"></i> &nbsp; View Batches
+                  <i class="fa fa-share menu-icon"></i> &nbsp; View Batches
                   </li>
                   <li class="menu-item" onClick={() => navigate('/admin/students')}>
-                    <i class="fa fa-edit menu-icon"></i> &nbsp; View Students
+                  <i class="fa fa-share menu-icon"></i> &nbsp; View Students
                   </li>
-                  <li class="menu-item" onClick={() => navigate('')}>
-                    <i class="fa fa-share menu-icon"></i> &nbsp; View all Projects
-                  </li>
+                 
                   {/* <li class="menu-item" onClick={() => navigate('/student/myresume')}>
                     <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
                   </li> */}
                   <li class="menu-item" onClick={handleLogout}>
-                    <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; Logout 
+                  <i class="fa fa-share menu-icon"></i> &nbsp; Logout 
                   </li>
                   
                 </ul>

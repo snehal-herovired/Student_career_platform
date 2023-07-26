@@ -23,6 +23,7 @@ import LoginFallback from './components/Pages/LoginFallback';
 import Error from './components/Pages/ErrorPage';
 import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
 import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
+import Template2 from './components/templates/Template2';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -39,38 +40,12 @@ function App() {
   // Define your conditional routes here
   
   const router = createBrowserRouter([
-   login && {
-      path: '/student',
-      element: <StudentLayout login={ login} />,
-      children: [
-        { index: true, element: <LandingPage /> },
-        { path: 'home', element: <Home /> },
-        {
-          path:'template',element:<Template/>
-        },
-        {path:'uploadresume',element:<ResumeUploader/>},
-        {path:'myresume',element:<ResumeViewer/>},
-        {
-          path: 'resume',
-          element: <ResumeLayout />,
-          children: [
-            { index:true, element: <Personalinfo /> },
-            { path: 'experience', element: <Experience /> },
-            { path: 'education', element: <Education /> },
-            { path: 'skills', element: <Skillpage /> },
-            { path: 'projects', element: <Projectpage /> },
-            {path:'*',element:<Error/>}
-            
-          ],
-        },
-      ],
-    },
-    // Add more conditional routes if needed
-    { path: '/login', element: <Login setLogin={setLogin} login={ login} /> },
-    {  path :'/',element: <Register /> },
+    { path: '/', element: <Register /> },
+    { path: '/login', element: <Login setLogin={setLogin} login={login} /> },
+    
     login && {
       path: '/admin',
-      element: <NormalLayout  />,
+      element: <NormalLayout  setLogin={setLogin} />,
       children: [
         {index: true, element: <BatchPage /> },
         {
@@ -83,6 +58,37 @@ function App() {
         {path:'batch/:id' ,element:<BatchLandingPage/>}
       ],
     },
+
+   login && {
+      path: '/student',
+     element: <StudentLayout setLogin={setLogin} />,
+      
+     
+      children: [
+        { index: true, element: <LandingPage /> },
+        { path: 'home', element: <Home /> },
+        {
+          path:'template',element:<Template/>
+        },
+        {path:'uploadresume',element:<ResumeUploader/>},
+        {path:'myresume',element:<ResumeViewer/>},
+        // {
+        //   path: 'resume',
+        //   element: <ResumeLayout />,
+        //   children: [
+        //     { index:true, element: <Personalinfo /> },
+        //     { path: 'experience', element: <Experience /> },
+        //     { path: 'education', element: <Education /> },
+        //     { path: 'skills', element: <Skillpage /> },
+        //     { path: 'projects', element: <Projectpage /> },
+        //     {path:'*',element:<Error/>}
+            
+        //   ],
+        // },
+      ],
+    },
+ 
+   
     {path:'*',element:<Error/>},
   ]);
 
@@ -94,3 +100,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
