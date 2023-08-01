@@ -206,6 +206,13 @@ export default function Template() {
                                                                             <figcaption>
                                                                                 <h4 class="title">{project.title}</h4>
                                                                                 <p>{project.description}</p>
+                                                                                    {
+                                                                                        project?.technologies.map((skill,index) => (
+                                                                                            <ul key={index}>
+                                                                                                <li>{skill}</li>
+                                                                                            </ul>
+                                                                                        ))
+                                                                                    }
                                                                                 
                                                                             </figcaption>
                                                                         </figure>
