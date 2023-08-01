@@ -90,7 +90,7 @@ export default function Login({ setLogin, login }) {
                 <button type="submit" className="btn btn-danger" style={{ marginLeft: "30px" }}>
                   Login
                 </button>
-                <span style={{ marginLeft: '5px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
+                <span style={{ marginLeft: '30px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 {
                   login && <p style={{ color: 'red', margin: '2px' }}>Login su</p>
                 }
@@ -136,7 +136,7 @@ export default function Login({ setLogin, login }) {
                     login && <p style={{ color: 'red', margin: '2px' }}>Login SuccessFull</p>
                   }
                   {errorMessage && <p style={{ color: 'red',marginLeft: "30px", marginTop: '2px' }}>{errorMessage}</p>}
-                  <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
+                  <span style={{ marginLeft: '30px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 </form>
               </div>
           }
