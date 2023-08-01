@@ -26,17 +26,17 @@ const BatchPage = () => {
         const searchString = e.target.value.toLowerCase().replace(/\s+/g, '');
         setSearchTerm(searchString);
     };
-  
+
     // Function to filter batches based on search term
-    if (isSuccess && batchdata.length>0) {
+    if (isSuccess && batchdata.length > 0) {
         filteredBatches = batchdata.filter((batch) => {
             const batchNameWithoutSpaces = batch.name?.toLowerCase().replace(/\s+/g, '');
             return batchNameWithoutSpaces?.includes(searchTerm);
         });
-  }
+    }
 
     if (getrequestLoading) {
-      return <div>Data Loading...</div>
+        return <div>Data Loading...</div>
     }
     if (getrequestError) {
         return <div>Error loading data...<button type='button' className='btn btn-success' onClick={refetch}>Reload data</button></div>
@@ -57,25 +57,12 @@ const BatchPage = () => {
                 {filteredBatches.length !== 0 ?
                     filteredBatches.map((batch) => (
                         <div key={batch.id} className="col">
-                            <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
-                                <div className="card-body">
-                                    <div className='row'>
-                                        <div className='col-4'>
-                                            <img src="/images/heroRed.png" alt="" style={{ height: "60px", width: '60px', borderRadius: '50%' }} />
-                                        </div>
-                                        <div className='col-8'>
+                            < div class="card  " style={{ backgroundColor: '#FFEADD', boxShadow: '15px 18px 15px -3px rgba(0,0,0,0.1)', borderRadius: '10px', fontFamily: 'Poppins' }}>
+                                <div class="card-body " >
 
-                                            <h5 className="card-title text-white">Batch : {batch.name}</h5>
-                                            <Link to={`/admin/batch/${batch._id}`}>
-                                                <button type="button" className="btn btn-danger">
-                                                    View Batch
-                                                </button>
-                                            </Link>
-                                        </div>
+                                    <h5 class="card-title">Batch: {batch.name}</h5>
 
-                                    </div>
-
-
+                                    <Link to={`/admin/batch/${batch._id}`} class="btn btn-danger">View Student Detail</Link>
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,7 @@ import { Url } from '../../connection';
 import "../../styles/normallayout.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-export default function Login({setLogin,login}) {
+export default function Login({ setLogin, login }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
@@ -27,7 +27,7 @@ export default function Login({setLogin,login}) {
       const ApiUrl = isStudent ? `${Url}/student/login` : `${Url}/user/login`;
       const response = await axios.post(ApiUrl, data);
       const maindata = response.data;
-      console.log("LOGIN RES DATA",maindata);
+      console.log("LOGIN RES DATA", maindata);
 
       setLogin(true);
       localStorage.setItem('login', 'true');
@@ -57,7 +57,7 @@ export default function Login({setLogin,login}) {
           </div>
           {
             !isStudent ? <div className="col-md-6 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-              <h5 style={{ textAlign: 'center', cursor: 'pointer' }}type="button" className='btn btn-danger' onClick={handleSet}>GO TO STUDENT LOGIN</h5>
+              <h5 style={{ textAlign: 'center', cursor: 'pointer' }} type="button" className='btn btn-danger' onClick={handleSet}>GO TO STUDENT LOGIN</h5>
               <h2 style={{ textAlign: 'center' }}>Admin/Career Login</h2>
               <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                 <div className="mb-3">
@@ -94,7 +94,7 @@ export default function Login({setLogin,login}) {
                 {
                   login && <p style={{ color: 'red', margin: '2px' }}>Login su</p>
                 }
-                 {errorMessage && <p style={{ color: 'red', marginLeft: "30px",marginTop:'5px' }}>{errorMessage}</p>}
+                {errorMessage && <p style={{ color: 'red', marginLeft: "30px", marginTop: '5px' }}>{errorMessage}</p>}
               </form>
             </div>
               :
@@ -135,7 +135,7 @@ export default function Login({setLogin,login}) {
                   {
                     login && <p style={{ color: 'red', margin: '2px' }}>Login SuccessFull</p>
                   }
-                   {errorMessage && <p style={{ color: 'red', margin: '2px' }}>{errorMessage}</p>}
+                  {errorMessage && <p style={{ color: 'red',marginLeft: "30px", marginTop: '2px' }}>{errorMessage}</p>}
                   <span style={{ marginLeft: '3px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 </form>
               </div>

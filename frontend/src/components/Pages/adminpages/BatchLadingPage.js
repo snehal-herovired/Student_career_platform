@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link ,useNavigate,useParams} from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Url } from '../../../connection';
 import useGetRequest from '../../customeHooks/fetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const BatchLandingPage = () => {
-    const {id} =useParams()
+    const { id } = useParams()
     const [searchTerm, setSearchTerm] = useState('');
     const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(['batchdata'], async () => {
         let response = await axios.get(`${Url}/batch/${id}`)
@@ -59,34 +59,23 @@ const BatchLandingPage = () => {
                 {filteredStudents.length !== 0 &&
                     filteredStudents.map((student, id) => (
                         <div key={student._id} className="col">
-                            <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-3">
+                            < div className="card  " style={{ backgroundColor: '#FFEADD', boxShadow: '15px 18px 15px -3px rgba(0,0,0,0.1)', borderRadius: '10px', fontFamily: 'Poppins' }}>
+                                <div className="card-body " >
 
-                                    <img src="/images/heroRed.png" alt="" srcSet="" style={{ height: "80%", width: '100%', borderRadius: '10px' }} />
-                                        </div>
-                                        <div className="col-9">
-                                        <h6 className="card-title text-white">{student.email}</h6>
-                                    <h6 className="card-title text-white">{student.username}</h6>
-                                    <h6 className="card-title text-white">{data.batch.name}</h6>
-                                    <Link to={`/admin/${student._id}`}>
-                                        <button type="button" className="btn btn-danger" onClick={()=>navigate('')}>
-                                            View Student Detail
-                                        </button>
-                                    </Link>
-                                        </div>
-                                    </div>
-                                  
+                                    <h5 className="card-title">Batch: {data.batch.name}</h5>
+                                    <p className="card-text">{student.email}</p>
+                                    <p className="card-text">{student.username}</p>
+                                    <Link to={`/admin/${student._id}`} className="btn btn-danger">View Student Detail</Link>
                                 </div>
                             </div>
                         </div>
 
                     ))
-                    
+
+
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

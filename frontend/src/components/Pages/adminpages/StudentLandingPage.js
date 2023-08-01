@@ -61,7 +61,7 @@ const StudentLandingPage = () => {
     }
 
 
-
+  
 
 
     return (
@@ -147,9 +147,9 @@ const StudentLandingPage = () => {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                               
                                 <th scope="col">Repo Name</th>
-                                <th scope="col">Commit Count</th>
+                               
                                 <th scope="col">Recent Commit history</th>
                             </tr>
                         </thead>
@@ -158,9 +158,9 @@ const StudentLandingPage = () => {
                             {
                                 isSuccess && gitdata && gitdata.repositoriesData?.map((ele, index) => (
                                     <tr key={index}>
-                                        <th scope="row">{index}</th>
+                                       
                                         <td>{ele.name}</td>
-                                        <td>{ele.commitCount}</td>
+                                        
                                         <td>{convertToIndianStandardTime(ele.commitHistory[0]?.date)}</td>
                                     </tr>
                                 ))

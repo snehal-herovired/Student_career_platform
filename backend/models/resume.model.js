@@ -99,7 +99,7 @@ const resumeSchema = new mongoose.Schema({
     },
     github: {
       type: String,
-      required:true
+      
     },
     linkedIn: {
       type: String

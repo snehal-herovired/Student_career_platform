@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Url } from '../../../connection';
+import "../../../styles/background.css"
 import useGetRequest from '../../customeHooks/fetchData';
 const StudentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +25,7 @@ const StudentPage = () => {
 
     // Function to filter batches based on search term
 
-    if (isSuccess && studentdata.length>0) {
+    if (isSuccess && studentdata.length > 0) {
         filteredStudents = studentdata.filter((student) => {
             const StudentbyEmail = student.email?.toLowerCase();
             return StudentbyEmail?.includes(searchTerm);
@@ -50,10 +51,10 @@ const StudentPage = () => {
             </div>
 
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {filteredStudents.length !== 0  ?
+                {filteredStudents.length !== 0 ?
                     filteredStudents.map((student, id) => (
                         <div key={student._id} className="col">
-                            <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
+                            {/* <div className="card shadow-sm" style={{ backgroundColor: '#6b050b', borderRadius: '10px' }}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-3">
@@ -72,6 +73,15 @@ const StudentPage = () => {
                                         </div>
                                     </div>
                                   
+                                </div>
+                            </div> */}
+                            <div className="card  " style={{ backgroundColor: '#FFEADD', boxShadow: '15px 18px 15px -3px rgba(0,0,0,0.1)', borderRadius: '10px', fontFamily: 'Poppins' }}>
+                                <div className="card-body " >
+
+                                    <h5 className="card-title">Name: {student.username}</h5>
+                                    <p className="card-text"> {student.email}</p>
+                                    <p className="card-text">{student?.batchId?.name}</p>
+                                    <Link to={`/admin/${student._id}`} className="btn btn-danger">View Student Detail</Link>
                                 </div>
                             </div>
                         </div>

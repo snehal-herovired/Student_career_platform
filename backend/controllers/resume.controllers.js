@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { Resume } = require('../models/resume.model');
 const upload = multer({ dest: 'uploads/' });
-
+const parseResumeData = require('../utils/resumeParser');
 // Create or Update Resume
 const createResume= async (req, res) => {
   const {
@@ -58,36 +58,39 @@ const createResume= async (req, res) => {
   }
 };
 
-//upload resume
-// const uploadResume =  async (req, res) => {
-//   try {
-//     if (!req.file) {
-//       return res.status(400).json({ message: 'No file uploaded' });
-//     }
 
-//     const { studentId,batchId } = req.body;
-
-//     // Find the existing resume or create a new one
-//     let resume = await Resume.findOne({ studentId});
-
-//     if (!resume) {
-//       resume = new Resume({ studentId ,batchId});
-//     }
-//     resume.image =req.file.path
-//     resume.resumePdf = req.file.path;
-//     resume.batchId=batchId // Store the file path in the resume model
-
-//     await resume.save();
-
-//     return res.status(200).json({ message: 'File uploaded successfully' });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: 'Error uploading file' });
-//   }
-// }
 
 const path = require('path');
 
+// const uploadResume = async (req, res) => {
+//   try {
+//     const { studentId, batchId } = req.body;
+
+//     // Find the existing resume or create a new one
+//     let resume = await Resume.findOne({ studentId });
+
+//     if (!resume) {
+//       resume = new Resume({ studentId, batchId });
+//     }
+
+//     if (req.files) {
+//       // Check if 'image' and 'resume' files were uploaded and update the corresponding fields
+//       if (req.files['image']) {
+//         resume.image = path.normalize(req.files['image'][0].path);
+//       }
+//       if (req.files['resume']) {
+//         resume.resumePdf = path.normalize(req.files['resume'][0].path);
+//       }
+//     }
+
+//     await resume.save();
+
+//     return res.status(200).json({ message: 'Files uploaded successfully' });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: 'Error uploading files' });
+//   }
+// };
 const uploadResume = async (req, res) => {
   try {
     const { studentId, batchId } = req.body;
@@ -106,6 +109,42 @@ const uploadResume = async (req, res) => {
       }
       if (req.files['resume']) {
         resume.resumePdf = path.normalize(req.files['resume'][0].path);
+        // Parse the resume PDF using the parser function
+        const pdfPath = path.resolve(__dirname, '..', resume.resumePdf);
+        const parsedData = parseResumeData(pdfPath);
+
+        // Map the parsed information to your resume model
+        resume.contactInformation.email = parsedData.email || '';
+        resume.contactInformation.phone = parsedData.phone || '';
+        // You can add other contact information fields (address, linkedIn, etc.) similarly
+
+        // Handle education data
+        if (parsedData.education && parsedData.education.length > 0) {
+          resume.education = parsedData.education.map((edu) => ({
+            institution: edu.institution || '',
+            degree: edu.degree || '',
+            year: edu.year || '',
+          }));
+        }
+
+        // Handle experience data
+        if (parsedData.experience && parsedData.experience.length > 0) {
+          resume.experience = parsedData.experience.map((exp) => ({
+            company: exp.company || '',
+            position: exp.position || '',
+            duration: exp.duration || '',
+          }));
+        }
+
+        // Handle skills data
+        if (parsedData.skills && parsedData.skills.length > 0) {
+          resume.skills = parsedData.skills.map((skill) => ({
+            name: skill.name || '',
+            proficiency: skill.proficiency || '',
+          }));
+        }
+        // If your resume model has other sections, you can handle them similarly
+
       }
     }
 
@@ -117,7 +156,6 @@ const uploadResume = async (req, res) => {
     return res.status(500).json({ message: 'Error uploading files' });
   }
 };
-
 
 
 

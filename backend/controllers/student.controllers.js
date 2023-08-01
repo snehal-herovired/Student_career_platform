@@ -114,24 +114,36 @@ async function getGitHubRepositories(username, token) {
 }
 
 // Function to fetch commit count for a specific repository
+// Function to fetch commit count for a specific repository
 async function getRepositoryCommitCount(owner, repoName, token) {
   try {
-    const response = await axios.get(`https://api.github.com/repos/${owner}/${repoName}/stats/participation`, {
+    const response = await axios.get(`https://api.github.com/repos/${owner}/${repoName}/commits`, {
+      params: {
+        per_page: 1, // Fetch only 1 most recent commit
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.all.reduce((acc, val) => acc + val, 0);
+
+    if (response.status !== 200) {
+      throw new Error(`Error fetching commit count for repository ${owner}/${repoName}. Status: ${response.status}`);
+    }
+
+    return response.data.length; // Return the number of commits (1 in this case, as we are fetching the most recent commit)
   } catch (error) {
     throw new Error(`Error fetching commit count for repository ${owner}/${repoName}: ${error.message}`);
   }
 }
 
-// Function to fetch commit history for a specific repository
-// Function to fetch commit history for a specific repository
+
+// Function to fetch commit history for a specific repository (fetching only the most recent commit)
 async function getRepositoryCommitHistory(owner, repoName, token) {
   try {
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repoName}/commits`, {
+      params: {
+        per_page: 1, // Fetch only 1 most recent commit
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -141,21 +153,23 @@ async function getRepositoryCommitHistory(owner, repoName, token) {
       throw new Error(`Error fetching commit history for repository ${owner}/${repoName}. Status: ${response.status}`);
     }
 
-    return response.data.map(commit => {
-      return {
+    const commit = response.data[0]; // Get the most recent commit
+    return [
+      {
         sha: commit.sha,
         message: commit.commit.message,
         date: commit.commit.author.date,
         author: commit.commit.author.name,
-        url: commit.html_url
-      };
-    });
+        url: commit.html_url,
+      },
+    ];
   } catch (error) {
     // Log the error, but don't throw to continue fetching other repositories
     console.error(`Error fetching commit history for repository ${owner}/${repoName}: ${error.message}`);
     return []; // Return an empty array to indicate no commit history for the current repository
   }
 }
+
 // Function to fetch language statistics for a specific repository
 async function getRepositoryLanguages(owner, repoName, token) {
   try {
@@ -252,7 +266,7 @@ async function trackGitHubAccount(username, token, studentId) {
     throw error;
   }
 }
-// async function trackGitHubDataInBackground(githubDataPromise) {
+
 //   try {
 //     // Get the data from the resolved promise
 //     const githubData = await githubDataPromise;
@@ -333,7 +347,7 @@ async function loginStudent(req, res) {
       // console.log("studnet ",student);
       const resume = await Resume.findOne({ studentId: student._id });
       if (!resume) {
-        return res.status(404).json({ message: 'resume not found', githubUsername: false });
+        return res.status(200).json({ message: 'resume not found', githubUsername: false ,student});
 
       }
       // console.log("resume",resume);
@@ -430,14 +444,36 @@ const getStudentandGitDetailbyId = async (req, res) => {
         let githubdetailfromDb = resume.contactInformation.github;
         const gitusername = extractGithubUsername(githubdetailfromDb)
 
-        try {
-          await sendGitHubData(gitusername, process.env.gitToken, student._id);
+        const worker = new Worker('./githubWorker.js');
+        worker.on('message', async (message) => {
+          if (message.githubData) {
+            // Process the GitHub data received from the worker (optional)
 
-        } catch (error) {
-          throw (error)
-          console.log(error);
+            // Return the login response
+            // console.log(message.githubData, "gitdata");
+            try {
+              let postData =
+              {
+                gitdata: message.githubData
+              }
+              const response = await axios.post(`http://localhost:5000/gitdata/post`, postData);
 
-        }
+              //     // Handle the response from the API if needed
+              console.log(response.data, "mongodb gitdata done");
+              return { message: "gitdata fetched" };
+            } catch (error) {
+              console.log(error);
+              return;
+            }
+          } else if (message.error) {
+            // Handle the error if any
+
+            // Return the error response
+            return { message: 'gitdata could not be fetched' }
+          }
+        });
+        console.log(student._id,"from line 373");
+        worker.postMessage({ data: { username:gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
 
 
 
