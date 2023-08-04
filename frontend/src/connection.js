@@ -1,1 +1,1 @@
-export const Url =`https://viredstoreapi.prashantdey.in`
+export const Url =`http://localhost:5000`

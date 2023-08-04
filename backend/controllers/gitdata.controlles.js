@@ -76,7 +76,7 @@ const getGitDataByStudentId = async (req, res) => {
 // / API endpoint to generate and download the PDF
 
 const pdf = require('html-pdf');
-
+const puppeteer = require('puppeteer');
 const generatePDF = async (req, res) => {
   try {
     const { studentId } = req.params;
@@ -87,27 +87,19 @@ const generatePDF = async (req, res) => {
       return res.status(404).json({ message: 'Git data not found for the specified student ID' });
     }
     if (!resumeData) {
-      return res.status(404).json({ message: 'Git data not found for the specified student ID' });
+      return res.status(404).json({ message: 'Resume data not found for the specified student ID' });
     }
 
     // Read the HTML template file
-    const templatePath = path.join(__dirname,'..','/views/template1.html');
+    const templatePath = path.join(__dirname, '..', '/views/index.html');
     const htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
-    
-    const compiledTemplate = handlebars.compile(htmlTemplate,{
-      ignoreDecorators: true,
-    });
-    
-    
-    
     const templateData = {
       studentId: {
         username: resumeData.studentId.username,
       },
       gitData: {
         avatar: gitData.userData.avatar,
-        
       },
       contactInformation: {
         email: resumeData.contactInformation.email,
@@ -117,60 +109,80 @@ const generatePDF = async (req, res) => {
         linkedIn: resumeData.contactInformation.linkedIn,
       },
       about: resumeData.about,
-      experience:  resumeData.experience.map((exp) => ({
+      experience: resumeData.experience.map((exp) => ({
         position: exp.position,
         company: exp.company,
         duration: exp.duration,
       })),
-      education:  resumeData.education.map((exp) => ({
+      education: resumeData.education.map((exp) => ({
         institution: exp.institution,
         degree: exp.degree,
         year: exp.year,
       })),
-      projects:  resumeData.projects.map((exp) => ({
+      projects: resumeData.projects.map((exp) => ({
         title: exp.title,
         description: exp.description,
         link: exp.link,
-        
+        technologies: exp.technologies.map((ele) => {
+          return ele
+        })
       })),
       skills: Object.entries(gitData.averageLanguagesPercentage).map((ele) => {
         let [languageName, percentage] = ele;
         languageName = languageName[0].toUpperCase() + languageName.slice(1);
         return ` ${languageName}`;
-      })
-     
+      }),
       // Add other properties similarly...
     };
-    // Evaluate the compiled Handlebars template with the provided data
-    console.log(templateData);
-    const evaluatedHtml = compiledTemplate(templateData)
 
-    // Set options for PDF generation
-    const options = {
-      format: 'A4',
-      orientation: 'portrait',
-    
-    };
+    // Compile the Handlebars template with the provided data
+    const compiledTemplate = handlebars.compile(htmlTemplate);
+    const evaluatedHtml = compiledTemplate(templateData);
 
-    // Generate the PDF using html-pdf
-    pdf.create(evaluatedHtml, options).toBuffer((err, buffer) => {
-      if (err) {
-        console.error('Error generating PDF:', err);
-        return res.status(500).send('Error generating PDF');
-      }
+    // Set response headers to indicate that the response is a PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
 
-      // Set response headers to indicate that the response is a PDF file
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
-
-      // Send the PDF as the response
-      res.end(buffer);
+    // Generate the PDF using puppeteer
+    const browser = await puppeteer.launch({
+      headless: 'new',
+      
     });
+    const page = await browser.newPage();
+
+    // Set the viewport to match the content width
+    await page.setViewport({
+      width: 800,
+      height: 400,
+      deviceScaleFactor: 1,
+    });
+
+    await page.setContent(evaluatedHtml, { waitUntil: 'networkidle0' });
+
+    // Create a buffer from the PDF page
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: {
+        top: '20px',
+        bottom: '20px',
+        left: '20px',
+        right: '20px',
+      },
+    });
+
+    // Close the browser
+    await browser.close();
+
+    // Send the PDF as the response
+    res.end(pdfBuffer);
   } catch (error) {
     console.error('Error generating PDF:', error);
     res.status(500).send('Error generating PDF');
   }
-}
+};
+
+
 // async function getImageDataUrl(imageUrl) {
 //   try {
 //     const response = await axios.get(imageUrl, {
@@ -279,16 +291,16 @@ const generatePDF = async (req, res) => {
 //       },
 //       content: [
 //         {
-          
-          
-          
+
+
+
 //           table: {
 //             headerRows: 0,
 //             body: [
 //               [
 //                 {
 //                 // Choose your color
-                
+
 //                 // Remove distasteful border
 //                 border: [false, false, false, true],
 
@@ -298,7 +310,7 @@ const generatePDF = async (req, res) => {
 //                   width: 'auto',
 //                   text: resumeData.studentId.username,
 //                   style: 'header',
-                 
+
 //                 }],
 //                 // optional space between columns
 //                 columnGap: 10
@@ -318,7 +330,7 @@ const generatePDF = async (req, res) => {
 //               fit: [90, 90],
 //               width: '70%', // Adjust the width of the image column
 //               margin: [0, 0, 30, 0],
-              
+
 
 //             },
 
