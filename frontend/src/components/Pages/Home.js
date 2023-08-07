@@ -15,7 +15,7 @@ export default function Home() {
   const mutation = usePostRequest(APiUrl)
   const studentId = localStorage.getItem('studentId')
   // const { data: gitdata, isSuccess: gitSuccess } = fetchData(`${Url}/student/github/${studentId}`);
-  const { data, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${studentId}`);
+  const { data, isLoading, isSuccess, isError, refetch, error } = useGetRequest(`${Url}/resume/${studentId}`);
   const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
     const response = await axios.get(`${Url}/gitdata/${studentId}`);
     return response.data;
@@ -24,25 +24,23 @@ export default function Home() {
 
   console.log("RESUME : ", data, "GItdata :", gitdata);
   const [resumeData, setResumeData] = useState({
-    studentId: data?.studentId,
-    batchId: data?.batchId,
-    about: data ? data?.about :'No data',
-    contactInformation: {
-      email: data ? data?.contactInformation?.email : 'No data',
-      phone: data ? data?.contactInformation?.phone : 'No data',
-      address: data ? data?.contactInformation?.address :'No data',
-      github:data ?  data?.contactInformation?.github : 'No data',
-      linkedIn: data ? data?.contactInformation?.linkedIn :'No data'
-      
-    },
-    image: data ? data?.image :'',
-    education: data ? data?.education : [],
-    experience: data ? data?.experience :[],
-  
-    projects: data ? data?.projects :[],
-    resumePdf: data ? data?.resumePdf :'',
-  });
 
+
+    image: data ? data?.image : '',
+
+
+  });
+  const [about, setAbout] = useState('');
+  const [contactInformation, setContactInformation] = useState({
+    email: '',
+    phone: '',
+    address: '',
+    github: '',
+    linkedIn: ''
+  });
+  const [education, setEducation] = useState([]);
+  const [experience, setExperience] = useState([]);
+  const [projects, setProjects] = useState([]);
 
 
   Modal.setAppElement('#root')
@@ -77,14 +75,22 @@ export default function Home() {
   useEffect(() => {
     const batchId = localStorage.getItem('batchId');
     const studentId = localStorage.getItem('studentId');
-    setResumeData((prev) => (
-      {
-        ...prev,
-        batchId: batchId,
-        studentId: studentId
-      }
-    ))
-  }, [])
+    mutation.mutate({ ...data, batchId: batchId, studentId: studentId })
+    if (isSuccess && data) {
+      setAbout(data.about || '');
+      setContactInformation(data.contactInformation || {
+        email: '',
+        phone: '',
+        address: '',
+        github: '',
+        linkedIn: ''
+      });
+      setEducation(data.education || []);
+      setExperience(data.experience || []);
+      setProjects(data.projects || []);
+    }
+    
+  }, [isSuccess,data])
 
   // PROFILE PICTURE UPLOAD LOGIC
   const handleFileChange = (e) => {
@@ -128,137 +134,237 @@ export default function Home() {
 
 
 
+  // // ABOUT CHANGE FUNCTION
+  // const handleAboutChange = (e) => {
+  //   setResumeData((prevData) => ({
+  //     ...prevData,
+  //     about: e.target.value,
+  //   }));
+  // };
+
+  // const saveAboutChanges = () => {
+  //   // Save about section changes to backend or update state as required
+  //   setIsEditingAbout(false);
+  //   mutation.mutate(resumeData)
+
+  // };
+  // // *******************************************************************************************
+  // // ABOUT PERSONAL INFORMATION FUNCTION
+  // const handleContactChange = (field, value) => {
+  //   setResumeData((prevData) => ({
+  //     ...prevData,
+  //     contactInformation: {
+  //       ...prevData.contactInformation,
+  //       [field]: value,
+  //     },
+  //   }));
+  // };
+
+  // const saveContactChanges = () => {
+  //   // Save contact information changes to backend or update state as required
+  //   setIsEditingPersonal(false);
+  //   mutation.mutate(resumeData)
+
+  // };
+  // // ****************************************************************************************************
+  // //  EDUCATION CHANGES
+  // const handleEducationChange = (index, field, value) => {
+  //   setResumeData((prevData) => {
+  //     const updatedEducation = [...prevData.education];
+  //     updatedEducation[index] = {
+  //       ...updatedEducation[index],
+  //       [field]: value,
+  //     };
+  //     return {
+  //       ...prevData,
+  //       education: updatedEducation,
+  //     };
+  //   });
+  // };
+
+  // const handleAddEducation = () => {
+  //   setResumeData((prevData) => ({
+  //     ...prevData,
+  //     education: [
+  //       ...prevData.education,
+  //       {
+  //         institution: '',
+  //         degree: '',
+  //         year: 0,
+  //       },
+  //     ],
+  //   }));
+  // };
+
+
+  // const handleDeleteEducation = (index) => {
+  //   setResumeData((prevData) => {
+  //     const updatedEducation = [...prevData.education];
+  //     updatedEducation.splice(index, 1);
+  //     return {
+  //       ...prevData,
+  //       education: updatedEducation,
+  //     };
+  //   });
+  // };
+
+  // const saveEducationChanges = () => {
+  //   // Save education section changes to backend or update state as required
+  //   setIsEditingEducation(false);
+  //   mutation.mutate(resumeData)
+
+  // };
+
   // ABOUT CHANGE FUNCTION
   const handleAboutChange = (e) => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      about: e.target.value,
-    }));
+    setAbout(e.target.value);
   };
 
   const saveAboutChanges = () => {
-    // Save about section changes to backend or update state as required
     setIsEditingAbout(false);
-    mutation.mutate(resumeData)
-
+    const updatedResumeData = { ...data, about: about };
+    mutation.mutate(updatedResumeData);
   };
-  // *******************************************************************************************
+
   // ABOUT PERSONAL INFORMATION FUNCTION
   const handleContactChange = (field, value) => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      contactInformation: {
-        ...prevData.contactInformation,
-        [field]: value,
-      },
+    setContactInformation((prevContactInfo) => ({
+      ...prevContactInfo,
+      [field]: value,
     }));
   };
 
   const saveContactChanges = () => {
-    // Save contact information changes to backend or update state as required
     setIsEditingPersonal(false);
-    mutation.mutate(resumeData)
-
+    const updatedResumeData = { ...data, contactInformation: contactInformation };
+    mutation.mutate(updatedResumeData);
   };
-  // ****************************************************************************************************
+
   //  EDUCATION CHANGES
   const handleEducationChange = (index, field, value) => {
-    setResumeData((prevData) => {
-      const updatedEducation = [...prevData.education];
+    setEducation((prevEducation) => {
+      const updatedEducation = [...prevEducation];
       updatedEducation[index] = {
         ...updatedEducation[index],
         [field]: value,
       };
-      return {
-        ...prevData,
-        education: updatedEducation,
-      };
+      return updatedEducation;
     });
   };
 
   const handleAddEducation = () => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      education: [
-        ...prevData.education,
-        {
-          institution: '',
-          degree: '',
-          year: 0,
-        },
-      ],
-    }));
+    setEducation((prevEducation) => [
+      ...prevEducation,
+      {
+        institution: '',
+        degree: '',
+        year: 0,
+      },
+    ]);
   };
 
-
   const handleDeleteEducation = (index) => {
-    setResumeData((prevData) => {
-      const updatedEducation = [...prevData.education];
+    setEducation((prevEducation) => {
+      const updatedEducation = [...prevEducation];
       updatedEducation.splice(index, 1);
-      return {
-        ...prevData,
-        education: updatedEducation,
-      };
+      return updatedEducation;
     });
   };
 
   const saveEducationChanges = () => {
-    // Save education section changes to backend or update state as required
     setIsEditingEducation(false);
-    mutation.mutate(resumeData)
-
+    const updatedResumeData = { ...data, education: education };
+    mutation.mutate(updatedResumeData);
   };
 
 
-
   // ***************************************************************************************
-  // EXPERIENCE CHANGE
+  //  Experience CHANGES
   const handleExperinceChange = (index, field, value) => {
-    setResumeData((prevData) => {
-      const updatedExperience = [...prevData.experience];
+    setExperience((prev) => {
+      const updatedExperience = [...prev];
       updatedExperience[index] = {
         ...updatedExperience[index],
         [field]: value,
       };
-      return {
-        ...prevData,
-        experience: updatedExperience,
-      };
+      return updatedExperience;
     });
   };
 
   const handleAddExperience = () => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      experience: [
-        ...prevData.experience,
-        {
-          company: '',
-          position: '',
-          duration: 0,
-        },
-      ],
-    }));
+    setExperience((prev) => [
+      ...prev,
+      {
+        company: '',
+        position: '',
+        duration: '',
+        description: ''
+
+      },
+    ]);
   };
 
-
   const handleDeleteExperience = (index) => {
-    setResumeData((prevData) => {
-      const updatedExperience = [...prevData.experience];
+    setExperience((prev) => {
+      const updatedExperience = [...prev];
       updatedExperience.splice(index, 1);
-      return {
-        ...prevData,
-        experience: updatedExperience,
-      };
+      return updatedExperience;
     });
   };
 
   const saveExperienceChanges = () => {
-    // Save education section changes to backend or update state as required
-    setIsEditingExperience(false);
-    mutation.mutate(resumeData)
-
+    setIsEditingEducation(false);
+    const updatedResumeData = { ...data, experience: experience };
+    mutation.mutate(updatedResumeData);
   };
+  // EXPERIENCE CHANGE
+  // const handleExperinceChange = (index, field, value) => {
+  //   setResumeData((prevData) => {
+  //     const updatedExperience = [...prevData.experience];
+  //     updatedExperience[index] = {
+  //       ...updatedExperience[index],
+  //       [field]: value,
+  //     };
+  //     return {
+  //       ...prevData,
+  //       experience: updatedExperience,
+  //     };
+  //   });
+  // };
+
+  // const handleAddExperience = () => {
+  //   setResumeData((prevData) => ({
+  //     ...prevData,
+  //     experience: [
+  //       ...prevData.experience,
+  //       {
+  //         company: '',
+  //         position: '',
+  //         duration: 0,
+  //         description: ''
+  //       },
+  //     ],
+  //   }));
+  // };
+
+
+  // const handleDeleteExperience = (index) => {
+  //   setResumeData((prevData) => {
+  //     const updatedExperience = [...prevData.experience];
+  //     updatedExperience.splice(index, 1);
+  //     return {
+  //       ...prevData,
+  //       experience: updatedExperience,
+  //     };
+  //   });
+  // };
+
+  // const saveExperienceChanges = () => {
+  //   // Save education section changes to backend or update state as required
+  //   setIsEditingExperience(false);
+  //   mutation.mutate(resumeData)
+
+  // };
 
 
 
@@ -266,9 +372,10 @@ export default function Home() {
 
   // *******************************************************************************************************
   // PROJECT CHANGES LOGIC
+
   const handleProjectChange = (index, field, value) => {
-    setResumeData((prevData) => {
-      const updatedProjects = [...prevData.projects];
+    setProjects((prev) => {
+      const updatedProjects = [...prev];
       if (field === "technologies") {
         updatedProjects[index][field] = value;
       } else {
@@ -277,45 +384,87 @@ export default function Home() {
           [field]: value,
         };
       }
-      return {
-        ...prevData,
-        projects: updatedProjects,
-      };
+
+      return updatedProjects;
     });
-  };
-
-  const saveProjectChanges = (index) => {
-    // Save project changes to backend or update state as required
-    setIsEditingProjects(false);
-    mutation.mutate(resumeData)
-
   };
 
   const addNewProject = () => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      projects: [
-        ...prevData.projects,
-        {
-          title: '',
-          description: '',
-          technologies: [],
-          link: '',
-        },
-      ],
-    }));
+    setProjects((prev) => [
+      ...prev,
+      {
+        title: '',
+        description: '',
+        technologies: [],
+        link: '',
+      },
+    ]);
   };
 
   const deleteProject = (index) => {
-    setResumeData((prevData) => {
-      const updatedProjects = [...prevData.projects];
+    setProjects((prev) => {
+      const updatedProjects = [...prev];
       updatedProjects.splice(index, 1);
-      return {
-        ...prevData,
-        projects: updatedProjects,
-      };
+      return updatedProjects;
     });
   };
+
+  const saveProjectChanges = () => {
+    setIsEditingEducation(false);
+    const updatedResumeData = { ...data, projects: projects };
+    mutation.mutate(updatedResumeData);
+  };
+
+  // const handleProjectChange = (index, field, value) => {
+  //   setResumeData((prevData) => {
+  //     const updatedProjects = [...prevData.projects];
+  //     if (field === "technologies") {
+  //       updatedProjects[index][field] = value;
+  //     } else {
+  //       updatedProjects[index] = {
+  //         ...updatedProjects[index],
+  //         [field]: value,
+  //       };
+  //     }
+  //     return {
+  //       ...prevData,
+  //       projects: updatedProjects,
+  //     };
+  //   });
+  // };
+
+  // const saveProjectChanges = (index) => {
+  //   // Save project changes to backend or update state as required
+  //   setIsEditingProjects(false);
+  //   mutation.mutate(resumeData)
+
+  // };
+
+  // const addNewProject = () => {
+  //   setResumeData((prevData) => ({
+  //     ...prevData,
+  //     projects: [
+  //       ...prevData.projects,
+  //       {
+  //         title: '',
+  //         description: '',
+  //         technologies: [],
+  //         link: '',
+  //       },
+  //     ],
+  //   }));
+  // };
+
+  // const deleteProject = (index) => {
+  //   setResumeData((prevData) => {
+  //     const updatedProjects = [...prevData.projects];
+  //     updatedProjects.splice(index, 1);
+  //     return {
+  //       ...prevData,
+  //       projects: updatedProjects,
+  //     };
+  //   });
+  // };
 
   // ******************************************************************************************************
 
@@ -365,7 +514,7 @@ export default function Home() {
                     borderRadius: '10px',
 
                   }}
-                  value={resumeData.about}
+                  value={about}
                   onChange={handleAboutChange}
                 />
               ) : (
@@ -417,45 +566,51 @@ export default function Home() {
                       <div className="col-lg-6" >
                         <ul>
                           <li>
-                            <input
-                              type="email"
-                              placeholder='email'
-                              value={resumeData.contactInformation.email}
-                              onChange={(e) =>
-                                handleContactChange("email", e.target.value)
-                              }
-                            />
+
+                            <div class="input-group mb-3">
+                              <input class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                type="email"
+                                placeholder='email'
+                                value={contactInformation.email}
+                                onChange={(e) =>
+                                  handleContactChange("email", e.target.value)
+                                }
+                              />
+                            </div>
                           </li>
                           <li>
-                            <input
-                              type="number"
-                              placeholder='phone'
-                              value={resumeData.contactInformation.phone}
-                              onChange={(e) =>
-                                handleContactChange("phone", e.target.value)
-                              }
-                            />
+
+                            <div class="input-group mb-3">
+                              <input class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" type="number"
+                                placeholder='phone'
+                                value={contactInformation.phone}
+                                onChange={(e) =>
+                                  handleContactChange("phone", e.target.value)
+                                } />
+                            </div>
+
                           </li>
                           <li>
-                            <textarea
-                              value={resumeData.contactInformation.address}
-                              placeholder='address here'
-                              rows={5}
-                              cols={25}
-                              onChange={(e) =>
+
+                            <div class="form-floating">
+                              <textarea class="form-control" placeholder="address" id="floatingTextarea2" style={{ height: "100px" }} value={contactInformation.address} onChange={(e) =>
                                 handleContactChange("address", e.target.value)
-                              }
-                            />
+                              }></textarea>
+                              <label for="floatingTextarea2">Address</label>
+                            </div>
                           </li>
                           <li>
-                            <input
-                              type="text"
-                              value={resumeData.contactInformation.linkedIn}
-                              placeholder='linkedin link'
-                              onChange={(e) =>
-                                handleContactChange("linkedIn", e.target.value)
-                              }
-                            />
+
+                            <div class="input-group flex-nowrap">
+                              <input type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping"
+
+                                value={contactInformation.linkedIn}
+                                placeholder='linkedin link'
+                                onChange={(e) =>
+                                  handleContactChange("linkedIn", e.target.value)
+                                }
+                              />
+                            </div>
                           </li>
                         </ul>
 
@@ -466,25 +621,28 @@ export default function Home() {
                       <div className="col-lg-6" >
                         <ul>
                           <li>
-                            <input
-                              type="text"
-                              value={resumeData.contactInformation.github}
-                              placeholder='github'
-                              onChange={(e) =>
-                                handleContactChange("github", e.target.value)
-                              }
-                            />
+
+                            <div class="input-group flex-nowrap">
+                              <input type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping"
+                                value={contactInformation.github}
+                                placeholder='github'
+                                onChange={(e) =>
+                                  handleContactChange("github", e.target.value)
+                                }
+
+                              />
+                            </div>
                           </li>
-                       
-                        
+
+
                         </ul>
 
 
 
 
-                        <button onClick={saveContactChanges} type='button' className='btn btn-success'>Save</button>
 
                       </div>
+                      <button onClick={saveContactChanges} type='button' className='btn btn-success'>Save</button>
                     </div>
 
                     :
@@ -544,31 +702,31 @@ export default function Home() {
                 <div className="row" >
                   {isEditingEducation ? (
                     <div  >
-                      {resumeData.education.map((edu, index) => (
+                      {education.map((edu, index) => (
                         <div key={index}>
-                          <input
-                            type="text"
-                            value={edu.institution}
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) =>
-                              handleEducationChange(index, "institution", e.target.value)
-                            }
-                          />
-                          <input
-                            type="text"
-                            value={edu.degree}
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) =>
-                              handleEducationChange(index, "degree", e.target.value)
-                            }
-                          />
-                         <input
-                            type="text"
-                            value={edu.year}
-                            pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) => handleEducationChange(index, "year", e.target.value)}
-                          />
+
+                          <div class="input-group flex-nowrap">
+                            <input type="text" class="form-control" placeholder="Institution" aria-label="Institution" aria-describedby="addon-wrapping"
+                              value={edu.institution}
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) =>
+                                handleEducationChange(index, "institution", e.target.value)
+                              }
+                            />
+                          </div>
+
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Degree" aria-label="Degree" value={edu.degree}
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) =>
+                                handleEducationChange(index, "degree", e.target.value)
+                              } />
+                            <input type="text" class="form-control" placeholder="year" aria-label="Seryearver" value={edu.year}
+                              pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) => handleEducationChange(index, "year", e.target.value)} />
+                          </div>
+
                           <button onClick={() => handleDeleteEducation(index)} style={{ margin: '3px' }} type='button' className='btn btn-success'>Delete</button>
                         </div>
                       ))}
@@ -625,35 +783,48 @@ export default function Home() {
                 <div className="row" >
                   {isEditingExperience ? (
                     <div  >
-                      {resumeData.experience.map((exp, index) => (
+                      {experience.map((exp, index) => (
                         <div key={index}>
-                          <input
-                            type="text"
-                            value={exp.company}
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) =>
-                              handleExperinceChange(index, "company", e.target.value)
-                            }
-                          />
-                          <input
-                            type="text"
-                            value={exp.position}
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) =>
-                              handleExperinceChange(index, "position", e.target.value)
-                            }
-                          />
-                          <input
-                            type="text"
-                            value={exp.duration}
-                            pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
-                            style={{ marginRight: '3px' }}
-                            onChange={(e) => handleExperinceChange(index, "duration", e.target.value)}
-                          />
+
+                          <div class="input-group flex-nowrap">
+                            <input type="text" class="form-control" placeholder="Company" aria-label="Company" aria-describedby="addon-wrapping"
+                              value={exp.company}
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) =>
+                                handleExperinceChange(index, "company", e.target.value)
+                              }
+                            />
+                          </div>
+
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Position" aria-label="Position"
+                              value={exp.position}
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) =>
+                                handleExperinceChange(index, "position", e.target.value)
+                              }
+                            />
+                            <input type="text" class="form-control" placeholder="Duration" aria-label="Duration"
+                              value={exp.duration}
+                              pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
+                              style={{ marginRight: '3px' }}
+                              onChange={(e) => handleExperinceChange(index, "duration", e.target.value)}
+                            />
+                          </div>
+                          <div class="form-floating">
+                            <textarea class="form-control" id="floatingTextarea2" style={{ height: "100px", margin: '3px' }}
+                              value={exp.description}
+
+                              onChange={(e) =>
+                                handleExperinceChange(index, "description", e.target.value)
+                              }
+                            ></textarea>
+                            <label for="floatingTextarea2">Description about job role</label>
+                          </div>
                           <button onClick={() => handleDeleteExperience(index)} style={{ margin: '3px' }} type='button' className='btn btn-success'>Delete</button>
                         </div>
                       ))}
-                      <button onClick={handleAddExperience} style={{ margin: '3px' }} type='button' className='btn btn-success'>Add Education</button>
+                      <button onClick={handleAddExperience} style={{ margin: '3px' }} type='button' className='btn btn-success'>Add Experince</button>
                       {isEditingExperience && <button onClick={saveExperienceChanges} type='button' className='btn btn-success'>Save</button>}
 
                     </div>
@@ -663,6 +834,7 @@ export default function Home() {
                         {data?.experience?.map((exp, index) => (
                           <li key={index}>
                             {exp.company} - {exp.position} ({exp.duration})
+                            <p>{exp.description}</p>
                           </li>
                         ))}
                       </ul>
@@ -707,47 +879,55 @@ export default function Home() {
 
                 {isEditingProjects ? (
                   <div>
-                    {resumeData.projects.map((project, index) => (
+                    {projects.map((project, index) => (
                       <div key={index}>
-                        <input
-                          type="text"
-                          value={project.title}
-                          placeholder='Project Title'
-                          style={{ margin: '3px' }}
-                          onChange={(e) =>
-                            handleProjectChange(index, "title", e.target.value)
-                          }
-                        />
-                        <input
-                          type="text"
-                          value={project.description}
-                          placeholder='Project Description'
-                          style={{ margin: '3px' }}
-                          onChange={(e) =>
-                            handleProjectChange(index, "description", e.target.value)
-                          }
-                        />
-                        <input
-                          type="text"
-                          value={project.link}
-                          style={{ margin: '3px' }}
-                          placeholder='Project Link'
-                          onChange={(e) =>
-                            handleProjectChange(index, "link", e.target.value)
-                          }
-                        />
-                        <textarea
-                          value={project.technologies.join(", ")}
-                          style={{ margin: '3px' }}
-                          placeholder='techlogies in format reatjs,nodejs'
-                          onChange={(e) =>
-                            handleProjectChange(
-                              index,
-                              "technologies",
-                              e.target.value.split(", ")
-                            )
-                          }
-                        />
+
+
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" aria-label="Project Title"
+                            value={projects.title}
+                            placeholder='Project Title'
+                            style={{ margin: '3px' }}
+                            onChange={(e) =>
+                              handleProjectChange(index, "title", e.target.value)
+                            }
+                          />
+                          <input type="text" class="form-control" aria-label="Project Description"
+                            value={projects.description}
+                            placeholder='Project Description'
+                            style={{ margin: '3px' }}
+                            onChange={(e) =>
+                              handleProjectChange(index, "description", e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <input type="text" class="form-control" aria-label="Project Link" aria-describedby="addon-wrapping"
+                            value={projects.link}
+                            style={{ margin: '3px' }}
+                            placeholder='Project Link'
+                            onChange={(e) =>
+                              handleProjectChange(index, "link", e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div class="form-floating">
+                          <textarea class="form-control" id="floatingTextarea2" style={{ height: "100px", margin: '3px' }}
+                            value={projects?.technologies?.join(", ")}
+
+                            placeholder='techlogies in format reatjs,nodejs'
+                            onChange={(e) =>
+                              handleProjectChange(
+                                index,
+                                "technologies",
+                                e.target.value.split(", ")
+                              )
+                            }
+                          ></textarea>
+                          <label for="floatingTextarea2">Technologies Used in Project</label>
+                        </div>
                         <div>
                           <button onClick={() => deleteProject(index)} type='button' className='btn btn-success' style={{ margin: '2px' }}>Delete Project</button>
 
@@ -888,7 +1068,7 @@ export default function Home() {
         >
           {/* Modal content */}
           <h2>Success!</h2>
-          <p>Resume Update was Successfull.</p>
+            <p>Resume Update was Successfull for {}</p>
           <button onClick={closeModal} type='button' className='btn btn-success'>Close</button>
         </Modal>
       </main>
@@ -901,6 +1081,9 @@ export default function Home() {
         isLoading && <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
+      }
+      {
+        isError && <div>{error.message}</div>
       }
     </>
   )

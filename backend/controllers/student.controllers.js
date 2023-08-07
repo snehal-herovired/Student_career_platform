@@ -325,7 +325,7 @@ async function trackGitHubAccount(username, token, studentId) {
 // Student Login Controller
 async function loginStudent(req, res) {
   const { email, password } = req.body;
-
+   console.log(email,password ,":email and password");
   try {
     // Check if the student exists
     const student = await Student.findOne({ email });
@@ -354,8 +354,8 @@ async function loginStudent(req, res) {
       if (resume && resume.contactInformation) {
         // console.log(resume, "from here......");
         let githubdetailfromDb = resume.contactInformation.github;
-        const gitusername = extractGithubUsername(githubdetailfromDb)
-
+        let gitusername = extractGithubUsername(githubdetailfromDb)
+        gitusername = gitusername || '';
         const worker = new Worker('./githubWorker.js');
         worker.on('message', async (message) => {
           if (message.githubData) {
@@ -389,7 +389,7 @@ async function loginStudent(req, res) {
 
       
 
-        //  return res.status(200).json({ message: 'Login successful', token, login: true, student: true, student});
+         return res.status(200).json({ message: 'Login successful', token, login: true, student: true, student});
 
 
 
@@ -398,6 +398,7 @@ async function loginStudent(req, res) {
 
     return res.status(200).json({ message: 'Login successful', token, login: true, student: true, student });
   } catch (error) {
+    console.log(error,"error from Login");
     return res.status(500).json({ message: 'Login failed', error, login: false });
   }
 }
@@ -416,6 +417,7 @@ const getstudentdetailbyId = async (req, res) => {
 
     return res.status(200).json({ studentData: student });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: 'Error retrieving student', error });
   }
 };

@@ -36,7 +36,7 @@ export default function Login({ setLogin, login }) {
       localStorage.setItem('batchId', maindata.student.batchId);
       setErrorMessage('');
     } catch (error) {
-      console.error('Login Error:', error);
+      console.error('Login Error:', error.message);
       setErrorMessage('Invalid credentials. Please try again.');
     }
   };

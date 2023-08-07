@@ -23,6 +23,8 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
+    "react-share": "^4.4.1",
+    "react-web-share": "^2.0.2",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },

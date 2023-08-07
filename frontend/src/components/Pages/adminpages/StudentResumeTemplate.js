@@ -5,19 +5,20 @@ import useGetRequest from '../../customeHooks/timerFetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Url } from '../../../connection';
-
+import { TwitterIcon, EmailIcon, FacebookIcon, LinkedinIcon } from 'react-share';
+import { TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton } from 'react-share';
 const LoadingOverlay = () => {
     return (
         <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+            <span class="visually-hidden">Loading...</span>
+        </div>
     );
-  };
-  
+};
+
 export default function StudentResumeTemplate() {
     const navigate = useNavigate()
     const [pdfdownloadLoading, setPdfLoading] = useState(false);
-  
+    const [pdf, setPdfUrl] = useState('');
     const { id } = useParams();
     const { data: resumeData, isLoading, isSuccess, isError, refetch } = useQuery(["resumedata"], async function () {
         const response = await axios.get(`${Url}/resume/${id}`);
@@ -38,7 +39,7 @@ export default function StudentResumeTemplate() {
                 responseType: 'blob', // Receive the response data as a blob
             });
             setPdfLoading(false);
-         
+
             const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
             const url = URL.createObjectURL(pdfBlob);
 
@@ -57,7 +58,20 @@ export default function StudentResumeTemplate() {
         }
     };
 
+    const Share = async () => {
+        try {
+            setPdfLoading(true);
+            const response = await axios.get(`${Url}/gitdata/generate-pdf/${id}`);
+            const { pdfUrl } = response.data;
+            console.log(pdfUrl, "from response");
+            setPdfLoading(false);
+            setPdfUrl(pdfUrl);
 
+
+        } catch (error) {
+            console.error('Error fetching PDF link:', error);
+        }
+    }
 
 
 
@@ -103,7 +117,7 @@ export default function StudentResumeTemplate() {
                                                 }
                                                 <a
                                                     className="btn btn-danger"
-                                                  
+
                                                     style={{ marginLeft: "3px", marginRight: "3px" }}
                                                     onClick={handleDownloadPDF}
                                                 >
@@ -111,13 +125,30 @@ export default function StudentResumeTemplate() {
                                                 </a>
                                                 {pdfdownloadLoading && <LoadingOverlay />}
 
-
                                                 <a
                                                     class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
                                                     title="Visit me on Github"><i class="fa fa-github"></i></a>
                                                 <a
                                                     class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} target='_blank' rel="tooltip"
                                                     title="Follow me on LinkedIn"><i class="fa fa-linkedin"></i></a>
+
+                                                {pdf ? (
+                                                    <>
+
+
+                                                        <a href={pdf} target="_blank" rel="noopener noreferrer" className='btn btn-danger' type='button'>Dowload PDF</a>
+
+                                                        {/* Share button using react-web-share */}
+                                                        <EmailShareButton url={pdf}>
+                                                            <EmailIcon size={32} round />
+                                                        </EmailShareButton>
+                                                        <LinkedinShareButton url={pdf}>
+                                                            <LinkedinIcon size={32} round />
+                                                        </LinkedinShareButton>
+                                                    </>
+                                                ) : (
+                                                    <button onClick={Share} className='btn btn-danger' type='button'>Generate PDF and Get Link</button>
+                                                )}
                                             </div>
                                         </div>
 
@@ -259,17 +290,17 @@ export default function StudentResumeTemplate() {
                                                                 <div class="portfolio-item">
                                                                     <a href={project.link} target='_blank' >
                                                                         <figure class="effect">
-                                                                            <img src="/images/project-1.jpg" alt="Image" />
+                                                                            <img src="/images/projects.jpg" alt="Image" />
                                                                             <figcaption>
                                                                                 <h4 class="title">{project.title}</h4>
                                                                                 <p>{project.description}</p>
                                                                                 {
-                                                                                        project?.technologies.map((skill,index) => (
-                                                                                            <ul key={index}>
-                                                                                                <li>{skill}</li>
-                                                                                            </ul>
-                                                                                        ))
-                                                                                    }
+                                                                                    project?.technologies.map((skill, index) => (
+                                                                                        <ul key={index} style={{ color: '#FAF3F0' }}>
+                                                                                            <li>{skill}</li>
+                                                                                        </ul>
+                                                                                    ))
+                                                                                }
                                                                             </figcaption>
                                                                         </figure>
                                                                     </a>

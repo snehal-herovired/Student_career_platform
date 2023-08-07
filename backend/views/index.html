@@ -97,16 +97,16 @@
             display: flex;
             flex-wrap: wrap;
             gap: 4px 0;
-            width: 80%;
+            width: 90%;
             justify-content: space-between;
         }
 
         .experience-item {
-            flex: 0 0 calc(40% - 10px);
+           
             /* Two items per row, minus the gap */
-            border: 1px solid #116D6E;
+            border: none;
             border-radius: 8px;
-            padding: 10px;
+            padding: 5px;
         }
 
         .skill-item {
@@ -181,6 +181,7 @@
                 <h3>{{position}}</h3>
                 <p>{{duration}}</p>
                 <p>{{company}}</p>
+                <p>{{description}}</p>
             </div>
             {{/each}}
             <!-- Add more experience items if needed -->

@@ -70,7 +70,7 @@
   .portfolio-section .portfolio-item img {
     width: 100%;
     height: auto;
-    filter: blur(1px); /* Add blur effect */
+    filter: blur(2px); /* Add blur effect */
     transition: filter 0.2s ease-in-out;
     box-shadow: 13px 17px 21px 8px rgba(0,0,0,0.1);
 

@@ -149,6 +149,7 @@ export default function Template() {
                                                         <div class="card-body">
                                                             <h5>{exp.position}</h5>
                                                             <p>Duration : {exp.duration} </p>
+                                                            <p>{exp.description}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -202,14 +203,14 @@ export default function Template() {
                                                                 <div class="portfolio-item">
                                                                     <a href={project.link} target='_blank' >
                                                                         <figure class="effect">
-                                                                            <img src="/images/project-1.jpg" alt="Image" />
+                                                                            <img src="/images/projects.jpg" alt="Image" />
                                                                             <figcaption>
                                                                                 <h4 class="title">{project.title}</h4>
                                                                                 <p>{project.description}</p>
                                                                                     {
                                                                                         project?.technologies.map((skill,index) => (
-                                                                                            <ul key={index}>
-                                                                                                <li>{skill}</li>
+                                                                                            <ul key={index} style={{color:"", background: "#FAF3F0",fontWeight:'bold'}}>
+                                                                                                <li >{skill}</li>
                                                                                             </ul>
                                                                                         ))
                                                                                     }

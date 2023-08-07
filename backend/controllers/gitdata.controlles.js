@@ -6,6 +6,9 @@ var PdfPrinter = require('pdfmake');
 const axios = require('axios');// If using Node.js
 const fs = require('fs');
 const util = require('util');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
 const path = require('path');
 async function fetchFontBuffer(url) {
   try {
@@ -83,6 +86,9 @@ const generatePDF = async (req, res) => {
     const gitData = await GitDataModel.findOne({ "userData.studentId": studentId });
     let resumeData = await Resume.findOne({ studentId }).populate('studentId');
 
+
+
+
     if (!gitData) {
       return res.status(404).json({ message: 'Git data not found for the specified student ID' });
     }
@@ -113,6 +119,7 @@ const generatePDF = async (req, res) => {
         position: exp.position,
         company: exp.company,
         duration: exp.duration,
+        description:exp.description
       })),
       education: resumeData.education.map((exp) => ({
         institution: exp.institution,
@@ -146,7 +153,7 @@ const generatePDF = async (req, res) => {
     // Generate the PDF using puppeteer
     const browser = await puppeteer.launch({
       headless: 'new',
-      
+
     });
     const page = await browser.newPage();
 
@@ -161,7 +168,7 @@ const generatePDF = async (req, res) => {
 
     // Create a buffer from the PDF page
     const pdfBuffer = await page.pdf({
-      format: 'A4',
+      format: 'A5',
       printBackground: true,
       margin: {
         top: '20px',
@@ -174,13 +181,39 @@ const generatePDF = async (req, res) => {
     // Close the browser
     await browser.close();
 
-    // Send the PDF as the response
-    res.end(pdfBuffer);
+    // // Create an instance of AWS S3
+    const s3 = new AWS.S3({
+      accessKeyId: 'AKIAUJRYN7IHLD4E7QOA',
+      secretAccessKey: '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',
+      region: 'ap-south-1',
+    });
+    const uploadParams = {
+      Bucket: 'viredstorebucket',
+      Key: `resume_${Date.now()}.pdf`,
+      Body: pdfBuffer,
+      ACL: 'public-read', // Set the ACL to allow public read access to the uploaded PDF
+    };
+
+    s3.upload(uploadParams, (err, data) => {
+      if (err) {
+        console.error('Error uploading PDF to S3:', err);
+        return res.status(500).send('Error uploading PDF to S3');
+      }
+
+      // Get the URL of the uploaded PDF on S3 and send it back to the frontend
+      const pdfUrl = data.Location;
+      console.log(pdfUrl);
+      return res.status(200).json({ pdfUrl });
+    });
+
+    // res.end(pdfBuffer);
   } catch (error) {
     console.error('Error generating PDF:', error);
     res.status(500).send('Error generating PDF');
   }
 };
+
+// Upload the PDF buffer to S3
 
 
 // async function getImageDataUrl(imageUrl) {

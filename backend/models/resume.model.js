@@ -12,6 +12,9 @@ const experienceSchema = new mongoose.Schema({
   },
   duration: {
     type: String
+  },
+  description: {
+    type:String
   }
 });
 
