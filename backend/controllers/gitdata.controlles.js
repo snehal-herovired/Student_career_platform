@@ -183,8 +183,8 @@ const generatePDF = async (req, res) => {
 
     // // Create an instance of AWS S3
     const s3 = new AWS.S3({
-      accessKeyId: 'AKIAUJRYN7IHLD4E7QOA',
-      secretAccessKey: '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',
+      accessKeyId: process.env.S3AccessKey,
+      secretAccessKey: process.env.S3SecretKey,
       region: 'ap-south-1',
     });
     const uploadParams = {
