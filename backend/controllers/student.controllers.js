@@ -354,38 +354,41 @@ async function loginStudent(req, res) {
       if (resume && resume.contactInformation) {
         // console.log(resume, "from here......");
         let githubdetailfromDb = resume.contactInformation.github;
-        let gitusername = extractGithubUsername(githubdetailfromDb)
-        gitusername = gitusername || '';
-        const worker = new Worker('./githubWorker.js');
-        worker.on('message', async (message) => {
-          if (message.githubData) {
-            // Process the GitHub data received from the worker (optional)
-
-            // Return the login response
-            // console.log(message.githubData, "gitdata");
-            try {
-              let postData =
-              {
-                gitdata: message.githubData
+        if (githubdetailfromDb !== undefined) {
+          
+          let gitusername = extractGithubUsername(githubdetailfromDb)
+          gitusername = gitusername || '';
+          const worker = new Worker('./githubWorker.js');
+          worker.on('message', async (message) => {
+            if (message.githubData) {
+              // Process the GitHub data received from the worker (optional)
+  
+              // Return the login response
+              // console.log(message.githubData, "gitdata");
+              try {
+                let postData =
+                {
+                  gitdata: message.githubData
+                }
+                const response = await axios.post(`http://localhost:5000/gitdata/post`, postData);
+  
+                //     // Handle the response from the API if needed
+                console.log(response.data, "mongodb gitdata done");
+                return { message: "gitdata fetched" };
+              } catch (error) {
+                console.log(error);
+                return;
               }
-              const response = await axios.post(`http://localhost:5000/gitdata/post`, postData);
-
-              //     // Handle the response from the API if needed
-              console.log(response.data, "mongodb gitdata done");
-              return { message: "gitdata fetched" };
-            } catch (error) {
-              console.log(error);
-              return;
+            } else if (message.error) {
+              // Handle the error if any
+  
+              // Return the error response
+              return { message: 'gitdata could not be fetched' }
             }
-          } else if (message.error) {
-            // Handle the error if any
-
-            // Return the error response
-            return { message: 'gitdata could not be fetched' }
-          }
-        });
-        console.log(student._id,"from line 373");
-        worker.postMessage({ data: { username:gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
+          });
+          console.log(student._id,"from line 373");
+          worker.postMessage({ data: { username:gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
+        }
 
       
 

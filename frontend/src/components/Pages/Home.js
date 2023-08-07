@@ -24,12 +24,14 @@ export default function Home() {
 
   console.log("RESUME : ", data, "GItdata :", gitdata);
   const [resumeData, setResumeData] = useState({
-
+    
 
     image: data ? data?.image : '',
 
 
   });
+  const [idStudent, setStudentId] = useState('');
+  const [idBatch, setBatchId] = useState('');
   const [about, setAbout] = useState('');
   const [contactInformation, setContactInformation] = useState({
     email: '',
@@ -75,8 +77,11 @@ export default function Home() {
   useEffect(() => {
     const batchId = localStorage.getItem('batchId');
     const studentId = localStorage.getItem('studentId');
-    mutation.mutate({ ...data, batchId: batchId, studentId: studentId })
+    // mutation.mutate({ ...data, batchId: batchId, studentId: studentId })
     if (isSuccess && data) {
+      setStudentId(data.studentId || '');
+      setBatchId(data.batchId || '')
+     
       setAbout(data.about || '');
       setContactInformation(data.contactInformation || {
         email: '',
@@ -222,7 +227,7 @@ export default function Home() {
 
   const saveAboutChanges = () => {
     setIsEditingAbout(false);
-    const updatedResumeData = { ...data, about: about };
+    const updatedResumeData = { ...data, about: about,studentId:idStudent,batchId:idBatch };
     mutation.mutate(updatedResumeData);
   };
 
@@ -961,47 +966,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <!-- ======= Skills Section ======= --> */}
-        {/* <section id="skills" className="skills">
-        <div className="container" data-aos="fade-up">
 
-          <div className="section-title">
-            <h2>Skills</h2>
-          </div>
-
-          <div className="row skills-content">
-
-            <div className="col-lg-6">
-
-              <span className="skill">HTML </span>
-
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style={beginner} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-
-
-              <span className="skill">CSS </span>
-              <div className="progress">
-                <div className="progress-bar" role="progressbar" style={expert} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-
-
-
-              <span className="skill">JavaScript</span>
-              <div className="progress">
-                <div className="progress-bar" role="progressbar" style={advance} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-
-            </div>
-
-
-
-          </div>
-          <br />
-          <br />
-        </div>
-      </section> */}
-        {/* <!-- End Skills Section --> */}
 
         {/* <!-- ======= Github Section ======= --> */}
         <section id="facts" className="facts">
