@@ -5,16 +5,17 @@ import useTimerRequest from '../../customeHooks/timerFetchData';
 import { Url } from '../../../connection';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import {axiosInstance} from '../../../connection';
 const StudentLandingPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess: studentSuccess,error:studentdataerror } = useQuery(['studentdata'], async () => {
-        let response = await axios.get(`${Url}/student/students/${id}`)
+        let response = await axiosInstance.get(`/student/students/${id}`)
         return response.data
     })
     // console.log(data, "this is Single Student Data");
     const { data: gitdata, isError, isLoading, isSuccess } = useQuery(["gitdata"], async () => {
-        let response = await axios.get(`${Url}/gitdata/${id}`)
+        let response = await axiosInstance.get(`/gitdata/${id}`)
         return response.data
     })
     const blurredStyle = { filter: 'blur(2px)' };

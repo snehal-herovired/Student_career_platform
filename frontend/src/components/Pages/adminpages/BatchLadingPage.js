@@ -4,11 +4,12 @@ import { Url } from '../../../connection';
 import useGetRequest from '../../customeHooks/fetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import {axiosInstance} from '../../../connection';
 const BatchLandingPage = () => {
     const { id } = useParams()
     const [searchTerm, setSearchTerm] = useState('');
-    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(['batchdata'], async () => {
-        let response = await axios.get(`${Url}/batch/${id}`)
+    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess,error } = useQuery(['batchdata'], async () => {
+        let response = await axiosInstance.get(`/batch/${id}`)
         return response.data
     })
     console.log("batchdata :", data);
@@ -40,7 +41,7 @@ const BatchLandingPage = () => {
         return <div>Data Loading...</div>
     }
     if (getrequestError) {
-        return <div>Error loading data...</div>
+        return <div>Error loading data : {error.message}</div>
     }
 
     return (

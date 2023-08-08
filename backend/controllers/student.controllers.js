@@ -8,6 +8,7 @@ const axios = require('axios');
 const { resolve } = require('path');
 const amqp = require('amqplib');
 const { Worker } = require('worker_threads');
+const authenticateJWT =require('../utils/middleware')
 // require('../utils/githubWorker')
 
 // Student Registration Controller
@@ -341,7 +342,7 @@ async function loginStudent(req, res) {
 
     // Generate a JSON Web Token (JWT)
     const token = jwt.sign({ studentId: student._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '1h'
+      expiresIn: '2h'
     });
     if (student && student._id) {
       // console.log("studnet ",student);

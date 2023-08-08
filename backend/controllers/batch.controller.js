@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const Batch = require('../models/batch.model');
 const Student = require('../models/Student.model');
-
+const authenticateJWT =require('../utils/middleware')
 // Get Batch by ID
 // '/batches/:id
 const getBatchdetailbyid = async (req, res) => {

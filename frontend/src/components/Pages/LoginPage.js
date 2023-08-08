@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
-import { Url } from '../../connection';
 import "../../styles/normallayout.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {axiosInstance} from '../../connection';
 export default function Login({ setLogin, login }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
@@ -24,14 +24,14 @@ export default function Login({ setLogin, login }) {
 
   const onSubmit = async (data) => {
     try {
-      const ApiUrl = isStudent ? `${Url}/student/login` : `${Url}/user/login`;
-      const response = await axios.post(ApiUrl, data);
+      const ApiUrl = isStudent ? `/student/login` : `/user/login`;
+      const response = await axiosInstance.post(ApiUrl, data);
       const maindata = response.data;
       console.log("LOGIN RES DATA", maindata);
 
       setLogin(true);
       localStorage.setItem('login', 'true');
-      localStorage.setItem("token", JSON.stringify({ token: maindata.token }));
+      localStorage.setItem("token",  maindata.token);
       localStorage.setItem('studentId', maindata.student._id);
       localStorage.setItem('batchId', maindata.student.batchId);
       setErrorMessage('');

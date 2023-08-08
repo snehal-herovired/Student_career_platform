@@ -5,13 +5,14 @@ import useGetRequest from '../customeHooks/fetchData';
 import { Url } from '../../connection';
 import { useQuery } from '@tanstack/react-query';
 import axios from "axios"
+import {axiosInstance} from '../../connection';
 export default function Template() {
     const { id } = useParams();
     const studentId = localStorage.getItem('studentId')
     const { data:resumeData, isLoading, isSuccess, isError, refetch } = useGetRequest(`${Url}/resume/${studentId}`)
     console.log(id, resumeData, 'FORM TEMPLATE');
     const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
-        const response = await axios.get(`${Url}/gitdata/${studentId}`);
+        const response = await axiosInstance.get(`/gitdata/${studentId}`);
         return response.data;
     })
     console.log(gitdata,resumeData);

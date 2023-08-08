@@ -4,9 +4,10 @@ import useGetRequest from '../../customeHooks/fetchData';
 import { Url } from '../../../connection';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import {axiosInstance} from '../../../connection';
 const BatchPage = () => {
-    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(['batch'], async () => {
-        let response = await axios.get(`${Url}/batch/all`)
+    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess,error } = useQuery(['batch'], async () => {
+        let response = await axiosInstance.get(`/batch/all`)
         return response.data
     })
     console.log("batchData :", batchdata);
@@ -39,7 +40,7 @@ const BatchPage = () => {
         return <div>Data Loading...</div>
     }
     if (getrequestError) {
-        return <div>Error loading data...<button type='button' className='btn btn-success' onClick={refetch}>Reload data</button></div>
+        return <div>{error.message }...<button type='button' className='btn btn-success' onClick={refetch}>Reload data</button></div>
     }
     return (
         <div className="container mt-5">

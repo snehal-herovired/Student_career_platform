@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
+import {axiosInstance} from '../../connection';
 const useGetRequest = (url) => {
     const getRequest = async () => {
-      const response = await axios.get(url);
+      const response = await axiosInstance.get(url);
       return response.data;
     };
   

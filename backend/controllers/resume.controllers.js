@@ -4,6 +4,7 @@ const multer = require('multer');
 const { Resume } = require('../models/resume.model');
 const upload = multer({ dest: 'uploads/' });
 const parseResumeData = require('../utils/resumeParser');
+const authenticateJWT =require('../utils/middleware')
 // Create or Update Resume
 const createResume= async (req, res) => {
   const {

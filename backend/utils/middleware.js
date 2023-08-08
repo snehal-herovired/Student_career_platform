@@ -1,21 +1,31 @@
+const jwt = require('jsonwebtoken');
 
-// any func which deals with your req and res body and also has acces to next method ;
-function middleware(req, res, next) {
-    let token = req.headers.authorisation;
+function authenticateJWT(req, res, next) {
+    const authHeader = req.header('Authorization');
 
-    // token authorisation ,it comes with Bearer keyword ;
-    let decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if (decoded) {
-        next() 
-        // next() passes the control from this middleware to presiding middleware;
+    if (!authHeader) {
+        return res.status(401).json({ error: 'Unauthorized' });
     }
-    return res.send("token is invalid")
-    
+
+    const token = authHeader.split(' ')[1]; // Extract token after 'Bearer'
+
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY); // Replace with your actual secret key
+        if (!decoded) {
+
+            return    res.status(401).json({
+                message: 'Token is not valid or expired',
+            })
+        }
+        next();
+    } catch (error) {
+        console.log(error);
+        return res.status(403).json({ error: 'Invalid token' });
+    }
 }
 
-module.exports = middleware
-
-
-
-// jwt.sign --> creation of token -----> during login while the sending the response to client
-// jwt .verify ----> used for verifying token ---> create a custom function which takes token from client headers and compare with secret key.
+module.exports = authenticateJWT;

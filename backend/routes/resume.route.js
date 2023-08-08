@@ -1,6 +1,7 @@
 const express = require('express');
 const resumerouter = express.Router();
 const multer = require('multer');
+const authenticateJWT =require('../utils/middleware')
 const { createResume,deleteresumebyId,getresumebyId,uploadResume} = require("../controllers/resume.controllers")
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,9 +21,9 @@ const storage = multer.diskStorage({
   // POST route to handle the file upload
   resumerouter.post('/upload', upload.fields([{ name: 'resume', maxCount: 1 }, { name: 'image', maxCount: 1 }]), uploadResume);
 
-resumerouter.post('/create', createResume);
-resumerouter.get('/:id', getresumebyId);
-resumerouter.delete('/:id', deleteresumebyId);
+resumerouter.post('/create',authenticateJWT, createResume);
+resumerouter.get('/:id',authenticateJWT,getresumebyId);
+resumerouter.delete('/:id',authenticateJWT, deleteresumebyId);
 
 
 

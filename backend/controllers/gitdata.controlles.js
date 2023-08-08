@@ -10,6 +10,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 const path = require('path');
+const authenticateJWT =require('../utils/middleware')
 async function fetchFontBuffer(url) {
   try {
     const response = await axios.get(url, {

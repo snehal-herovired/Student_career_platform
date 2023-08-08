@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import useGetRequest from '../../customeHooks/timerFetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import {axiosInstance} from '../../../connection';
 import { Url } from '../../../connection';
 import { TwitterIcon, EmailIcon, FacebookIcon, LinkedinIcon } from 'react-share';
 import { TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton } from 'react-share';
@@ -21,47 +22,21 @@ export default function StudentResumeTemplate() {
     const [pdf, setPdfUrl] = useState('');
     const { id } = useParams();
     const { data: resumeData, isLoading, isSuccess, isError, refetch } = useQuery(["resumedata"], async function () {
-        const response = await axios.get(`${Url}/resume/${id}`);
+        const response = await axiosInstance.get(`/resume/${id}`);
         return response.data;
     })
     const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
-        const response = await axios.get(`${Url}/gitdata/${id}`);
+        const response = await axiosInstance.get(`/gitdata/${id}`);
         return response.data;
     })
     console.log(id, resumeData, gitdata, 'FORM TEMPLATE');
 
-    const handleDownloadPDF = async () => {
-        try {
-            setPdfLoading(true);
-            const response = await axios.get(`${Url}/gitdata/generate-pdf/${id}`, {
-                // Set any necessary request parameters here, such as studentId
 
-                responseType: 'blob', // Receive the response data as a blob
-            });
-            setPdfLoading(false);
-
-            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
-            const url = URL.createObjectURL(pdfBlob);
-
-            // Create a temporary link element and trigger the download
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'resume.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // Clean up the temporary URL
-            URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Error downloading PDF:', error);
-        }
-    };
 
     const Share = async () => {
         try {
             setPdfLoading(true);
-            const response = await axios.get(`${Url}/gitdata/generate-pdf/${id}`);
+            const response = await axiosInstance.get(`/gitdata/generate-pdf/${id}`);
             const { pdfUrl } = response.data;
             console.log(pdfUrl, "from response");
             setPdfLoading(false);
@@ -115,14 +90,7 @@ export default function StudentResumeTemplate() {
                                                 {
                                                     pdfdownloadLoading && <div>Loading...</div>
                                                 }
-                                                <a
-                                                    className="btn btn-danger"
-
-                                                    style={{ marginLeft: "3px", marginRight: "3px" }}
-                                                    onClick={handleDownloadPDF}
-                                                >
-                                                    Download CV
-                                                </a>
+                                              
                                                 {pdfdownloadLoading && <LoadingOverlay />}
 
                                                 <a

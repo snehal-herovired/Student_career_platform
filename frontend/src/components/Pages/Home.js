@@ -8,16 +8,17 @@ import fetchData from '../customeHooks/timerFetchData';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {axiosInstance} from '../../connection';
 import { useQuery } from '@tanstack/react-query';
 export default function Home() {
   const [upload, setUpload] = useState(false)
-  const APiUrl = upload ? `${Url}/resume/upload` : `${Url}/resume/create`
+  const APiUrl = upload ? `/resume/upload` : `/resume/create`
   const mutation = usePostRequest(APiUrl)
   const studentId = localStorage.getItem('studentId')
   // const { data: gitdata, isSuccess: gitSuccess } = fetchData(`${Url}/student/github/${studentId}`);
-  const { data, isLoading, isSuccess, isError, refetch, error } = useGetRequest(`${Url}/resume/${studentId}`);
+  const { data, isLoading, isSuccess, isError, refetch, error } = useGetRequest(`/resume/${studentId}`);
   const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
-    const response = await axios.get(`${Url}/gitdata/${studentId}`);
+    const response = await axiosInstance.get(`/gitdata/${studentId}`);
     return response.data;
   })
 
