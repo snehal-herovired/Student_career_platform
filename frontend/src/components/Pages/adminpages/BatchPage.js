@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import {axiosInstance} from '../../../connection';
 const BatchPage = () => {
-    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess,error } = useQuery(['batch'], async () => {
+    const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess,error } = useQuery(['singlebatch'], async () => {
         let response = await axiosInstance.get(`/batch/all`)
         return response.data
     })

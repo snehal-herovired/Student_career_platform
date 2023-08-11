@@ -348,7 +348,7 @@ async function loginStudent(req, res) {
       // console.log("studnet ",student);
       const resume = await Resume.findOne({ studentId: student._id });
       if (!resume) {
-        return res.status(200).json({ message: 'resume not found', githubUsername: false ,student});
+        return res.status(200).json({ message: 'resume not found', githubUsername: false ,student,admin:false});
 
       }
       // console.log("resume",resume);
@@ -393,14 +393,14 @@ async function loginStudent(req, res) {
 
       
 
-         return res.status(200).json({ message: 'Login successful', token, login: true, student: true, student});
+         return res.status(200).json({ message: 'Login successful', token, login: true, admin: false, student});
 
 
 
       }
     }
 
-    return res.status(200).json({ message: 'Login successful', token, login: true, student: true, student });
+    return res.status(200).json({ message: 'Login successful', token, login: true, admin: false, student });
   } catch (error) {
     console.log(error,"error from Login");
     return res.status(500).json({ message: 'Login failed', error, login: false });

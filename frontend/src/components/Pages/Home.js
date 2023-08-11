@@ -16,8 +16,11 @@ export default function Home() {
   const mutation = usePostRequest(APiUrl)
   const studentId = localStorage.getItem('studentId')
   // const { data: gitdata, isSuccess: gitSuccess } = fetchData(`${Url}/student/github/${studentId}`);
-  const { data, isLoading, isSuccess, isError, refetch, error } = useGetRequest(`/resume/${studentId}`);
-  const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
+  const { data, isLoading, isSuccess, isError, refetch, error } = useQuery(["resumeDataforStudent"], async function () {
+    const response = await axiosInstance.get(`/resume/${studentId}`);
+    return response.data;
+  });
+  const { data: gitdata, isSuccess: gitSuccess } = useQuery(["datafromgit"], async function () {
     const response = await axiosInstance.get(`/gitdata/${studentId}`);
     return response.data;
   })
@@ -490,7 +493,7 @@ export default function Home() {
   return (
     <>{
 
-      isSuccess && data && gitdata &&
+      isSuccess && data &&
       <main id="main">
 
         <section id="about" className="about" style={{ marginBottom: "3px", background: '' }}>

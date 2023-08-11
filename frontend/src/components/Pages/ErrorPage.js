@@ -5,7 +5,7 @@ export default function Error() {
       <div style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
           <h4>OOPs !!</h4>
           <h6>Either you are not authenticated or the route does not exists...</h6>
-          <Link to="/login">Login</Link>
+          <Link to="/login">Go Back</Link>
         
     </div>
   )

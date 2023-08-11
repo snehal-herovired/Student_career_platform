@@ -3,13 +3,17 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import usePostRequest from '../customeHooks/SendData';
 import useGetRequest from '../customeHooks/fetchData';
-import { Url } from '../../connection';
+import { Url, axiosInstance } from '../../connection';
 import "../../styles/normallayout.css"
+import { useQuery } from '@tanstack/react-query';
 export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   let ApiUrl = `${Url}/student/register`;
   const mutation = usePostRequest(ApiUrl);
-  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useGetRequest(`${Url}/batch/all`)
+  const { data: batchdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useQuery(["allbatch"], async function () {
+    const response = await axiosInstance.get(`${Url}/batch/all`);
+    return response.data
+  })
   console.log("batchData :", batchdata);
   const onSubmit = async (data) => {
     // Perform register logic here
@@ -104,7 +108,7 @@ export default function Register() {
                 <button type="submit" className="btn btn-danger">
                   Register
                 </button>
-                {mutation.isSuccess && <h6 style={{ color: 'red' }}>Data inserted sucessfully</h6>}
+                {mutation.isSuccess && <h6 style={{ color: 'red' }}>Student registered successfully...</h6>}
                 <span style={{ marginLeft: '3px' }}>Already registered?  <Link to='/login' style={{ textDecoration: 'none' }}>Login here</Link></span>
               </form>
             }

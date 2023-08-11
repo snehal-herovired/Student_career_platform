@@ -23,55 +23,62 @@ import LoginFallback from './components/Pages/LoginFallback';
 import Error from './components/Pages/ErrorPage';
 import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
 import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
-import Template2 from './components/templates/Template2';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
-  const [login, setLogin] = useState(localStorage.getItem('login')==='true');
+  const [studentlogin, setStudentLogin] = useState(localStorage.getItem('studentlogin') === 'true');
+  const [login, setLogin] = useState(localStorage.getItem('login') === 'true');
   useEffect(() => {
     if (login) {
       // If logged in, set 'login' to 'true' in localStorage
       localStorage.setItem('login', 'true');
     } else {
-      // If not logged in, remove 'login' from localStorage
       localStorage.removeItem('login');
     }
-  }, [login]);
+    if (studentlogin) {
+      // If not logged in, remove 'login' from localStorage
+      localStorage.setItem('studentlogin', 'true');
+    } else {
+      localStorage.removeItem('studentlogin');
+
+    }
+
+  }, [login, studentlogin]);
   // Define your conditional routes here
-  
+
   const router = createBrowserRouter([
     { path: '/', element: <Register /> },
-    { path: '/login', element: <Login setLogin={setLogin} login={login} /> },
-    
+    { path: '/login', element: <Login setLogin={setLogin} login={login} setStudentLogin={setStudentLogin} studentlogin={studentlogin} /> },
+
     login && {
       path: '/admin',
-      element: <NormalLayout  setLogin={setLogin} />,
+      element: <NormalLayout setLogin={setLogin} />,
       children: [
-        {index: true, element: <BatchPage /> },
+        { index: true, element: <BatchPage /> },
         {
           path: 'students',
           element: <StudentPage />,
-          
+
         },
         { path: ':id', element: <StudentLandingPage /> },
         { path: 'resume/:id', element: <StudentResumeTemplate /> },
-        {path:'batch/:id' ,element:<BatchLandingPage/>}
+        { path: 'batch/:id', element: <BatchLandingPage /> }
       ],
     },
 
-   login && {
+    studentlogin && {
       path: '/student',
-     element: <StudentLayout setLogin={setLogin} />,
-      
-     
+      element: <StudentLayout setLogin={setLogin} />,
+
+
       children: [
         { index: true, element: <LandingPage /> },
         { path: 'home', element: <Home /> },
         {
-          path:'template',element:<Template/>
+          path: 'template', element: <Template />
         },
-        {path:'uploadresume',element:<ResumeUploader/>},
-        {path:'myresume',element:<ResumeViewer/>},
+        { path: 'uploadresume', element: <ResumeUploader /> },
+        { path: 'myresume', element: <ResumeViewer /> },
         // {
         //   path: 'resume',
         //   element: <ResumeLayout />,
@@ -82,14 +89,14 @@ function App() {
         //     { path: 'skills', element: <Skillpage /> },
         //     { path: 'projects', element: <Projectpage /> },
         //     {path:'*',element:<Error/>}
-            
+
         //   ],
         // },
       ],
     },
- 
-   
-    {path:'*',element:<Error/>},
+
+
+    { path: '*', element: <Error /> },
   ]);
 
   return (

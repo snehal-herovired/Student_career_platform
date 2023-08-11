@@ -5,7 +5,7 @@ import "../../styles/normallayout.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {axiosInstance} from '../../connection';
-export default function Login({ setLogin, login }) {
+export default function Login({ setLogin, login,setStudentLogin,studentlogin }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
@@ -13,14 +13,13 @@ export default function Login({ setLogin, login }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    if (login) {
-      if (isStudent) {
-        navigate('/student');
-      } else {
-        navigate('/admin');
-      }
+    if (login && !isStudent) {
+     navigate('/admin')
     }
-  }, [login, isStudent]);
+    if (studentlogin && isStudent) {
+      navigate('/student')
+    }
+  }, [login, isStudent,studentlogin]);
 
   const onSubmit = async (data) => {
     try {
@@ -28,12 +27,20 @@ export default function Login({ setLogin, login }) {
       const response = await axiosInstance.post(ApiUrl, data);
       const maindata = response.data;
       console.log("LOGIN RES DATA", maindata);
-
-      setLogin(true);
-      localStorage.setItem('login', 'true');
-      localStorage.setItem("token",  maindata.token);
-      localStorage.setItem('studentId', maindata.student._id);
-      localStorage.setItem('batchId', maindata.student.batchId);
+      if (maindata && maindata.admin) {
+        setLogin(true);
+        setStudentLogin(false)
+        localStorage.setItem('login', 'true');
+        localStorage.setItem("token",  maindata.token);
+      } else if (maindata && !maindata.admin) {
+        
+        setStudentLogin(true)
+        setLogin(false)
+        localStorage.setItem('studentlogin', 'true');
+        localStorage.setItem("token",  maindata.token);
+        localStorage.setItem('studentId', maindata.student._id);
+        localStorage.setItem('batchId', maindata.student.batchId);
+      }
       setErrorMessage('');
     } catch (error) {
       console.error('Login Error:', error.message);
@@ -92,7 +99,7 @@ export default function Login({ setLogin, login }) {
                 </button>
                 <span style={{ marginLeft: '30px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 {
-                  login && <p style={{ color: 'red', margin: '2px' }}>Login su</p>
+                  login && <p style={{ color: 'red', margin: '2px' }}>Login Successfully</p>
                 }
                 {errorMessage && <p style={{ color: 'red', marginLeft: "30px", marginTop: '5px' }}>{errorMessage}</p>}
               </form>

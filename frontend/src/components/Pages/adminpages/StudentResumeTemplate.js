@@ -25,7 +25,7 @@ export default function StudentResumeTemplate() {
         const response = await axiosInstance.get(`/resume/${id}`);
         return response.data;
     })
-    const { data: gitdata, isSuccess: gitSuccess } = useQuery(["gitdata"], async function () {
+    const { data: gitdata, isSuccess: gitSuccess } = useQuery(["githubdata"], async function () {
         const response = await axiosInstance.get(`/gitdata/${id}`);
         return response.data;
     })
