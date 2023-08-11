@@ -27,7 +27,7 @@ const gitDataSchema = new mongoose.Schema({
     email: { type: String },
     avatar: { type: String },
     bio: { type: String },
-    public_repos: { type: Number },
+    public_repos: { type: String },
     location: { type: String },
     public_gists: { type: String },
     followers: { type: String },

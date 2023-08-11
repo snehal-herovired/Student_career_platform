@@ -1037,7 +1037,7 @@ export default function Home() {
         >
           {/* Modal content */}
           <h2>Success!</h2>
-            <p>Resume Update was Successfull for {}</p>
+            <p>Resume Update was Successfull.</p>
           <button onClick={closeModal} type='button' className='btn btn-success'>Close</button>
         </Modal>
       </main>

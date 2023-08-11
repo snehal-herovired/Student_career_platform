@@ -8,7 +8,7 @@ const axios = require('axios');
 const { resolve } = require('path');
 const amqp = require('amqplib');
 const { Worker } = require('worker_threads');
-const authenticateJWT =require('../utils/middleware')
+const authenticateJWT = require('../utils/middleware')
 // require('../utils/githubWorker')
 
 // Student Registration Controller
@@ -118,6 +118,7 @@ async function getGitHubRepositories(username, token) {
 // Function to fetch commit count for a specific repository
 async function getRepositoryCommitCount(owner, repoName, token) {
   try {
+    console.log(owner,repoName,token,"FROM COMMITCOUNT FUNCTION");
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repoName}/commits`, {
       params: {
         per_page: 1, // Fetch only 1 most recent commit
@@ -126,14 +127,17 @@ async function getRepositoryCommitCount(owner, repoName, token) {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log(response, "RESPONSE FOR COMMIT COUNT");
     if (response.status !== 200) {
-      throw new Error(`Error fetching commit count for repository ${owner}/${repoName}. Status: ${response.status}`);
+      console.log(`Error fetching commit count for repository ${owner}/${repoName}. Status: ${response.status}`);
+      return 0;
     }
 
     return response.data.length; // Return the number of commits (1 in this case, as we are fetching the most recent commit)
   } catch (error) {
-    throw new Error(`Error fetching commit count for repository ${owner}/${repoName}: ${error.message}`);
+    
+   console.log(`Error fetching commit count for repository ${owner}/${repoName}: ${error.message}`);
+    return 0;
   }
 }
 
@@ -226,6 +230,7 @@ async function trackGitHubAccount(username, token, studentId) {
 
     // Fetch commit count and commit history for each repository
     for (const repo of repositories) {
+      console.log(repo.name, "ALL REPO FOR USER");
       const commitCount = await getRepositoryCommitCount(username, repo.name, token);
       const commitHistory = await getRepositoryCommitHistory(username, repo.name, token);
       const languages = await getRepositoryLanguages(username, repo.name, token);
@@ -326,7 +331,7 @@ async function trackGitHubAccount(username, token, studentId) {
 // Student Login Controller
 async function loginStudent(req, res) {
   const { email, password } = req.body;
-   console.log(email,password ,":email and password");
+  console.log(email, password, ":email and password");
   try {
     // Check if the student exists
     const student = await Student.findOne({ email });
@@ -348,7 +353,7 @@ async function loginStudent(req, res) {
       // console.log("studnet ",student);
       const resume = await Resume.findOne({ studentId: student._id });
       if (!resume) {
-        return res.status(200).json({ message: 'resume not found', githubUsername: false ,student,admin:false});
+        return res.status(200).json({ message: 'resume not found', githubUsername: false, student, admin: false, token });
 
       }
       // console.log("resume",resume);
@@ -356,14 +361,14 @@ async function loginStudent(req, res) {
         // console.log(resume, "from here......");
         let githubdetailfromDb = resume.contactInformation.github;
         if (githubdetailfromDb !== undefined) {
-          
+
           let gitusername = extractGithubUsername(githubdetailfromDb)
           gitusername = gitusername || '';
           const worker = new Worker('./githubWorker.js');
           worker.on('message', async (message) => {
             if (message.githubData) {
               // Process the GitHub data received from the worker (optional)
-  
+
               // Return the login response
               // console.log(message.githubData, "gitdata");
               try {
@@ -372,7 +377,7 @@ async function loginStudent(req, res) {
                   gitdata: message.githubData
                 }
                 const response = await axios.post(`http://localhost:5000/gitdata/post`, postData);
-  
+
                 //     // Handle the response from the API if needed
                 console.log(response.data, "mongodb gitdata done");
                 return { message: "gitdata fetched" };
@@ -382,18 +387,18 @@ async function loginStudent(req, res) {
               }
             } else if (message.error) {
               // Handle the error if any
-  
+
               // Return the error response
               return { message: 'gitdata could not be fetched' }
             }
           });
-          console.log(student._id,"from line 373");
-          worker.postMessage({ data: { username:gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
+          console.log(student._id, "from line 373");
+          worker.postMessage({ data: { username: gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
         }
 
-      
 
-         return res.status(200).json({ message: 'Login successful', token, login: true, admin: false, student});
+
+        return res.status(200).json({ message: 'Login successful', token, login: true, admin: false, student });
 
 
 
@@ -402,7 +407,7 @@ async function loginStudent(req, res) {
 
     return res.status(200).json({ message: 'Login successful', token, login: true, admin: false, student });
   } catch (error) {
-    console.log(error,"error from Login");
+    console.log(error, "error from Login");
     return res.status(500).json({ message: 'Login failed', error, login: false });
   }
 }
@@ -478,8 +483,8 @@ const getStudentandGitDetailbyId = async (req, res) => {
             return { message: 'gitdata could not be fetched' }
           }
         });
-        console.log(student._id,"from line 373");
-        worker.postMessage({ data: { username:gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
+        console.log(student._id, "from line 373");
+        worker.postMessage({ data: { username: gitusername, token: process.env.gitToken, studentId: `${student._id}` } });
 
 
 
