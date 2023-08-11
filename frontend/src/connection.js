@@ -22,5 +22,5 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-const Url ='http://localhost:5000'
+const Url ='https://viredstoreapi.prashantdey.in'
 export { axiosInstance, Url }
