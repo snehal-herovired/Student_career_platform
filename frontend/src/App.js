@@ -68,7 +68,7 @@ function App() {
 
     studentlogin && {
       path: '/student',
-      element: <StudentLayout setLogin={setLogin} />,
+      element: <StudentLayout setLogin={setLogin} setStudentLogin={setStudentLogin} />,
 
 
       children: [

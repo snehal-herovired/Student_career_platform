@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet, NavLink, useNavigate } from "react-router-dom"
 import '../../styles/drawer.css'
-export default function StudentLayout({setLogin}) {
+export default function StudentLayout({setStudentLogin}) {
     const navigate = useNavigate();
     let btnStyle = {
         border: "1px solid #6b050b",
@@ -28,7 +28,7 @@ export default function StudentLayout({setLogin}) {
     }
 
     function handleLogout() {
-        setLogin(false)
+        setStudentLogin(false)
         localStorage.removeItem("login");
         navigate('/login')
     }
