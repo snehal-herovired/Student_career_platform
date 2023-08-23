@@ -195,6 +195,21 @@ const deleteresumebyId = async (req, res) => {
     }
 };
 
+const getAllResume = async (req, res) => {
+  try {
+    let resumeData = await Resume.find();
+    console.log(resumeData,"from getAllResume controller");
+    if (resumeData) {
+      res.status(200).json(resumeData)
+      return;
+    }
+    res.status(401).json({message:"Resumes not available"})
+  } catch (error) {
+    console.log(error.message, "from all resumedata");
+    res.status(401).json({message:'Something went wrong while fetching resumeData'})
+  }
+}
+
 module.exports = {
-    createResume,deleteresumebyId,getresumebyId,uploadResume
+    createResume,deleteresumebyId,getresumebyId,uploadResume,getAllResume
 }

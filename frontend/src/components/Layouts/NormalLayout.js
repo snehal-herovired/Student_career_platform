@@ -65,6 +65,9 @@ export default function NormalLayout({setLogin}) {
                   <li class="menu-item" onClick={() => navigate('/admin/students')}>
                   <i class="fa fa-share menu-icon"></i> &nbsp; View Students
                   </li>
+                  <li class="menu-item" onClick={() => navigate('/admin/controls')}>
+                  <i class="fa fa-share menu-icon"></i> &nbsp; Control Panel
+                  </li>
                  
                   {/* <li class="menu-item" onClick={() => navigate('/student/myresume')}>
                     <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 

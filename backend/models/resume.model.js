@@ -41,9 +41,9 @@ const skillSchema = new mongoose.Schema({
     default: ''
   },
   proficiency: {
-    type: String,
+    type: Number,
+    default:0
     
-    default: 'basic'
   }
 });
 
