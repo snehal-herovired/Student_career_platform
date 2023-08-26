@@ -5,11 +5,11 @@ import useTimerRequest from '../../customeHooks/timerFetchData';
 import { Url } from '../../../connection';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import {axiosInstance} from '../../../connection';
+import { axiosInstance } from '../../../connection';
 const StudentLandingPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess: studentSuccess,error:studentdataerror } = useQuery(['studentdata'], async () => {
+    const { data, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess: studentSuccess, error: studentdataerror } = useQuery(['studentdata'], async () => {
         let response = await axiosInstance.get(`/student/students/${id}`)
         return response.data
     })
@@ -23,8 +23,8 @@ const StudentLandingPage = () => {
     // if (getrequestLoading) {
     //     return <div>Data Loading...</div>
     // }
-    if (getrequestError ) {
-        return <div>Error !! {studentdataerror.message}..<button type='button' className='btn btn-danger' onClick={()=>navigate('/admin')}>Sync Data</button></div>
+    if (getrequestError) {
+        return <div>Error !! {studentdataerror.message}..<button type='button' className='btn btn-danger' onClick={() => navigate('/admin')}>Sync Data</button></div>
     }
     function convertToIndianStandardTime(dateString) {
         // Check if dateString is not provided or is not a valid date
@@ -62,7 +62,7 @@ const StudentLandingPage = () => {
     }
 
 
-  
+
 
 
     return (
@@ -132,7 +132,7 @@ const StudentLandingPage = () => {
                             <p><span style={{ fontWeight: 'bold' }}>Public Repos</span>: {isSuccess && gitdata ? gitdata?.userData?.public_repos : "No data"}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Public Gists</span>: {isSuccess && gitdata ? gitdata?.userData?.public_gists : "No data"}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Total Repo</span>: {isSuccess && gitdata ? gitdata?.userData?.total_repositories : "No data"}</p>
-                            <p><span style={{ fontWeight: 'bold' }}>Bio</span>: {isSuccess && gitdata ?gitdata?.userData?.bio : "No data"}</p>
+                            <p><span style={{ fontWeight: 'bold' }}>Bio</span>: {isSuccess && gitdata ? gitdata?.userData?.bio : "No data"}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Url</span>: {isSuccess && gitdata ? <a href={gitdata?.userData?.githubLink} target="_blank" type='button' className='btn btn-danger' >Visit Github</a> : "No data"}</p>
 
 
@@ -148,9 +148,9 @@ const StudentLandingPage = () => {
                     <table class="table">
                         <thead>
                             <tr>
-                               
+
                                 <th scope="col">Repo Name</th>
-                               
+
                                 <th scope="col">Recent Commit history</th>
                             </tr>
                         </thead>
@@ -159,9 +159,9 @@ const StudentLandingPage = () => {
                             {
                                 isSuccess && gitdata && gitdata.repositoriesData?.map((ele, index) => (
                                     <tr key={index}>
-                                       
+
                                         <td>{ele.name}</td>
-                                        
+
                                         <td>{convertToIndianStandardTime(ele.commitHistory[0]?.date)}</td>
                                     </tr>
                                 ))
@@ -170,6 +170,35 @@ const StudentLandingPage = () => {
                         </tbody>
                     </table>
                 </div>
+                <div class="col-md-12">
+                    <div class="h4 text-center mb-4 title">Technical Skills</div>
+                    <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                        {
+                            isSuccess && gitdata && (
+                                <div class="card-body">
+                                    <div class="row">
+                                        {Object.entries(gitdata.averageLanguagesPercentage).map(([key, value], index) => (
+                                            <div class="col-md-6" key={key}>
+                                                <div class="progress-container">
+                                                    <span class="progress-label">{key}</span>
+                                                    <div class="custom-progress-bar">
+                                                        <div
+                                                            class="progress-fill"
+                                                            style={{ width: `${value}%`, backgroundColor: '#6b050b' }}
+                                                        ></div>
+                                                    </div>
+                                                    <span class="progress-value">{value}%</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        }
+
+
+                    </div >
+                </div >
             </div>
         </div>
     );

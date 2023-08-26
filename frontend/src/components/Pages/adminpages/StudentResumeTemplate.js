@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import useGetRequest from '../../customeHooks/timerFetchData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import {axiosInstance} from '../../../connection';
+import { axiosInstance } from '../../../connection';
 import { Url } from '../../../connection';
 import { TwitterIcon, EmailIcon, FacebookIcon, LinkedinIcon } from 'react-share';
 import { TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton } from 'react-share';
@@ -90,7 +90,7 @@ export default function StudentResumeTemplate() {
                                                 {
                                                     pdfdownloadLoading && <div>Loading...</div>
                                                 }
-                                              
+
                                                 {pdfdownloadLoading && <LoadingOverlay />}
 
                                                 <a
@@ -161,28 +161,26 @@ export default function StudentResumeTemplate() {
                                 <div class="container">
                                     <div class="h4 text-center mb-4 title">Technical Skills</div>
                                     <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        {
-                                            gitSuccess && (
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        {Object.entries(gitdata.averageLanguagesPercentage).map(([key, value], index) => (
-                                                            <div class="col-md-6" key={key}>
-                                                                <div class="progress-container">
-                                                                    <span class="progress-label">{key}</span>
-                                                                    <div class="custom-progress-bar">
-                                                                        <div
-                                                                            class="progress-fill"
-                                                                            style={{ width: `${value}%`, backgroundColor: '#6b050b' }}
-                                                                        ></div>
-                                                                    </div>
-                                                                    <span class="progress-value">{value}%</span>
-                                                                </div>
+
+                                        <div class="card-body">
+                                            <div class="row">
+                                                {resumeData?.skills.map((ele, index) => (
+                                                    <div class="col-md-6" key={index}>
+                                                        <div class="progress-container">
+                                                            <span class="progress-label">{ele.name}</span>
+                                                            <div class="custom-progress-bar">
+                                                                <div
+                                                                    class="progress-fill"
+                                                                    style={{ width: `${ele.proficiency*10}%`, backgroundColor: '#6b050b' }}
+                                                                ></div>
                                                             </div>
-                                                        ))}
+                                                            <span class="progress-value">{ele.proficiency*10}%</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        }
+                                                ))
+                                                }
+                                            </div>
+                                        </div>
 
 
                                     </div >
