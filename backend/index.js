@@ -4,6 +4,9 @@ const path = require('path')
 const morgan = require("morgan");
 const helmet = require('helmet')
 const cors = require("cors");
+const http = require('http');
+const socketIo = require('socket.io');
+const Message =require('./models/studentforum.model')
 const app = express();
 const axios = require('axios')
 const bodyParser = require('body-parser');
@@ -18,7 +21,30 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 // app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static('uploads'));
-
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods:['GET','POST']
+      }
+});
+console.log(io, "SOCKET Server");
+io.on('connection', (socket) => {
+    console.log('User connected');
+  
+    socket.on('message', async (data) => {
+      const newMessage = new Message(data);
+      await newMessage.save();
+     // Populate sender field before emitting the message
+        const populatedMessage = await Message.findById(newMessage._id).populate('sender');
+        // console.log(populatedMessage);
+      io.emit('message', populatedMessage);
+    });
+  
+    socket.on('disconnect', () => {
+      console.log('User disconnected');
+    });
+  });
 //PORT
 const Port = process.env.PORT;
 // Enabling the database ;
@@ -69,7 +95,7 @@ app.get('/fetch-resume/uploads/:filename', (req, res) => {
 
 
 
-app.listen(Port, (error) => {
+server.listen(Port, (error) => {
     if (!error) {
 
         console.log(`server is running on PORT ${Port}`);

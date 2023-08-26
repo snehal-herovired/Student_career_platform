@@ -70,6 +70,9 @@ export default function StudentLayout({setStudentLogin}) {
                                         <i className="fa fa-share menu-icon"></i> &nbsp; View Final Template
                                     </li>
                                    
+                                    <li className="menu-item" onClick={()=>navigate('/student/studentforum')}>
+                                        <i className="fa fa-share menu-icon"></i> &nbsp; Student Forum
+                                    </li>
                                     <li className="menu-item" onClick={handleLogout}>
                                         <i className="fa fa-share menu-icon"></i> &nbsp; Logout
                                     </li>
