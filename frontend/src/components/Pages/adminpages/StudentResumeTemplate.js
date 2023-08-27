@@ -29,7 +29,7 @@ export default function StudentResumeTemplate() {
         const response = await axiosInstance.get(`/gitdata/${id}`);
         return response.data;
     })
-    console.log(id, resumeData, gitdata, 'FORM TEMPLATE');
+    // console.log(id, resumeData, gitdata, 'FORM TEMPLATE');
 
 
 
@@ -38,7 +38,7 @@ export default function StudentResumeTemplate() {
             setPdfLoading(true);
             const response = await axiosInstance.get(`/gitdata/generate-pdf/${id}`);
             const { pdfUrl } = response.data;
-            console.log(pdfUrl, "from response");
+            // console.log(pdfUrl, "from response");
             setPdfLoading(false);
             setPdfUrl(pdfUrl);
 

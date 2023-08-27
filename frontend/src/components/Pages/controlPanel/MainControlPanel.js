@@ -67,13 +67,13 @@ export default function MainControlPanel() {
 
     const fetchDataResume = async (id) => {
         try {
-            console.log(id, "STUDENTID SELECTED");
+            // console.log(id, "STUDENTID SELECTED");
             let response = await axiosInstance.get(`/resume/${id}`);
             if (response.status !== 404 || response.status !== 500) {
 
-                console.log(response.data, "RESUME FOR THIS ID");
+                // console.log(response.data, "RESUME FOR THIS ID");
                 setResume(response.data)
-                console.log(skillName, "skills");
+                // console.log(skillName, "skills");
                 setSkillName(response.data.skills);
             }
         } catch (error) {
@@ -94,7 +94,7 @@ export default function MainControlPanel() {
                 alert('Invalid ID!')
                 return;
             }
-            console.log(singleStudentData, "FROM handlechange Func..");
+            // console.log(singleStudentData, "FROM handlechange Func..");
             setSingleStudent(response.data)
             fetchDataResume(value)
         } catch (error) {

@@ -6,7 +6,7 @@ import useGetRequest from '../customeHooks/fetchData';
 const ResumeViewer = () => {
   const [resumeUrl, setResumeUrl] = useState('');
   const id = localStorage.getItem('studentId');
-  console.log(id, "studentid from localstorage");
+  // console.log(id, "studentid from localstorage");
   const { data, isError, isLoading, refetch } = useGetRequest(`${Url}/resume/${id}`);
 
   useEffect(() => {

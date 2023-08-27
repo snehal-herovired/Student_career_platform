@@ -12,7 +12,7 @@ const BatchLandingPage = () => {
         let response = await axiosInstance.get(`/batch/${id}`)
         return response.data
     })
-    console.log("batchdata :", data);
+    // console.log("batchdata :", data);
     const navigate = useNavigate();
     let filteredStudents = [];
     // Sample batch data (replace this with your actual batch data)

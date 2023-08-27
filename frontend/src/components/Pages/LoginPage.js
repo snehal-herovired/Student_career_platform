@@ -26,7 +26,7 @@ export default function Login({ setLogin, login,setStudentLogin,studentlogin }) 
       const ApiUrl = isStudent ? `/student/login` : `/user/login`;
       const response = await axiosInstance.post(ApiUrl, data);
       const maindata = response.data;
-      console.log("LOGIN RES DATA", maindata);
+      // console.log("LOGIN RES DATA", maindata);
       if (maindata && maindata.admin) {
         setLogin(true);
         setStudentLogin(false)

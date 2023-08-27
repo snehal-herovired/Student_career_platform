@@ -12,7 +12,7 @@ const ChatInput = ({ sendMessage }) => {
   };
 
   return (
-    <form onSubmit={handleSendMessage}>
+    <form onSubmit={handleSendMessage} style={{padding:'5px',margin:'5px'}}>
       <div className="mb-3">
         <input
           type="text"
@@ -22,7 +22,7 @@ const ChatInput = ({ sendMessage }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button className="btn btn-danger" type="submit">
         Send
       </button>
     </form>

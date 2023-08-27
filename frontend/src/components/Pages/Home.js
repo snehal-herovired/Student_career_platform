@@ -26,7 +26,7 @@ export default function Home() {
   })
 
 
-  console.log("RESUME : ", data, "GItdata :", gitdata);
+  // console.log("RESUME : ", data, "GItdata :", gitdata);
   const [resumeData, setResumeData] = useState({
     
 
@@ -83,8 +83,8 @@ export default function Home() {
     const studentId = localStorage.getItem('studentId');
     // mutation.mutate({ ...data, batchId: batchId, studentId: studentId })
     if (isSuccess && data) {
-      setStudentId(data.studentId || '');
-      setBatchId(data.batchId || '')
+      setStudentId(data.studentId || studentId);
+      setBatchId(data.batchId || batchId)
      setResumeData(data?.image || '')
       setAbout(data.about || '');
       setContactInformation(data.contactInformation || {
@@ -477,18 +477,7 @@ export default function Home() {
 
   // ******************************************************************************************************
 
-  let beginner = {
-    width: "20%"
-  }
-  let intermediate = {
-    width: "40%"
-  }
-  let advance = {
-    width: "80%"
-  }
-  let expert = {
-    width: "100%"
-  }
+
 
   return (
     <>
@@ -500,7 +489,7 @@ export default function Home() {
         </div>
       }
       {
-        isError && <div>{error.message}</div>
+        isError && <div>Resume not found...</div>
       }
       {
 
@@ -1097,7 +1086,7 @@ export default function Home() {
             <div className="row" style={{}}>
               <h4 style={{ fontWeight: "bold", textAlign: 'center', marginTop: '4px', marginBottom: '4px' }}>Personal Information</h4>
               <div className="col-lg-4">
-                <img crossOrigin="anonymous" src={gitSuccess && resumeData ? `${gitdata?.userData?.avatar}` : ``} alt="image here" style={{ height: "100%", width: "100%", }} />
+                <img crossOrigin="anonymous" src='' alt="image here" style={{ height: "100%", width: "100%", }} />
                 <h6 style={{ textAlign: 'center', position: 'relative', margin: '3px' }}>
                   Profile Picture
                   <span

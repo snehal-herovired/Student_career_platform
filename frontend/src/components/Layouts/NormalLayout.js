@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import '../../App.css'
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import '../../styles/drawer.css'
-export default function NormalLayout({setLogin}) {
+export default function NormalLayout({ setLogin }) {
   const navigate = useNavigate();
-  
+
   let btnStyle = {
     border: "1px solid rgb(128,128,128,0.2)",
     height: '30px',
@@ -28,7 +28,7 @@ export default function NormalLayout({setLogin}) {
     setLogin(false)
     localStorage.removeItem('login')
     navigate('/login');
-}
+  }
   return (
     <div style={{ height: "100%", width: "100%" }}>
       {/* Header  */}
@@ -38,18 +38,18 @@ export default function NormalLayout({setLogin}) {
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          
-          
+
+
           <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
             <div style={{}}>
-            <i class="fa fa-bars" ></i>
-            
+              <i class="fa fa-bars" ></i>
+
             </div>
 
           </button>
-          
-  
-          
+
+
+
 
           <div class="offcanvas offcanvas-start" tabindex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
             <div class="offcanvas-header drawer-header" style={{ background: 'white', color: 'red' }}>
@@ -60,22 +60,24 @@ export default function NormalLayout({setLogin}) {
               <div>
                 <ul class="menu-list">
                   <li class="menu-item" onClick={() => navigate('/admin')}>
-                  <i class="fa fa-share menu-icon"></i> &nbsp; View Batches
+                    <i class="fa fa-share menu-icon"></i> &nbsp; View Batches
                   </li>
                   <li class="menu-item" onClick={() => navigate('/admin/students')}>
-                  <i class="fa fa-share menu-icon"></i> &nbsp; View Students
+                    <i class="fa fa-share menu-icon"></i> &nbsp; View Students
                   </li>
                   <li class="menu-item" onClick={() => navigate('/admin/controls')}>
-                  <i class="fa fa-share menu-icon"></i> &nbsp; Control Panel
+                    <i class="fa fa-share menu-icon"></i> &nbsp; Control Panel
                   </li>
-                 
+                  <li className="menu-item" onClick={() => navigate('/student/studentforum')}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; Student Forum
+                  </li>
                   {/* <li class="menu-item" onClick={() => navigate('/student/myresume')}>
                     <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
                   </li> */}
                   <li class="menu-item" onClick={handleLogout}>
-                  <i class="fa fa-share menu-icon"></i> &nbsp; Logout 
+                    <i class="fa fa-share menu-icon"></i> &nbsp; Logout
                   </li>
-                  
+
                 </ul>
               </div>
             </div>

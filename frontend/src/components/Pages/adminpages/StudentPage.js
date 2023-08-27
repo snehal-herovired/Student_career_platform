@@ -6,7 +6,7 @@ import useGetRequest from '../../customeHooks/fetchData';
 const StudentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const { data: studentdata, isError: getrequestError, isLoading: getrequestLoading, refetch, isSuccess } = useGetRequest(`${Url}/student/students`)
-    console.log("student :", studentdata);
+    // console.log("student :", studentdata);
     const navigate = useNavigate();
     let filteredStudents = [];
     // Sample batch data (replace this with your actual batch data)

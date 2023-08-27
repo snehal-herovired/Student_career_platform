@@ -10,7 +10,7 @@ const BatchPage = () => {
         let response = await axiosInstance.get(`/batch/all`)
         return response.data
     })
-    console.log("batchData :", batchdata);
+    // console.log("batchData :", batchdata);
     let filteredBatches = [];
     // Sample batch data (replace this with your actual batch data)
     // const batchData = [

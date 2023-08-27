@@ -14,11 +14,11 @@ export default function Register() {
     const response = await axiosInstance.get(`${Url}/batch/all`);
     return response.data
   })
-  console.log("batchData :", batchdata);
+  // console.log("batchData :", batchdata);
   const onSubmit = async (data) => {
     // Perform register logic here
     // using the custom component to deal with post request;
-    console.log('Register:', data);
+    // console.log('Register:', data);
 
     try {
       await mutation.mutateAsync(data);
