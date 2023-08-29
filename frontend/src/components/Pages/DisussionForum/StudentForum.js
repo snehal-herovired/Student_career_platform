@@ -30,7 +30,7 @@ const StudentForum = () => {
   useEffect(() => {
     const studentId = localStorage.getItem('studentId');
     setStudentId(studentId);
-    const newSocket = io('http://localhost:5000'); // Change the URL if needed
+    const newSocket = io('https://viredstoreapi.prashantdey.in'); // Change the URL if needed
     setSocket(newSocket);
 
     return () => {
