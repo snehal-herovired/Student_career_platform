@@ -24,7 +24,6 @@ import Error from './components/Pages/ErrorPage';
 import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
 import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
 import MainControlPanel from './components/Pages/controlPanel/MainControlPanel';
-import StudentForum from './components/Pages/DisussionForum/StudentForum';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -82,7 +81,6 @@ function App() {
         },
         { path: 'uploadresume', element: <ResumeUploader /> },
         { path: 'myresume', element: <ResumeViewer /> },
-        {path:'studentforum',element:<StudentForum/>}
         // {
         //   path: 'resume',
         //   element: <ResumeLayout />,

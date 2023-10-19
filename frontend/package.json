@@ -25,7 +25,6 @@
     "react-scripts": "5.0.1",
     "react-share": "^4.4.1",
     "react-web-share": "^2.0.2",
-    "socket.io-client": "^4.7.2",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
