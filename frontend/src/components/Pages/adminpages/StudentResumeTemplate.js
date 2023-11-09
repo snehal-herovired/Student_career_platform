@@ -10,8 +10,8 @@ import { TwitterIcon, EmailIcon, FacebookIcon, LinkedinIcon } from 'react-share'
 import { TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton } from 'react-share';
 const LoadingOverlay = () => {
     return (
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
         </div>
     );
 };
@@ -73,19 +73,19 @@ export default function StudentResumeTemplate() {
 
             {
                 isSuccess && resumeData && gitdata && resumeData.studentId && (
-                    <div class="page-content" id="resume-section">
+                    <div className="page-content" id="resume-section">
                         <div>
-                            <div class="profile-page" >
-                                <div class="wrapper">
-                                    <div class="page-header page-header-small" filter-color="green">
-                                        <div class="page-header-image" data-parallax="true" >
+                            <div className="profile-page" >
+                                <div className="wrapper">
+                                    <div className="page-header page-header-small" filter-color="green">
+                                        <div className="page-header-image" data-parallax="true" >
                                         </div>
-                                        <div class="container" style={{ width: '1200px' }}>
-                                            <div class="content-center" >
-                                                <div class="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata?.userData?.avatar}` : `${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
-                                                <div class="h4 " style={{ marginLeft: '', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
+                                        <div className="container" style={{ width: '1200px' }}>
+                                            <div className="content-center" >
+                                                <div className="cc-profile-image" ><a href="#"><img crossOrigin="anonymous" src={gitSuccess ? `${gitdata?.userData?.avatar}` : `${Url}/${resumeData?.image}`} alt="Image" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} /></a></div>
+                                                <div className="h4 " style={{ marginLeft: '', marginTop: "10px" }}>{resumeData?.studentId?.username.toUpperCase()}  </div>
 
-                                                <p class="category" style={{ color: 'black' }}></p>
+                                                <p className="category" style={{ color: 'black' }}></p>
 
                                                 {
                                                     pdfdownloadLoading && <div>Loading...</div>
@@ -94,11 +94,11 @@ export default function StudentResumeTemplate() {
                                                 {pdfdownloadLoading && <LoadingOverlay />}
 
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
-                                                    title="Visit me on Github"><i class="fa fa-github"></i></a>
+                                                    className="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
+                                                    title="Visit me on Github"><i className="fa fa-github"></i></a>
                                                 <a
-                                                    class="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} target='_blank' rel="tooltip"
-                                                    title="Follow me on LinkedIn"><i class="fa fa-linkedin"></i></a>
+                                                    className="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} target='_blank' rel="tooltip"
+                                                    title="Follow me on LinkedIn"><i className="fa fa-linkedin"></i></a>
 
                                                 {pdf ? (
                                                     <>
@@ -123,32 +123,32 @@ export default function StudentResumeTemplate() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="section" id="about">
-                                <div class="container" >
-                                    <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-12">
-                                                <div class="card-body">
-                                                    <div class="h4 mt-0 title">About</div>
+                            <div className="section" id="about">
+                                <div className="container" >
+                                    <div className="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                        <div className="row">
+                                            <div className="col-lg-6 col-md-12">
+                                                <div className="card-body">
+                                                    <div className="h4 mt-0 title">About</div>
                                                     {/* <p>Hello! I am {resumeData.studentId.username.toUpperCase()}.</p> */}
                                                     <p>{resumeData?.about} </p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-12">
-                                                <div class="card-body">
-                                                    <div class="h4 mt-0 title">Basic Information</div>
+                                            <div className="col-lg-6 col-md-12">
+                                                <div className="card-body">
+                                                    <div className="h4 mt-0 title">Basic Information</div>
 
-                                                    <div class="row mt-3">
-                                                        <div class="col-sm-4"><strong class="text-uppercase">Email:</strong></div>
-                                                        <div class="col-sm-8">{resumeData?.studentId?.email}</div>
+                                                    <div className="row mt-3">
+                                                        <div className="col-sm-4"><strong className="text-uppercase">Email:</strong></div>
+                                                        <div className="col-sm-8">{resumeData?.studentId?.email}</div>
                                                     </div>
-                                                    <div class="row mt-3">
-                                                        <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
-                                                        <div class="col-sm-8">{resumeData?.contactInformation?.phone}</div>
+                                                    <div className="row mt-3">
+                                                        <div className="col-sm-4"><strong className="text-uppercase">Phone:</strong></div>
+                                                        <div className="col-sm-8">{resumeData?.contactInformation?.phone}</div>
                                                     </div>
-                                                    <div class="row mt-3">
-                                                        <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-                                                        <div class="col-sm-8">{resumeData?.contactInformation?.address}</div>
+                                                    <div className="row mt-3">
+                                                        <div className="col-sm-4"><strong className="text-uppercase">Address:</strong></div>
+                                                        <div className="col-sm-8">{resumeData?.contactInformation?.address}</div>
                                                     </div>
 
                                                 </div>
@@ -157,24 +157,24 @@ export default function StudentResumeTemplate() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="section" id="skill">
-                                <div class="container">
-                                    <div class="h4 text-center mb-4 title">Technical Skills</div>
-                                    <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                            <div className="section" id="skill">
+                                <div className="container">
+                                    <div className="h4 text-center mb-4 title">Technical Skills</div>
+                                    <div className="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
 
-                                        <div class="card-body">
-                                            <div class="row">
+                                        <div className="card-body">
+                                            <div className="row">
                                                 {resumeData?.skills.map((ele, index) => (
-                                                    <div class="col-md-6" key={index}>
-                                                        <div class="progress-container">
-                                                            <span class="progress-label">{ele.name}</span>
-                                                            <div class="custom-progress-bar">
+                                                    <div className="col-md-6" key={index}>
+                                                        <div className="progress-container">
+                                                            <span className="progress-label">{ele.name}</span>
+                                                            <div className="custom-progress-bar">
                                                                 <div
-                                                                    class="progress-fill"
+                                                                    className="progress-fill"
                                                                     style={{ width: `${ele.proficiency*10}%`, backgroundColor: '#6b050b' }}
                                                                 ></div>
                                                             </div>
-                                                            <span class="progress-value">{ele.proficiency*10}%</span>
+                                                            <span className="progress-value">{ele.proficiency*10}%</span>
                                                         </div>
                                                     </div>
                                                 ))
@@ -186,25 +186,25 @@ export default function StudentResumeTemplate() {
                                     </div >
                                 </div >
                             </div >
-                            <div class="education-section" style={{ marginTop: '50px' }}>
-                                <div class="container">
-                                    <div class="education-heading text-center mb-4">
-                                        <h4 class="title" >Education</h4>
+                            <div className="education-section" style={{ marginTop: '50px' }}>
+                                <div className="container">
+                                    <div className="education-heading text-center mb-4">
+                                        <h4 className="title" >Education</h4>
                                     </div>
-                                    <div class="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
+                                    <div className="card animate" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
                                         {
                                             resumeData?.education?.map((edu, i) => (
-                                                <div class="row" key={i}>
-                                                    <div class="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
-                                                        <div class="card-body cc-education-header" >
+                                                <div className="row" key={i}>
+                                                    <div className="col-md-3 " style={{ display: 'flex', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div className="card-body cc-education-header" >
 
                                                             <h5>{edu.degree}</h5>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
+                                                    <div className="col-md-9">
+                                                        <div className="card-body">
                                                             <h5>{edu.degree}</h5>
-                                                            <p class="category">Institution: {edu.institution}</p>
+                                                            <p className="category">Institution: {edu.institution}</p>
                                                             <p>Passing Year: {edu.year} years</p>
                                                         </div>
                                                     </div>
@@ -215,22 +215,22 @@ export default function StudentResumeTemplate() {
 
                                 </div>
                             </div>
-                            <div class="experience-section">
-                                <div class="container">
-                                    <div class="experience-heading text-center mb-4">
-                                        <h4 class="title">Work Experience</h4>
+                            <div className="experience-section">
+                                <div className="container">
+                                    <div className="experience-heading text-center mb-4">
+                                        <h4 className="title">Work Experience</h4>
                                     </div>
                                     {
-                                        resumeData?.experience?.map((exp) => (
-                                            <div class="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }}>
-                                                <div class="row">
-                                                    <div class="col-md-3 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#6b050b' }}>
-                                                        <div class="card-body experience-header" >
+                                        resumeData?.experience?.map((exp,i) => (
+                                            <div className="card" style={{ boxShadow: " 0px 7px 12px -3px #6b050b" }} key={i}>
+                                                <div className="row">
+                                                    <div className="col-md-3 " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#6b050b' }}>
+                                                        <div className="card-body experience-header" >
                                                             <h5>{exp.company}</h5>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
+                                                    <div className="col-md-9">
+                                                        <div className="card-body">
                                                             <h5>{exp.position}</h5>
                                                             <p>Duration : {exp.duration} years</p>
                                                         </div>
@@ -242,23 +242,23 @@ export default function StudentResumeTemplate() {
 
                                 </div>
                             </div>
-                            <div class="portfolio-section" style={{ marginBottom: "50px" }}>
-                                <div class="container">
+                            <div className="portfolio-section" style={{ marginBottom: "50px" }}>
+                                <div className="container">
 
-                                    <div class="tab-content gallery mt-5">
-                                        <h2 class="title">Portfolio</h2>
-                                        <div class="tab-pane active" id="web-development">
-                                            <div class="ml-auto mr-auto">
-                                                <div class="row">
+                                    <div className="tab-content gallery mt-5">
+                                        <h2 className="title">Portfolio</h2>
+                                        <div className="tab-pane active" id="web-development">
+                                            <div className="ml-auto mr-auto">
+                                                <div className="row">
                                                     {
-                                                        resumeData?.projects?.map((project) => (
-                                                            <div class="col-md-6">
-                                                                <div class="portfolio-item">
+                                                        resumeData?.projects?.map((project,index) => (
+                                                            <div className="col-md-6" key={index}>
+                                                                <div className="portfolio-item">
                                                                     <a href={project.link} target='_blank' >
-                                                                        <figure class="effect">
+                                                                        <figure className="effect">
                                                                             <img src="/images/projects.jpg" alt="Image" />
                                                                             <figcaption>
-                                                                                <h4 class="title">{project.title}</h4>
+                                                                                <h4 className="title">{project.title}</h4>
                                                                                 <p>{project.description}</p>
                                                                                 {
                                                                                     project?.technologies.map((skill, index) => (
@@ -287,88 +287,88 @@ export default function StudentResumeTemplate() {
 
 
 
-                            {/* <section id="testimonials" class="testimonials">
-                                <div class="container" data-aos="fade-up">
-                                    <div class="section-title">
+                            {/* <section id="testimonials" className="testimonials">
+                                <div className="container" data-aos="fade-up">
+                                    <div className="section-title">
                                         <h2>Testimonials</h2>
                                     </div>
 
-                                    <div class="testimonials-slider" data-aos="fade-up" data-aos-delay="100">
-                                        <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <div class="testimonial-item text-center">
-                                                        <img src="/images/hero.jpg" alt="" class="testimonial-img" />
+                                    <div className="testimonials-slider" data-aos="fade-up" data-aos-delay="100">
+                                        <div id="testimonialsCarousel" className="carousel slide" data-bs-ride="carousel">
+                                            <div className="carousel-inner">
+                                                <div className="carousel-item active">
+                                                    <div className="testimonial-item text-center">
+                                                        <img src="/images/hero.jpg" alt="" className="testimonial-img" />
                                                         <h3>Saul Goodman</h3>
                                                         <h4>Ceo &amp; Founder</h4>
                                                         <p>
-                                                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                                            <i className="bx bxs-quote-alt-left quote-icon-left"></i>
                                                             Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                                                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                                            <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                                         </p>
                                                     </div>
                                                 </div>
 
 
-                                                <div class="carousel-item">
-                                                    <div class="testimonial-item text-center">
-                                                        <img src="/images/hero.jpg" alt="" class="testimonial-img" />
+                                                <div className="carousel-item">
+                                                    <div className="testimonial-item text-center">
+                                                        <img src="/images/hero.jpg" alt="" className="testimonial-img" />
                                                         <h3>Sara Wilsson</h3>
                                                         <h4>Designer</h4>
                                                         <p>
-                                                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                                            <i className="bx bxs-quote-alt-left quote-icon-left"></i>
                                                             Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                                                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                                            <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                <div class="carousel-item">
-                                                    <div class="testimonial-item text-center">
-                                                        <img src="/images/hero.jpg" alt="" class="testimonial-img" />
+                                                <div className="carousel-item">
+                                                    <div className="testimonial-item text-center">
+                                                        <img src="/images/hero.jpg" alt="" className="testimonial-img" />
                                                         <h3>Jena Karlis</h3>
                                                         <h4>Store Owner</h4>
                                                         <p>
-                                                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                                            <i className="bx bxs-quote-alt-left quote-icon-left"></i>
                                                             Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                                                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                                            <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                <div class="carousel-item">
-                                                    <div class="testimonial-item text-center">
-                                                        <img src="/images/hero.jpg" alt="img" class="testimonial-img" />
+                                                <div className="carousel-item">
+                                                    <div className="testimonial-item text-center">
+                                                        <img src="/images/hero.jpg" alt="img" className="testimonial-img" />
                                                         <h3>Matt Brandon</h3>
                                                         <h4>Freelancer</h4>
                                                         <p>
-                                                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                                            <i className="bx bxs-quote-alt-left quote-icon-left"></i>
                                                             Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                                                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                                            <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                <div class="carousel-item">
-                                                    <div class="testimonial-item text-center">
-                                                        <img src="/images/hero.jpg" alt="img_here" class="testimonial-img" />
+                                                <div className="carousel-item">
+                                                    <div className="testimonial-item text-center">
+                                                        <img src="/images/hero.jpg" alt="img_here" className="testimonial-img" />
                                                         <h3>John Larson</h3>
                                                         <h4>Entrepreneur</h4>
                                                         <p>
-                                                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                                            <i className="bx bxs-quote-alt-left quote-icon-left"></i>
                                                             Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                                                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                                            <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
+                                            <button className="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+                                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span className="visually-hidden">Previous</span>
                                             </button>
-                                            <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
+                                            <button className="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+                                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span className="visually-hidden">Next</span>
                                             </button>
                                         </div>
                                     </div>
@@ -378,57 +378,57 @@ export default function StudentResumeTemplate() {
 
 
 
-                            {/* <div class="section" id="contact">
-                                <div class="cc-contact-information" style={{ backgroundImage: "url('/images/staticmap.png')" }}>
-                                    <div class="container">
-                                        <div class="cc-contact">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="card mb-0">
-                                                        <div class="h4 text-center title">Contact Me</div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="card-body">
+                            {/* <div className="section" id="contact">
+                                <div className="cc-contact-information" style={{ backgroundImage: "url('/images/staticmap.png')" }}>
+                                    <div className="container">
+                                        <div className="cc-contact">
+                                            <div className="row">
+                                                <div className="col-md-9">
+                                                    <div className="card mb-0">
+                                                        <div className="h4 text-center title">Contact Me</div>
+                                                        <div className="row">
+                                                            <div className="col-md-12">
+                                                                <div className="card-body">
                                                                     <form action="https://formspree.io/your@email.com" method="POST">
-                                                                        <div class="p pb-3"><strong>Feel free to contact me </strong></div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-user-circle"></i></span>
-                                                                                    <input class="form-control" type="text" name="name" placeholder="Name"
+                                                                        <div className="p pb-3"><strong>Feel free to contact me </strong></div>
+                                                                        <div className="row mb-3">
+                                                                            <div className="col">
+                                                                                <div className="input-group"><span className="input-group-addon"><i
+                                                                                    className="fa fa-user-circle"></i></span>
+                                                                                    <input className="form-control" type="text" name="name" placeholder="Name"
                                                                                         required="required" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-file-text"></i></span>
-                                                                                    <input class="form-control" type="text" name="Subject" placeholder="Subject"
+                                                                        <div className="row mb-3">
+                                                                            <div className="col">
+                                                                                <div className="input-group"><span className="input-group-addon"><i
+                                                                                    className="fa fa-file-text"></i></span>
+                                                                                    <input className="form-control" type="text" name="Subject" placeholder="Subject"
                                                                                         required="required" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="input-group"><span class="input-group-addon"><i
-                                                                                    class="fa fa-envelope"></i></span>
-                                                                                    <input class="form-control" type="email" name="_replyto" placeholder="E-mail"
+                                                                        <div className="row mb-3">
+                                                                            <div className="col">
+                                                                                <div className="input-group"><span className="input-group-addon"><i
+                                                                                    className="fa fa-envelope"></i></span>
+                                                                                    <input className="form-control" type="email" name="_replyto" placeholder="E-mail"
                                                                                         required="required" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row mb-3">
-                                                                            <div class="col">
-                                                                                <div class="form-group">
-                                                                                    <textarea class="form-control" name="message" placeholder="Your Message"
+                                                                        <div className="row mb-3">
+                                                                            <div className="col">
+                                                                                <div className="form-group">
+                                                                                    <textarea className="form-control" name="message" placeholder="Your Message"
                                                                                         required="required"></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <button class="btn btn-primary" type="submit">Send</button>
+                                                                        <div className="row">
+                                                                            <div className="col">
+                                                                                <button className="btn btn-primary" type="submit">Send</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -448,9 +448,9 @@ export default function StudentResumeTemplate() {
                     </div >
                 )
             }
-            {/* <footer class="footer">
+            {/* <footer className="footer">
 
-                    <div class="text-center text-muted">
+                    <div className="text-center text-muted">
                         <p>&copy; Creative CV. All rights reserved.</p>
 
                     </div>

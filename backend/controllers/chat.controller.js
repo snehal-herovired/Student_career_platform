@@ -1,4 +1,4 @@
-const Message = require('../models/studentforum.model');
+// const Message = require('../models/studentforum.model');
 
 const getAllMessages = async (req, res) => {
     try {

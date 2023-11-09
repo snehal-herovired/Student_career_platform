@@ -32,17 +32,17 @@ export default function NormalLayout({ setLogin }) {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       {/* Header  */}
-      <nav class="navbar sticky-top navbar-expand-lg  " style={headerstyle}>
-        <div class="container-fluid">
+      <nav className="navbar sticky-top navbar-expand-lg  " style={headerstyle}>
+        <div className="container-fluid">
           <NavLink className="navbar-brand" to="/admin" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: "20%", fontSize: '1.5rem', background: '#6b050b', borderRadius: "4px" }}>Vired's Corner</NavLink>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
           </button>
 
 
-          <button class="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
+          <button className="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
             <div style={{}}>
-              <i class="fa fa-bars" ></i>
+              <i className="fa fa-bars" ></i>
 
             </div>
 
@@ -51,31 +51,31 @@ export default function NormalLayout({ setLogin }) {
 
 
 
-          <div class="offcanvas offcanvas-start" tabindex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
-            <div class="offcanvas-header drawer-header" style={{ background: 'white', color: 'red' }}>
-              <h5 class="offcanvas-title" id="normaloffcanvasExampleLabel" style={{ fontWeight: "bolder" }}>Vired Menu</h5>
-              <button type="button" class=" custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i className='fa fa-share-square-o'></i></button>
+          <div className="offcanvas offcanvas-start" tabIndex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
+            <div className="offcanvas-header drawer-header" style={{ background: 'white', color: 'red' }}>
+              <h5 className="offcanvas-title" id="normaloffcanvasExampleLabel" style={{ fontWeight: "bolder" }}>Vired Menu</h5>
+              <button type="button" className=" custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i className='fa fa-share-square-o'></i></button>
             </div>
-            <div class="offcanvas-body drawer-body" >
+            <div className="offcanvas-body drawer-body" >
               <div>
-                <ul class="menu-list">
-                  <li class="menu-item" onClick={() => navigate('/admin')}>
-                    <i class="fa fa-share menu-icon"></i> &nbsp; View Batches
+                <ul className="menu-list">
+                  <li className="menu-item" onClick={() => navigate('/admin')}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; View Batches
                   </li>
-                  <li class="menu-item" onClick={() => navigate('/admin/students')}>
-                    <i class="fa fa-share menu-icon"></i> &nbsp; View Students
+                  <li className="menu-item" onClick={() => navigate('/admin/students')}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; View Students
                   </li>
-                  <li class="menu-item" onClick={() => navigate('/admin/controls')}>
-                    <i class="fa fa-share menu-icon"></i> &nbsp; Control Panel
+                  <li className="menu-item" onClick={() => navigate('/admin/controls')}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; Control Panel
                   </li>
                   <li className="menu-item" onClick={() => navigate('/student/studentforum')}>
                     <i className="fa fa-share menu-icon"></i> &nbsp; Student Forum
                   </li>
-                  {/* <li class="menu-item" onClick={() => navigate('/student/myresume')}>
-                    <i class="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
+                  {/* <li className="menu-item" onClick={() => navigate('/student/myresume')}>
+                    <i className="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
                   </li> */}
-                  <li class="menu-item" onClick={handleLogout}>
-                    <i class="fa fa-share menu-icon"></i> &nbsp; Logout
+                  <li className="menu-item" onClick={handleLogout}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; Logout
                   </li>
 
                 </ul>

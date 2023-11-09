@@ -135,9 +135,8 @@ const generatePDF = async (req, res) => {
           return ele
         })
       })),
-      skills: Object.entries(gitData.averageLanguagesPercentage).map((ele) => {
-        let [languageName, percentage] = ele;
-        languageName = languageName[0].toUpperCase() + languageName.slice(1);
+      skills: resumeData.skills.map((ele) => {
+        let languageName = ele.name.toUpperCase() ;
         return ` ${languageName}`;
       }),
       // Add other properties similarly...
