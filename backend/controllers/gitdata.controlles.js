@@ -154,6 +154,7 @@ const generatePDF = async (req, res) => {
     const browser = await puppeteer.launch({
       headless: 'new',
       args: ['--no-sandbox'], // Add this line to disable the sandbox
+      executablePath:'/usr/bin/google-chrome'
 
 
     });
