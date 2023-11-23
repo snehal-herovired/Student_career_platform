@@ -153,6 +153,8 @@ const generatePDF = async (req, res) => {
     // Generate the PDF using puppeteer
     const browser = await puppeteer.launch({
       headless: 'new',
+      args: ['--no-sandbox'], // Add this line to disable the sandbox
+
 
     });
     const page = await browser.newPage();
