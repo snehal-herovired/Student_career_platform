@@ -191,7 +191,7 @@ const generatePDF = async (req, res) => {
       region: 'ap-south-1',
     });
     const uploadParams = {
-      Bucket: 'viredstorebucket',
+      Bucket: 'viredstorebucket1',
       Key: `resume_${Date.now()}.pdf`,
       Body: pdfBuffer,
       ACL: 'public-read', // Set the ACL to allow public read access to the uploaded PDF
