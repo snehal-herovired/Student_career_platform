@@ -59,7 +59,10 @@ export default function NormalLayout({ setLogin }) {
             <div className="offcanvas-body drawer-body" >
               <div>
                 <ul className="menu-list">
-                  <li className="menu-item" onClick={() => navigate('/admin')}>
+                <li className="menu-item" onClick={() => navigate('/admin')}>
+                    <i className="fa fa-share menu-icon"></i> &nbsp; Dashboard
+                  </li>
+                  <li className="menu-item" onClick={() => navigate('/admin/batches')}>
                     <i className="fa fa-share menu-icon"></i> &nbsp; View Batches
                   </li>
                   <li className="menu-item" onClick={() => navigate('/admin/students')}>
@@ -68,9 +71,7 @@ export default function NormalLayout({ setLogin }) {
                   <li className="menu-item" onClick={() => navigate('/admin/controls')}>
                     <i className="fa fa-share menu-icon"></i> &nbsp; Control Panel
                   </li>
-                  <li className="menu-item" onClick={() => navigate('/student/studentforum')}>
-                    <i className="fa fa-share menu-icon"></i> &nbsp; Student Forum
-                  </li>
+                  
                   {/* <li className="menu-item" onClick={() => navigate('/student/myresume')}>
                     <i className="fa fa-file-pdf-o menu-icon"></i> &nbsp; View Resumes 
                   </li> */}

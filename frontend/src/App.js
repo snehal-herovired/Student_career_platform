@@ -24,6 +24,8 @@ import Error from './components/Pages/ErrorPage';
 import StudentResumeTemplate from './components/Pages/adminpages/StudentResumeTemplate';
 import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
 import MainControlPanel from './components/Pages/controlPanel/MainControlPanel';
+import AdminDashboardPage from './components/Pages/adminpages/AdminDashboardPage';
+import Projects from './components/Pages/adminpages/Projects';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -55,16 +57,21 @@ function App() {
       path: '/admin',
       element: <NormalLayout setLogin={setLogin} />,
       children: [
-        { index: true, element: <BatchPage /> },
+        { index: true, element: <AdminDashboardPage /> },
         {
           path: 'students',
           element: <StudentPage />,
 
         },
+        
+        { path :'batches',element:<BatchPage/>},
         { path: ':id', element: <StudentLandingPage /> },
+        {path:'projects',element:<Projects/>},
         { path: 'resume/:id', element: <StudentResumeTemplate /> },
         { path: 'batch/:id', element: <BatchLandingPage /> },
-        { path :'controls',element:<MainControlPanel/>}
+        { path :'controls',element:<MainControlPanel/>},
+        ,
+
       ],
     },
 

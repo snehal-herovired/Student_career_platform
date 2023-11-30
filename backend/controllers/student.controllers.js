@@ -118,7 +118,7 @@ async function getGitHubRepositories(username, token) {
 // Function to fetch commit count for a specific repository
 async function getRepositoryCommitCount(owner, repoName, token) {
   try {
-    console.log(owner,repoName,token,"FROM COMMITCOUNT FUNCTION");
+    console.log(owner, repoName, token, "FROM COMMITCOUNT FUNCTION");
     const response = await axios.get(`https://api.github.com/repos/${owner}/${repoName}/commits`, {
       params: {
         per_page: 1, // Fetch only 1 most recent commit
@@ -135,8 +135,8 @@ async function getRepositoryCommitCount(owner, repoName, token) {
 
     return response.data.length; // Return the number of commits (1 in this case, as we are fetching the most recent commit)
   } catch (error) {
-    
-   console.log(`Error fetching commit count for repository ${owner}/${repoName}: ${error.message}`);
+
+    console.log(`Error fetching commit count for repository ${owner}/${repoName}: ${error.message}`);
     return 0;
   }
 }
@@ -345,6 +345,9 @@ async function loginStudent(req, res) {
       return res.status(401).json({ message: 'Invalid password' });
     }
 
+    // Update lastActivity timestamp
+    student.lastActivity = new Date();
+    await student.save();
     // Generate a JSON Web Token (JWT)
     const token = jwt.sign({ studentId: student._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: '2h'
@@ -558,24 +561,37 @@ const deleteStudent = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const student = await Student.findById(id);
+    const student = await Student.findByIdAndRemove(id);
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    await student.remove();
-
     return res.status(200).json({ message: 'Student deleted successfully' });
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: 'Error deleting student', error });
   }
 }
 
 
+async function recentActivity(req, res) {
+  try {
+    // Define the threshold for considering students as active (e.g., last 24 hours)
+    const threshold = new Date();
+    threshold.setHours(threshold.getHours() - 24);
 
+    // Find students whose last activity is within the threshold
+    const activeStudents = await Student.find({ lastActivity: { $gte: threshold } });
+
+    res.json(activeStudents);
+  } catch (error) {
+    console.error('Error fetching active students:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
 
 module.exports = {
-  registerStudent, loginStudent,
+  registerStudent, loginStudent, recentActivity,
   updateStudentdetails, deleteStudent, getstudentbyEmail, getstudentdetailbyId, getAllStudent, getStudentandGitDetailbyId, trackGitHubAccount
 }

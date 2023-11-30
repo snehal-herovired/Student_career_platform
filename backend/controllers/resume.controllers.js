@@ -210,6 +210,22 @@ const getAllResume = async (req, res) => {
   }
 }
 
+const getallprojects=async(req,res)=>{
+  try{
+    // Fetch all projects from the Resume collection
+    const allProjects = await Resume.find({}, { projects: 1 });
+
+    // Extract and combine projects from all resumes
+    const projects = allProjects.reduce((acc, resume) => {
+      return acc.concat(resume.projects);
+    }, []);
+
+    res.json(projects);
+  } catch (error) {
+    console.error('Error fetching all projects:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 module.exports = {
-    createResume,deleteresumebyId,getresumebyId,uploadResume,getAllResume
+    createResume,deleteresumebyId,getresumebyId,uploadResume,getAllResume,getallprojects
 }
