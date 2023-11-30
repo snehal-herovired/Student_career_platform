@@ -226,7 +226,9 @@ export default function StudentResumeTemplate() {
                                                     <div className="col-md-9">
                                                         <div className="card-body">
                                                             <h5>{exp.position}</h5>
-                                                            <p>Duration : {exp.duration} </p>
+                                                            <p>Duration: {exp.duration} </p>
+                                                            <p>Description: {exp.description} </p>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
