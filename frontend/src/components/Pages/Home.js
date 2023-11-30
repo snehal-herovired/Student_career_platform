@@ -418,6 +418,8 @@ export default function Home() {
     });
   };
 
+
+
   const saveProjectChanges = () => {
     setIsEditingEducation(false);
     const updatedResumeData = { ...data, projects: projects };
@@ -725,12 +727,12 @@ export default function Home() {
                           </div>
 
                           <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Degree" aria-label="Degree" value={edu.degree}
+                            <input type="text" class="form-control" placeholder="example :B.E(Mechanical Eng.)" aria-label="Degree" value={edu.degree}
                               style={{ marginRight: '3px' }}
                               onChange={(e) =>
                                 handleEducationChange(index, "degree", e.target.value)
                               } />
-                            <input type="text" class="form-control" placeholder="year" aria-label="Seryearver" value={edu.year}
+                            <input type="text" class="form-control" placeholder="YYYY-YYYY" aria-label="Seryearver" value={edu.year}
                               pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
                               style={{ marginRight: '3px' }}
                               onChange={(e) => handleEducationChange(index, "year", e.target.value)} />
@@ -813,8 +815,9 @@ export default function Home() {
                                 handleExperinceChange(index, "position", e.target.value)
                               }
                             />
-                            <input type="text" class="form-control" placeholder="Duration" aria-label="Duration"
+                            <input type="text" class="form-control" placeholder="YYYY-YYYY " aria-label="Duration"
                               value={exp.duration}
+                              
                               pattern="[0-9]{4}-[0-9]{4}" // Enforce the format YYYY-YYYY
                               style={{ marginRight: '3px' }}
                               onChange={(e) => handleExperinceChange(index, "duration", e.target.value)}
@@ -888,32 +891,21 @@ export default function Home() {
 
                 {isEditingProjects ? (
                   <div>
-                    {projects.map((project, index) => (
+                    {projects?.map((project, index) => (
                       <div key={index}>
 
 
                         <div class="input-group mb-3">
                           <input type="text" class="form-control" aria-label="Project Title"
-                            value={projects.title}
+                            value={project.title}
                             placeholder='Project Title'
                             style={{ margin: '3px' }}
                             onChange={(e) =>
                               handleProjectChange(index, "title", e.target.value)
                             }
                           />
-                          <input type="text" class="form-control" aria-label="Project Description"
-                            value={projects.description}
-                            placeholder='Project Description'
-                            style={{ margin: '3px' }}
-                            onChange={(e) =>
-                              handleProjectChange(index, "description", e.target.value)
-                            }
-                          />
-                        </div>
-
-                        <div class="input-group flex-nowrap">
                           <input type="text" class="form-control" aria-label="Project Link" aria-describedby="addon-wrapping"
-                            value={projects.link}
+                            value={project.link}
                             style={{ margin: '3px' }}
                             placeholder='Project Link'
                             onChange={(e) =>
@@ -923,8 +915,22 @@ export default function Home() {
                         </div>
 
                         <div class="form-floating">
+                          
+                          <textarea class="form-control" id="floatingTextarea2" style={{ height: "100px", margin: '3px' }} aria-label="Project Description"
+                            value={project.description}
+                            placeholder='Project Description'
+                            
+                            maxLength={400}
+                            onChange={(e) =>
+                              handleProjectChange(index, "description", e.target.value)
+                            }
+                          />
+                        </div>
+
+
+                        <div class="form-floating">
                           <textarea class="form-control" id="floatingTextarea2" style={{ height: "100px", margin: '3px' }}
-                            value={projects?.technologies?.join(", ")}
+                            value={project.technologies?.join(", ")}
 
                             placeholder='techlogies in format reatjs,nodejs'
                             onChange={(e) =>

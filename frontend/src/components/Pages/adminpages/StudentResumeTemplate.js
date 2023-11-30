@@ -93,9 +93,7 @@ export default function StudentResumeTemplate() {
 
                                                 {pdfdownloadLoading && <LoadingOverlay />}
 
-                                                <a
-                                                    className="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.github} target='_blank' rel="tooltip"
-                                                    title="Visit me on Github"><i className="fa fa-github"></i></a>
+                                                
                                                 <a
                                                     className="btn btn-default btn-round btn-lg btn-icon" href={resumeData?.contactInformation?.linkedIn} target='_blank' rel="tooltip"
                                                     title="Follow me on LinkedIn"><i className="fa fa-linkedin"></i></a>
@@ -106,13 +104,7 @@ export default function StudentResumeTemplate() {
 
                                                         <a href={pdf} target="_blank" rel="noopener noreferrer" className='btn btn-danger' type='button'>Dowload PDF</a>
 
-                                                        {/* Share button using react-web-share */}
-                                                        <EmailShareButton url={pdf}>
-                                                            <EmailIcon size={32} round />
-                                                        </EmailShareButton>
-                                                        <LinkedinShareButton url={pdf}>
-                                                            <LinkedinIcon size={32} round />
-                                                        </LinkedinShareButton>
+                                                        
                                                     </>
                                                 ) : (
                                                     <button onClick={Share} className='btn btn-danger' type='button'>Generate PDF and Get Link</button>
@@ -170,6 +162,8 @@ export default function StudentResumeTemplate() {
                                                             <span className="progress-label">{ele.name}</span>
                                                             <div className="custom-progress-bar">
                                                                 <div
+
+
                                                                     className="progress-fill"
                                                                     style={{ width: `${ele.proficiency*10}%`, backgroundColor: '#6b050b' }}
                                                                 ></div>
@@ -205,7 +199,7 @@ export default function StudentResumeTemplate() {
                                                         <div className="card-body">
                                                             <h5>{edu.degree}</h5>
                                                             <p className="category">Institution: {edu.institution}</p>
-                                                            <p>Passing Year: {edu.year} years</p>
+                                                            <p>Passing Year: {edu.year} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,7 +226,7 @@ export default function StudentResumeTemplate() {
                                                     <div className="col-md-9">
                                                         <div className="card-body">
                                                             <h5>{exp.position}</h5>
-                                                            <p>Duration : {exp.duration} years</p>
+                                                            <p>Duration : {exp.duration} </p>
                                                         </div>
                                                     </div>
                                                 </div>

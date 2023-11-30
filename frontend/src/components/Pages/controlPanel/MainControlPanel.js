@@ -110,7 +110,7 @@ export default function MainControlPanel() {
         <>
             <div className="container" style={{ padding: '10px' }}>
                 <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-12">
                         <div className="card">
                             <div className="card-body">
                                 <i className='fa fa-edit' aria-label='hidden' style={{ fontSize: 'large', fontWeight: "bold" }}></i>
@@ -121,17 +121,7 @@ export default function MainControlPanel() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm-6">
-                        <div className="card">
-                            <div className="card-body">
-                                <i className='fa fa-users' aria-label='hidden' style={{ fontSize: 'large' }}></i>
-
-                                <h6 className="card-title">Manage Student Status</h6>
-                                <p className="card-text">This option enables manipulation of student status based on Admin feedback </p>
-                                <a href="#" className="btn btn-danger">Manage</a>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
