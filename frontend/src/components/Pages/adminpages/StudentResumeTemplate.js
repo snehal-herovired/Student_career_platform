@@ -199,7 +199,7 @@ export default function StudentResumeTemplate() {
                                                         <div className="card-body">
                                                             <h5>{edu.degree}</h5>
                                                             <p className="category">Institution: {edu.institution}</p>
-                                                            <p>Passing Year: {edu.year} </p>
+                                                            <p>Duration: {edu.year} </p>
                                                         </div>
                                                     </div>
                                                 </div>
