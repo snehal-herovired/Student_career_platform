@@ -919,12 +919,12 @@ export default function Home() {
                           <textarea class="form-control" id="floatingTextarea2" style={{ height: "100px", margin: '3px' }} aria-label="Project Description"
                             value={project.description}
                             placeholder='Project Description'
-                            
                             maxLength={400}
                             onChange={(e) =>
                               handleProjectChange(index, "description", e.target.value)
                             }
-                          />
+                          ></textarea>
+                          <label for="floatingTextarea2">Description of the Project</label>
                         </div>
 
 
