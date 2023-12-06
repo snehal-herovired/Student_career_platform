@@ -12,16 +12,17 @@ export default function AdminDashboardPage() {
             let response = await axiosInstance.get('/student/recent-activity');
             // console.log(resumeSkillData, "FROM MainControlPanel");
             // setResumeSkillData(response.data)
-            console.log(response.data);
+            // console.log(response.data);
             setrecentActivity(response.data)
             // fetchDataResume();
         }
         const fetchProjects = async () => {
             let response = await axiosInstance.get('/resume/projects');
+            const filteredProjects = response.data.filter(project => project.student.email && project.student.username);
             // console.log(resumeSkillData, "FROM MainControlPanel");
             // setResumeSkillData(response.data)
-            console.log(response.data);
-            setallprojects(response.data)
+            // console.log(response.data);
+            setallprojects(filteredProjects)
             // fetchDataResume();
         }
 
@@ -67,7 +68,7 @@ export default function AdminDashboardPage() {
                         <div className="card" style={{ background: "rgb(255, 234, 221)" }}>
                             <div className="card-body">
 
-                                <h2 className='card-title'>Recent Activities <span class="badge rounded-pill bg-dark">{recentActivity.length}</span></h2>
+                                <h2 className='card-title'>Recent Activities <span className="badge rounded-pill bg-dark">{recentActivity.length}</span></h2>
 
 
                                 <button type='button' className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" >View</button>
@@ -79,7 +80,7 @@ export default function AdminDashboardPage() {
                         <div className="card" style={{ background: "rgb(255, 234, 221)" }}>
                             <div className="card-body">
 
-                                <h2 className='card-title'>Total Projects <span class="badge rounded-pill bg-dark">{allprojects.length}</span></h2>
+                                <h2 className='card-title'>Total Projects <span className="badge rounded-pill bg-dark">{allprojects.length}</span></h2>
                                 <button type='button' className="btn btn-danger" onClick={()=>navigate('/admin/projects')}>View</button>
                             </div>
                         </div>
@@ -88,19 +89,19 @@ export default function AdminDashboardPage() {
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><strong>Recent Activities</strong></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel"><strong>Recent Activities</strong></h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <div className="container" style={{ padding: '10px' }}>
                                 <div className="row">
                                     {
-                                        recentActivity?.map((activity) => (
-                                            <div className="col-sm-12" style={{ marginBottom: "4px" }}>
+                                        recentActivity?.map((activity,index) => (
+                                            <div className="col-sm-12" style={{ marginBottom: "4px" }} key={index} >
                                                 <div className="card">
                                                     <div className="card-body">
 
@@ -116,8 +117,8 @@ export default function AdminDashboardPage() {
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ const express = require('express');
 const resumerouter = express.Router();
 const multer = require('multer');
 const authenticateJWT = require('../utils/middleware')
-const { getallprojects, createResume, deleteresumebyId, getresumebyId, uploadResume, getAllResume } = require("../controllers/resume.controllers")
+const {deleteProjectInResume, getallprojects, createResume, deleteresumebyId, getresumebyId, uploadResume, getAllResume } = require("../controllers/resume.controllers")
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); // Set the destination folder for uploaded files
@@ -25,7 +25,9 @@ resumerouter.post('/create', authenticateJWT, createResume);
 resumerouter.get('/all', getAllResume)
 resumerouter.get('/projects', getallprojects)
 resumerouter.get('/:id', authenticateJWT, getresumebyId);
+
 resumerouter.delete('/:id', authenticateJWT, deleteresumebyId);
+resumerouter.post('/deleteproject', authenticateJWT, deleteProjectInResume);
 
 
 

@@ -210,15 +210,41 @@ const getAllResume = async (req, res) => {
   }
 }
 
+const Student =require('../models/Student.model')
 const getallprojects=async(req,res)=>{
   try{
     // Fetch all projects from the Resume collection
-    const allProjects = await Resume.find({}, { projects: 1 });
+     // Fetch all projects from the Resume collection with student details populated
+     const allProjects = await Resume.find({}, { projects: 1 }).populate({
+      path: 'studentId',
+      select: 'email username',
+    }).populate({
+      path:'batchId',
+      select:'name'
+    });
 
-    // Extract and combine projects from all resumes
+
+    console.log(allProjects);
+
     const projects = allProjects.reduce((acc, resume) => {
-      return acc.concat(resume.projects);
+      // Check if studentId exists and is not null before accessing its properties
+      const studentDetails = resume.studentId && resume.studentId.email
+        ? { email: resume.studentId.email, username: resume.studentId.username,
+          batch:resume.batchId.name ,resumeId:resume._id
+         }
+        : { email: null, username: null };
+
+      // Extract project details for each project and combine with student info
+      const projectsWithStudentDetails = resume.projects.map(project => ({
+        student: studentDetails,
+        projectInfo: project,
+      }));
+
+      // Concatenate projectsWithStudentDetails array with accumulator
+      return acc.concat(projectsWithStudentDetails);
     }, []);
+   
+        
 
     res.json(projects);
   } catch (error) {
@@ -226,6 +252,41 @@ const getallprojects=async(req,res)=>{
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+
+async function deleteProjectInResume(req,res) {
+  const {resumeId,projectId} =req.body;
+  console.log(resumeId,projectId);
+  try {
+    // Find the resume by ID
+    const resume = await Resume.findById(resumeId);
+
+    if (!resume) {
+      return res.status(404).json({ success: false, message: 'Resume not found' });
+    }
+
+    // Find the index of the project to be deleted
+    const projectIndex = resume.projects.findIndex(project => project._id.equals(projectId));
+
+    if (projectIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Project not found in the resume' });
+    }
+
+    // Remove the project from the projects array
+    resume.projects.splice(projectIndex, 1);
+
+    // Save the updated resume
+    await resume.save();
+
+    return res.status(200).json({ success: true, message: 'Project deleted in the resume' });
+  } catch (error) {
+    console.log('Error deleting project in the resume:', error.message);
+    return res.json({ success: false, message: 'Internal Server Error' });
+  }
+}
+
+
+
 module.exports = {
-    createResume,deleteresumebyId,getresumebyId,uploadResume,getAllResume,getallprojects
+  deleteProjectInResume,createResume,deleteresumebyId,getresumebyId,uploadResume,getAllResume,getallprojects
 }
