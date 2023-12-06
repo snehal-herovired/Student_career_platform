@@ -230,7 +230,7 @@ const getallprojects=async(req,res)=>{
       // Check if studentId exists and is not null before accessing its properties
       const studentDetails = resume.studentId && resume.studentId.email
         ? { email: resume.studentId.email, username: resume.studentId.username,
-          batch:resume.batchId.name ,resumeId:resume._id
+          batch:resume.batchId.name ,resumeId:resume._id,studentID:resume.studentId
          }
         : { email: null, username: null };
 

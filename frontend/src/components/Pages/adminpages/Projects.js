@@ -16,7 +16,7 @@ const Projects = () => {
             let response = await axiosInstance.get('/resume/projects');
             // console.log(resumeSkillData, "FROM MainControlPanel");
             // setResumeSkillData(response.data)
-            // console.log(response.data);
+            console.log(response.data);
             setallprojects(response.data)
             // fetchDataResume();
         }
@@ -71,6 +71,7 @@ const Projects = () => {
                                                 <p className="card-text"><strong>Username:</strong> {project.student.username}</p>
                                                 <p className="card-text"><strong>Email:</strong> {project.student.email}</p>
                                                 <p className="card-text"><strong>Batch:</strong> {project.student.batch}</p>
+                                                <Link  style={{color:'red'}} to={`/admin/${project.student.studentID._id}`}>Go to Student Profile <i className='fa fa-angle-right'></i></Link>
                                                 {/* Add more student details as needed */}
                                             </div>
                                         </div>
