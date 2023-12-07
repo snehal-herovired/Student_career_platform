@@ -4,6 +4,67 @@
 <head>
     <title>Resume Template</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #555;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", serif;
+            color: #116D6E;
+        }
+        
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(45deg, #116D6E, #29A88A);
+            padding: 15px;
+        }
+        
+        .section {
+            margin: 20px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+        
+        .skill-item, .experience-item p {
+            margin: 2px;
+            color: #555;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        
+        .skill-item {
+            background-color: #29A88A;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+        </style>
+    <!-- <style>
         /* Global Styles */
         html,
         body {
@@ -127,7 +188,7 @@
             margin: 2px;
             color: #555;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>

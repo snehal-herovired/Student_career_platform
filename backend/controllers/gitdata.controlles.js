@@ -154,7 +154,7 @@ const generatePDF = async (req, res) => {
     const browser = await puppeteer.launch({
       headless: 'new',
       args: ['--no-sandbox'], // Add this line to disable the sandbox
-      executablePath:'/usr/bin/google-chrome'
+      // executablePath:'/usr/bin/google-chrome'
 
 
     });
@@ -192,7 +192,7 @@ const generatePDF = async (req, res) => {
     });
     const uploadParams = {
       Bucket: 'viredstorebucket1',
-      Key: `${resumeData.studentId.username}_resume_${resumeData.studentId}.pdf`,
+      Key: `${resumeData.studentId.username}_resume_${Math.random()}.pdf`,
       Body: pdfBuffer,
       ACL: 'public-read', // Set the ACL to allow public read access to the uploaded PDF
     };
