@@ -139,7 +139,7 @@
     <!-- Projects Section -->
     <div class="section projects">
         <h2 class="section-title">Projects</h2>
-      
+        {{#each this.projects}}
         <div class="item">
             <p><strong>{{this.projects.title}}</strong></p>
             <p class="link">{{this.projects.link}}</p>
@@ -152,6 +152,8 @@
                 {{/each}}
             </div>
         </div>
+        {{/each}}
+
     </div>
 
 </body>
