@@ -141,11 +141,11 @@
         <h2 class="section-title">Projects</h2>
         {{#each this.projects}}
         <div class="item">
-            <p><strong>{{this.projects.title}}</strong></p>
-            <p class="link">{{this.projects.link}}</p>
-            <p>{{this.projects.description}}</p>
+            <p><strong>{{title}}</strong></p>
+            <p class="link">{{link}}</p>
+            <p>{{description}}</p>
             <div class="experience-grid">
-                {{#each this.projects.technologies}}
+                {{#each technologies}}
                 <div class="skill-item">
                     {{this}}
                 </div>
