@@ -2,298 +2,458 @@
 <html>
 
 <head>
-	<title>Resume</title>
+    <title>Resume Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #555;
+            margin: 0;
+            padding: 0;
+        }
 
-	<meta name="viewport" content="width=device-width" />
-	<meta name="description" content="The Curriculum Vitae of Joe Bloggs." />
-	<meta charset="UTF-8">
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", serif;
+            color: #116D6E;
+        }
 
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(45deg, #116D6E, #29A88A);
+            padding: 15px;
+        }
 
-	<style>
-		html,
-		body {
-			background-color: white;
-			font-family: 'Lato', helvetica, arial, sans-serif;
-			font-size: 16px;
-			color: #222;
+        .section {
+            margin: 20px;
+        }
 
-			height: 100%;
-			margin: 0;
-			padding: 10;
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #116D6E;
+        }
 
-		}
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
 
+        .experience-item p {
+            margin: 2px;
+            color: #555;
+        }
+        .experience-item{
+            border-bottom: 1px solid #116D6E;
+        }
 
-		.clear {
-			clear: both;
-		}
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
 
-		p {
-			font-size: 1em;
-			line-height: 1.4em;
-			margin-bottom: 20px;
-			color: #444;
-		}
-
-		#cv {
-			width: 100%;
-			height: 100%;
-
-			background: #f3f3f3;
-			/* margin: 5px auto; */
-		}
-
-		.mainDetails {
-			width: 100%;
-			padding: 5px 5px;
-			border-bottom: 2px solid #cf8a05;
-			background: #ededed;
-		}
-
-		#name h1 {
-			font-size: 2.5em;
-			font-weight: 700;
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			margin-bottom: -6px;
-		}
-
-		#name h2 {
-			font-size: 2em;
-			margin-left: 2px;
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-		}
-
-		#mainArea {
-			padding: 0 20px;
-		}
-
-		#headshot {
-			width: 20%;
-			height: 10%;
-			float: left;
-			margin-right: 90px;
-			margin-top: 5px;
-		}
-
-		#headshot img {
-			width: 100%;
-			height: auto;
-			border-radius: 50%;
-
-
-		}
-
-		#name {
-			float: left;
-		}
-
-		#contactDetails {
-			/* float: right; */
-
-		}
-
-		#contactDetails ul {
-			list-style-type: none;
-			font-size: 0.9em;
-			margin-top: 2px;
-		}
-
-		#contactDetails ul li {
-			margin-bottom: 3px;
-			color: #444;
-		}
-
-
-
-
-
-
-		section {
-			border-top: 1px solid #dedede;
-			padding: 20px 0 0;
-		}
-
-		section:first-child {
-			border-top: 0;
-		}
-
-		section:last-child {
-			padding: 20px 0 10px;
-		}
-
-		.sectionTitle {
-			float: left;
-			width: 25%;
-		}
-
-		.sectionContent {
-			float: right;
-			width: 72.5%;
-
-		}
-
-		.sectionTitle h1 {
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			font-style: italic;
-			font-size: 1.5em;
-			color: #cf8a05;
-		}
-
-		.sectionContent h2 {
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			font-size: 1.5em;
-			margin-bottom: -2px;
-		}
-
-		.subDetails {
-			font-size: 0.8em;
-			font-style: italic;
-			margin-bottom: 3px;
-		}
-
-		.keySkills {
-			list-style-type: none;
-
-			column-count: 3;
-			margin-bottom: 10px;
-			font-size: 1em;
-			color: black;
-		}
-
-		.keySkills ul li {
-			margin-bottom: 3px;
-		}
-
-	
-	</style>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        .skill-item {
+            background-color: #29A88A;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+        .item{
+            border-bottom: 1px solid #116D6E;
+        }
+        .link{
+            color:darkblue;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="cv">
-		<div class="mainDetails">
-			<div id="headshot">
-				<img src={{this.gitData.avatar}} alt="image" />
-			</div>
-			<!-- <div id="name">
-			</div> -->
+    <!-- Personal Info Section -->
+    <div class="header">
+        <div class="personal-info">
+            <img class="profile-image" src="{{this.gitData.avatar}}" alt="Profile Image">
+        </div>
+        <div class="personal-info-about">
+            <div><strong>Name:</strong>&nbsp;{{this.studentId.username}} </div>
+            <div><strong>Email:</strong>&nbsp;{{this.contactInformation.email}}</div>
+            <div><strong>Phone:</strong>&nbsp;{{this.contactInformation.phone}}</div>
+            <div><strong>Location:</strong>&nbsp;{{this.contactInformation.address}}</div>
+            <div><strong>Github:</strong>&nbsp;{{this.contactInformation.github}}</div>
+            <div><strong>LinkedIn:</strong>&nbsp;{{this.contactInformation.linkedIn}}</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section about">
+        <h2 class="section-title">About Me</h2>
+        <p>
+            {{this.about}}
+        </p>
+    </div>
+
+    <!-- Education Section -->
+    <div class="section">
+        <h2 class="section-title">Education</h2>
+        {{#each this.education}}
+        <div class="experience-item">
+            <p><strong>{{degree}}</strong></p>
+            <p>{{institution}}</p>
+            <p>{{year}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <!-- Experience Section -->
+    <div class="section">
+        <h2 class="section-title">Experience</h2>
+        {{#each this.experience}}
+        <div class="experience-item">
+            <p><strong>{{position}}</strong></p>
+            <p><strong>{{company}}</strong> {{duration}}</p>
+            <p>{{description}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <!-- Skills Section -->
+    <div class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="experience-grid">
+            {{#each this.skills}}
+            <div class="skill-item">
+                {{this}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section projects">
+        <h2 class="section-title">Projects</h2>
+      
+        <div class="item">
+            <p><strong>{{this.projects.title}}</strong></p>
+            <p class="link">{{this.projects.link}}</p>
+            <p>{{this.projects.description}}</p>
+            <div class="experience-grid">
+                {{#each this.projects.technologies}}
+                <div class="skill-item">
+                    {{this}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
 
 
-			<div id="contactDetails">
-				<ul>
-					<li style="font-weight: bold;font-size: large;">
-						<h4 class="quickFade delayTwo">{{this.studentId.username}}</h4>
-					</li>
-					<li>{{this.contactInformation.email}}</a></li>
-					<li>{{this.contactInformation.phone}} </li>
-					<li>{{this.contactInformation.address}}</li>
-					<li>
-						<i class="fa fa-github">: {{this.contactInformation.github}} </i>
-					</li>
-
-					<li>
-						<i class="fa fa-linkedin">: {{this.contactInformation.linkedIn}} </i>
-					</li>
-
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-
-		<div id="mainArea">
-			<section>
-				<article>
-					<div class="sectionTitle">
-						<h1>About</h1>
-					</div>
-
-					<div class="sectionContent">
-						<p>{{this.about}}</p>
-					</div>
-				</article>
-				<div class="clear"></div>
-			</section>
-
-
-			<section>
-				<div class="sectionTitle">
-					<h1>Education</h1>
-				</div>
-
-				<div class="sectionContent">
-					{{#each this.education}}
-
-					<article>
-						<h2>{{degree}}</h2>
-						<p class="subDetails">{{year}}</p>
-						<p><strong>{{institution}}</strong></p>
-					</article>
-
-					{{/each}}
 
 
 
-				</div>
-				<div class="clear"></div>
-			</section>
-			<section>
-				<div class="sectionTitle">
-					<h1>Projects</h1>
-				</div>
-
-				<div class="sectionContent">
-					{{#each this.projects}}
-
-					<article>
-						<h2>{{title}}</h2>
-						<p class="subDetails">{{description}}</p>
-						<p><strong>Project Link: {{link}}</strong></p>
-
-					</article>
-
-					{{/each}}
 
 
+<!DOCTYPE html>
+<html>
 
-				</div>
-				<div class="clear"></div>
-			</section>
-			<section>
-				<div class="sectionTitle">
-					<h1>Experience</h1>
-				</div>
+<head>
+    <title>Resume Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #555;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", serif;
+            color: #116D6E;
+        }
+        
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(45deg, #116D6E, #29A88A);
+            padding: 15px;
+        }
+        
+        .section {
+            margin: 20px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+        
+        .skill-item, .experience-item p {
+            margin: 2px;
+            color: #555;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        
+        .skill-item {
+            background-color: #29A88A;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+        </style>
+    <!-- <style>
+        /* Global Styles */
+        html,
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            background-color: #27374D;
 
-				<div class="sectionContent">
-					{{#each this.experience}}
+        }
 
-					<article>
-						<h2>{{position}}</h2>
-						<p class="subDetails">{{duration}}</p>
-						<p><strong>{{company}}</strong></p>
-						<p>{{description}}</p>
-					</article>
-					{{/each}}
-				</div>
-				<div class="clear"></div>
-			</section>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Section Styles */
+        .section {
+            background-color: white;
+            border: 1px solid #116D6E;
+            /* border-radius: 8px; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        .header {
+            background-color: #27374D;
+            color: white;
+            border: 1px solid #116D6E;
+            /* border-radius: 8px; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 5px;
+            display: flex;
+            width: 100%;
+        }
+
+        /* Image Styles */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Personal Info Styles */
+        .personal-info {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #116D6E;
+        }
+
+        .personal-info-about {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+        }
+
+        .personal-info-about div {
+            padding-left: 10px;
+            width: 100%;
+            color: white;
+            height: 12%;
+            display: flex;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        /* About Section Styles */
+        .about p {
+            color: #444;
+        }
+
+        /* Education, Experience, Projects Styles */
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            border-bottom: 2px solid #116D6E;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .experience-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 0;
+            width: 90%;
+            justify-content: space-between;
+        }
+
+        .experience-item {
+           
+            /* Two items per row, minus the gap */
+            border: none;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .skill-item {
+            flex: 0 0 calc(20% - 10px);
+            /* Five items per row, minus the gap */
+            border: 1px solid #ccc;
+            align-items: center;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .experience-item h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .experience-item p {
+            margin: 2px;
+            color: #555;
+        }
+    </style> -->
+</head>
+
+<body>
+    <!-- Personal Info Section -->
+
+    <div class="header">
+        <div class="personal-info">
+            <img class="profile-image" src={{this.gitData.avatar}} alt="Profile Image">
+        </div>
+        <div class="personal-info-about">
+            <div><strong>Name:</strong>&nbsp;{{this.studentId.username}} </div>
+            <div><strong>Email:</strong>&nbsp;{{this.contactInformation.email}}</div>
+            <div><strong>Phone:</strong>&nbsp;{{this.contactInformation.phone}}</div>
+            <div><strong>Location:</strong>&nbsp;{{this.contactInformation.address}}</div>
+            <div><strong>Github:</strong>&nbsp;{{this.contactInformation.github}}</div>
+            <div><strong>LinkedIn:</strong>&nbsp;{{this.contactInformation.linkedIn}}</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section about">
+        <h2 class="section-title" style="color: #116D6E;">About Me</h2>
+        <p>
+            {{this.about}}
+        </p>
+    </div>
+
+    <!-- Education Section -->
+    <!-- Experience Section -->
+    <div class="section ">
+        <h2 class="section-title" style="color:#116D6E">Education</h2>
+        <div class="experience-grid">
+            {{#each this.education}}
+            <div class="experience-item">
+                <h3>{{degree}}</h3>
+                <p>{{year}}</p>
+                <p>{{institution}}</p>
+            </div>
+            {{/each}}
+
+            <!-- Add more experience items if needed -->
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="section ">
+        <h2 class="section-title" style="color: #116D6E;">Experience</h2>
+        <div class="experience-grid">
+            {{#each this.experience}}
+            <div class="experience-item">
+                <h3>{{position}}</h3>
+                <p>{{duration}}</p>
+                <p>{{company}}</p>
+                <p>{{description}}</p>
+            </div>
+            {{/each}}
+            <!-- Add more experience items if needed -->
+        </div>
+    </div>
+    <div class="section ">
+        <h2 class="section-title" style="color: #116D6E;">Skills</h2>
+        <div class="experience-grid">
+            {{#each skills}}
+            <div class="skill-item">
+                {{this}}
+
+            </div>
+            {{/each}}
 
 
-			<section>
-				<div class="sectionTitle">
-					<h1>Technical Skills</h1>
-				</div>
+            <!-- Add more experience items if needed -->
+        </div>
+    </div>
 
-				<div class="sectionContent">
-					<ul class="keySkills">
-						{{#each skills}}
-						<li>{{this}}</li>
-						{{/each}}
-					</ul>
-				</div>
-				<div class="clear"></div>
-			</section>
-		</div>
-	</div>
+    <!-- Projects Section -->
+    <div class="section projects">
+        <h2 class="section-title" style="color: #116D6E;">Projects</h2>
+        
+        {{#each this.projects}}
+        <div class="item">
+            <h3>{{title}}</h3>
+            <p>{{description}}</p>
+            <p>Link: {{link}}</p>
+            <div class="experience-grid">
+                {{#each technologies}}
+                <div class="skill-item">
+                    {{this}}
+    
+                </div>
+                {{/each}}
+    
+    
+                <!-- Add more experience items if needed -->
+            </div>
+        </div>
+        {{/each}}
+        <!-- Add more project items if needed -->
+    </div>
+
 </body>
 
 </html>
