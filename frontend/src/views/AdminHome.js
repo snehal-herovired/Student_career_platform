@@ -71,7 +71,7 @@ const AdminHome = (props) => {
                 <span>FAQ</span>
                 <br></br>
               </span>
-              <h2 className="home-text06 heading2">Common questions</h2>
+              <h2 className="home-text06 heading2">Common Questions</h2>
               <span className="home-text07">
                 <span>
                   Here are some of the most common questions that we get.

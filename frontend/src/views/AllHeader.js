@@ -90,9 +90,9 @@ export default function AllHeader({ setLogin, login }) {
           <div className="home-buttons">
             {
               login ?
-                <button className="btn btn-danger" type='button' onClick={handleLogout}>Logout</button>
+                <button className="btn btn-danger" type='button' style={{borderRadius:'20px'}} onClick={handleLogout}>Logout</button>
                 :
-                <button className="btn btn-danger" type='button' onClick={() => navigate('/login')}>Login</button>
+                <button className="btn btn-danger" type='button' style={{borderRadius:'20px'}}  onClick={() => navigate('/login')}>Login</button>
 
             }
           </div>
