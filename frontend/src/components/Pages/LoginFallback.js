@@ -4,7 +4,7 @@ export default function LoginFallback() {
   return (
       <div>
           <div>You are not Authenticated...</div>
-          <Link to="/login">Login</Link>
+          <Link to="/">Login</Link>
     </div>
   )
 }

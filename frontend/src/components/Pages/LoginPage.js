@@ -97,11 +97,11 @@ export default function Login({ setLogin, login,setStudentLogin,studentlogin }) 
                 <button type="submit" className="btn btn-danger" style={{ marginLeft: "30px" }}>
                   Login
                 </button>
-                <span style={{ marginLeft: '30px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 {
                   login && <p style={{ color: 'red', margin: '2px' }}>Login Successfully</p>
                 }
                 {errorMessage && <p style={{ color: 'red', marginLeft: "30px", marginTop: '5px' }}>{errorMessage}</p>}
+                
               </form>
             </div>
               :
@@ -121,6 +121,7 @@ export default function Login({ setLogin, login,setStudentLogin,studentlogin }) 
                       {...register('email', { required: 'Email is required' })}
                     />
                     {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
+                    
                   </div>
 
                   <div className="mb-3">
@@ -143,7 +144,6 @@ export default function Login({ setLogin, login,setStudentLogin,studentlogin }) 
                     login && <p style={{ color: 'red', margin: '2px' }}>Login SuccessFull</p>
                   }
                   {errorMessage && <p style={{ color: 'red',marginLeft: "30px", marginTop: '2px' }}>{errorMessage}</p>}
-                  <span style={{ marginLeft: '30px' }}>Not registered?  <Link to='/' style={{ textDecoration: 'none' }}>Register here</Link></span>
                 </form>
               </div>
           }

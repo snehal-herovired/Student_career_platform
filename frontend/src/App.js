@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, u
 import StudentLayout from './components/Layouts/StudentLayout';
 import NormalLayout from './components/Layouts/NormalLayout';
 import LandingPage from './components/Pages/LandingPage';
+import './style.css'
 import Home from './components/Pages/Home';
 import ResumeLayout from './components/Layouts/ResumeLayout';
 import Personalinfo from './components/Pages/resumepages/Personalinfo';
@@ -26,6 +27,8 @@ import BatchLandingPage from './components/Pages/adminpages/BatchLadingPage';
 import MainControlPanel from './components/Pages/controlPanel/MainControlPanel';
 import AdminDashboardPage from './components/Pages/adminpages/AdminDashboardPage';
 import Projects from './components/Pages/adminpages/Projects';
+import AdminHome from './views/AdminHome';
+import AllHeader from './views/AllHeader';
 function App() {
   // enabling the QueryCLient here..
   const client = new QueryClient();
@@ -50,14 +53,13 @@ function App() {
   // Define your conditional routes here
 
   const router = createBrowserRouter([
-    { path: '/', element: <Register /> },
-    { path: '/login', element: <Login setLogin={setLogin} login={login} setStudentLogin={setStudentLogin} studentlogin={studentlogin} /> },
+    { path: '/', element: <Login setLogin={setLogin} login={login} setStudentLogin={setStudentLogin} studentlogin={studentlogin} /> },
 
     login && {
       path: '/admin',
-      element: <NormalLayout setLogin={setLogin} />,
+      element: <NormalLayout setLogin={setLogin} login={login} />,
       children: [
-        { index: true, element: <AdminDashboardPage /> },
+        { index: true, element: <AdminHome /> },
         {
           path: 'students',
           element: <StudentPage />,
