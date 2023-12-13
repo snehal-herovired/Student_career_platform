@@ -169,7 +169,7 @@ const AdminHome = (props) => {
                 Question="Do we have all the projects here as deployed projects?"
               ></Question>
               <Question
-                Answer="Connect to use for any feedback on snehal.mishra@heroived.com ."
+                Answer="Connect to use for any feedback on snehal.mishra@herovired.com ."
                 Question="How do we connect for any other question related to viredStore ,not mentioned above?"
               ></Question>
             </div>
