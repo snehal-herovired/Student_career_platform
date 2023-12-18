@@ -7,9 +7,9 @@ const batchSchema = new mongoose.Schema({
   },
   course: {
     type: String,
-    default: function () {
-      return this.name; // Set default value to the name field
-    },
+    // default: function () {
+    //   return this.name; // Set default value to the name field
+    // },
   },
   startDate: {
     type: Date,
@@ -29,6 +29,9 @@ const batchSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
   }],
+  totalEnrolledStudent:{
+    type:String
+  }
 });
 
 const Batch = mongoose.model('Batch', batchSchema);

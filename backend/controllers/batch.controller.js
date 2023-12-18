@@ -3,7 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const Batch = require('../models/batch.model');
 const Student = require('../models/Student.model');
-const authenticateJWT =require('../utils/middleware')
+const authenticateJWT =require('../utils/middleware');
+const { Resume } = require('../models/resume.model');
 // Get Batch by ID
 // '/batches/:id
 const getBatchdetailbyid = async (req, res) => {
@@ -179,10 +180,73 @@ const deleteStudentfromBatch = async (req, res) => {
   }
 }
 
+// programController.js
 
 
 
+const getProgramData = async (req, res) => {
+  try {
+    // Fetch all batches/courses in the program
+    const batches = await Batch.find();
+
+    // Initialize an array to store course details
+    const programData = [];
+    // Initialize a Set to store unique course names
+    const uniqueCourses = new Set();
+
+    // Iterate through each batch/course
+    for (const batch of batches) {
+      
+      const batchData = {
+        courseId: batch._id,
+        courseName: batch.name,
+        courseType:batch.course,
+        totalStudentsViredStore: batch.students.length,
+        totalEnrolledStudent:batch.totalEnrolledStudent,
+        totalProjects: await Resume.countDocuments({ batchId: batch._id }),
+      };
+
+      // Add batchData to programData array
+      programData.push(batchData);
+    }
+
+   
+
+    res.json({
+      
+      programData,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+const getUniqueCourses = async (req, res) => {
+  try {
+    // Fetch all batches/courses in the program
+    const batches = await Batch.find();
+
+    // Initialize a Set to store unique course names
+    const uniqueCourses = new Set();
+
+    // Iterate through each batch/course
+    for (const batch of batches) {
+      uniqueCourses.add(batch.course); // Assuming 'name' is the field representing the course name
+    }
+
+    const totalUniqueCourses = uniqueCourses.size;
+
+    res.json({
+      Programs: Array.from(uniqueCourses), // Convert Set to an array
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 module.exports = {
-  getBatchdetailbyid, updateBatch, deleteBatch, addStudenttoBatch, deleteStudentfromBatch, createBatch, getAllbatches
+  getUniqueCourses,getProgramData, getBatchdetailbyid, updateBatch, deleteBatch, addStudenttoBatch, deleteStudentfromBatch, createBatch, getAllbatches
 }

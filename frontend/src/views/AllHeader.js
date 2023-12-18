@@ -58,13 +58,15 @@ export default function AllHeader({ setLogin, login }) {
     navigate('/');
   }
   let btnStyle = {
-    border: "1px solid rgb(128,128,128,0.2)",
+    // border: "1px solid rgb(128,128,128,0.2)",
     height: '30px',
     width: '70px',
     color: '#6b050b',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    padding:'2px',
+    marginLeft:'3px'
 
   }
   let headerstyle = {
@@ -86,8 +88,9 @@ export default function AllHeader({ setLogin, login }) {
             <span className="home-nav4" data-bs-toggle="modal" data-bs-target="#exampleModal" style={cursorStyles}>Recent Activity<span className="badge rounded-pill bg-dark">{recentActivity.length}</span></span>
             <span className="home-nav5" onClick={() => navigate('/admin/projects')} style={cursorStyles}>Projects<span className="badge rounded-pill bg-dark">{allprojects.length}</span></span>
             <span className="home-nav2" onClick={() => navigate('/admin/controls')} style={cursorStyles}>Control Panel</span>
+            
           </nav>
-          <div className="home-buttons">
+          {/* <div className="home-buttons">
             {
               login ?
                 <button className="btn btn-danger" type='button' style={{borderRadius:'20px'}} onClick={handleLogout}>Logout</button>
@@ -95,10 +98,10 @@ export default function AllHeader({ setLogin, login }) {
                 <button className="btn btn-danger" type='button' style={{borderRadius:'20px'}}  onClick={() => navigate('/login')}>Login</button>
 
             }
-          </div>
+          </div> */}
         </div>
 
-        <button className="btn d-lg-none" style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
+        <button className="btn " style={btnStyle} type="button" data-bs-toggle="offcanvas" data-bs-target="#normaloffcanvasExample" aria-controls="normaloffcanvasExample">
           <div style={{}}>
             <i className="fa fa-bars" ></i>
 
@@ -106,7 +109,7 @@ export default function AllHeader({ setLogin, login }) {
 
         </button>
       </header>
-      <div className="offcanvas offcanvas-start d-lg-none" style={{ zIndex: 1050 }} tabIndex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
+      <div className="offcanvas offcanvas-start" style={{ zIndex: 1050 }} tabIndex="-1" id="normaloffcanvasExample" aria-labelledby="normaloffcanvasExampleLabel">
         <div className="offcanvas-header drawer-header" style={{ background: 'white', color: 'red' }}>
           <h5 className="offcanvas-title" id="normaloffcanvasExampleLabel" style={{ fontWeight: "bolder" }}>Vired Menu</h5>
           <button type="button" className=" custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i className='fa fa-share-square-o'></i></button>
