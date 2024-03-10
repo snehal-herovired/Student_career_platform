@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resume Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #555;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", serif;
+            color: #116D6E;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(45deg, #116D6E, #29A88A);
+            padding: 15px;
+        }
+
+        .section {
+            margin: 20px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #116D6E;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        .experience-item p {
+            margin: 2px;
+            color: #555;
+        }
+        .experience-item{
+            border-bottom: 1px solid #116D6E;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .skill-item {
+            background-color: #29A88A;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+        .item{
+            border-bottom: 1px solid #116D6E;
+        }
+        .link{
+            color:darkblue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Personal Info Section -->
+    <div class="header">
+        <div class="personal-info">
+            <img class="profile-image" src="{{this.gitData.avatar}}" alt="Profile Image">
+        </div>
+        <div class="personal-info-about">
+            <div><strong>Name:</strong>&nbsp;{{this.studentId.username}} </div>
+            <div><strong>Email:</strong>&nbsp;{{this.contactInformation.email}}</div>
+            <div><strong>Phone:</strong>&nbsp;{{this.contactInformation.phone}}</div>
+            <div><strong>Location:</strong>&nbsp;{{this.contactInformation.address}}</div>
+            <div><strong>Github:</strong>&nbsp;{{this.contactInformation.github}}</div>
+            <div><strong>LinkedIn:</strong>&nbsp;{{this.contactInformation.linkedIn}}</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section about">
+        <h2 class="section-title">About Me</h2>
+        <p>
+            {{this.about}}
+        </p>
+    </div>
+
+    <!-- Education Section -->
+    <div class="section">
+        <h2 class="section-title">Education</h2>
+        {{#each this.education}}
+        <div class="experience-item">
+            <p><strong>{{degree}}</strong></p>
+            <p>{{institution}}</p>
+            <p>{{year}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <!-- Experience Section -->
+    <div class="section">
+        <h2 class="section-title">Experience</h2>
+        {{#each this.experience}}
+        <div class="experience-item">
+            <p><strong>{{position}}</strong></p>
+            <p><strong>{{company}}</strong> {{duration}}</p>
+            <p>{{description}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <!-- Skills Section -->
+    <div class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="experience-grid">
+            {{#each this.skills}}
+            <div class="skill-item">
+                {{this}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section projects">
+        <h2 class="section-title">Projects</h2>
+        {{#each this.projects}}
+        <div class="item">
+            <p><strong>{{title}}</strong></p>
+            <p class="link">{{link}}</p>
+            <p>{{description}}</p>
+            <div class="experience-grid">
+                {{#each technologies}}
+                <div class="skill-item">
+                    {{this}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+
+</body>
+
+</html>

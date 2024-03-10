@@ -1,0 +1,10 @@
+.herox {
+    background-image: url('../../public/images/herox.png');
+    /* Replace with the actual path to your image */
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(2);
+    /* Adjust the background size as needed */
+    /* Add any other background properties or styles as desired */
+}

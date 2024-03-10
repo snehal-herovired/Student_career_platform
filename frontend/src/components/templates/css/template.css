@@ -1,0 +1,388 @@
+/* Navbar */
+.navbar {
+    background-color: rgba(126, 142, 222, 0.847);
+    /* Customize the background color */
+    position: relative;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 1rem;
+}
+
+.nav-link {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+/* button styles */
+.btn-design{
+    border: 1px solid rgb(48, 48, 74);
+    
+}
+.btn-design:hover{
+    background-color: rgba(197, 198, 203, 0.814)
+}
+/* About Section */
+#about .container .card{
+    background-color: rgba(221, 223, 236, 0.2);
+    box-shadow: 13px 17px 21px 8px rgba(0,0,0,0.1);
+
+}
+#about{
+    margin-bottom: 60px;
+}
+/* Skills Section */
+
+#skill{
+    margin-bottom: 60px;
+}
+#skill .container .card{
+    background-color: rgba(221, 223, 236, 0.2);
+    box-shadow: 13px 17px 21px 8px rgba(0,0,0,0.1);
+}
+
+/* Portfolio */
+/* Portfolio Section */
+.portfolio-section .portfolio-heading {
+    margin-bottom: 2rem;
+  }
+  
+  .portfolio-section .portfolio-item {
+    margin-bottom: 2rem;
+  }
+  
+  .portfolio-section .portfolio-item a {
+    display: block;
+    position: relative;
+  }
+  
+  .portfolio-section .portfolio-item img {
+    width: 100%;
+    height: auto;
+    filter: blur(2px); /* Add blur effect */
+    transition: filter 0.2s ease-in-out;
+    box-shadow: 13px 17px 21px 8px rgba(0,0,0,0.1);
+
+  }
+  
+  .portfolio-section .portfolio-item:hover img {
+    filter: none; /* Remove blur effect on hover */
+  }
+  
+  .portfolio-section .portfolio-item figcaption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .portfolio-section .portfolio-item:hover figcaption {
+    opacity: 1; /* Show caption on hover */
+  }
+  
+  .portfolio-section .portfolio-item figcaption .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #7C9D96;
+    background: #FAF3F0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .portfolio-section .portfolio-item figcaption p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #7C9D96;
+    background: #FAF3F0;
+    text-align: center;
+  }
+
+  
+  
+
+
+/* Profile Page */
+.profile-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+    padding: 2px;
+    
+    margin-bottom: 50px;
+    background-color:rgba(221, 223, 236, 0.2);
+}
+
+.profile-page .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-page .cc-profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-page .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-left: 2rem;
+}
+
+.profile-page .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.profile-page .category {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.profile-page .section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.profile-page .button-container .btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+/*  */
+.experience-section .experience-heading {
+    margin-bottom: 2rem;
+  }
+  
+  .experience-section .card {
+    margin-bottom: 10px;
+    box-shadow: 9px 14px 18px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: cardFadeIn 1s ease-in-out forwards;
+  }
+  
+  @keyframes cardFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .experience-section .card-body {
+    padding: 1rem;
+  }
+  
+  .experience-section .card-body h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .experience-section .card-body p {
+    margin-bottom: 0;
+  }
+  
+  .experience-section .bg-primary {
+    background-color: rgba(0, 123, 255, 0.8);
+  }
+  
+  .experience-section .experience-header {
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .experience-section .experience-header p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .experience-section .experience-header h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  /* educaiton section */
+  .education-section .education-heading {
+    margin-bottom: 2rem;
+  }
+  
+  .education-section .card {
+    margin-bottom: 10px;
+    box-shadow: 9px 14px 18px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: cardFadeIn 1s ease-in-out forwards;
+  }
+  
+  @keyframes cardFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .education-section .card-body {
+    padding: 1rem;
+  }
+  
+  .education-section .card-body h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .education-section .card-body .category {
+    margin-bottom: 0.5rem;
+    color: #777;
+  }
+  
+  .education-section .card-body p {
+    margin-bottom: 0;
+  }
+  
+  .education-section .bg-primary {
+    background-color: rgba(0, 123, 255, 0.8);
+  }
+  
+  .education-section .cc-education-header {
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .education-section .cc-education-header p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .education-section .cc-education-header h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  /* refernce section */
+  .testimonials {
+    background-color: #f8f8f8;
+    padding: 60px 0;
+    margin-bottom: 50px;
+  }
+  
+  .testimonials .testimonial-item {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .testimonials .testimonial-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+  
+  .testimonials h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .testimonials h4 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #777;
+    margin-bottom: 10px;
+  }
+  
+  .testimonials p {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  
+  .testimonials p i {
+    font-size: 18px;
+    color: #1f1f1f;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .testimonials .carousel-control-prev-icon,
+  .testimonials .carousel-control-next-icon {
+    height: 40px;
+    width: 40px;
+    background-color: #777;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+  
+  .testimonials .carousel-control-prev-icon:hover,
+  .testimonials .carousel-control-next-icon:hover {
+    opacity: 1;
+  }
+  
+
+  /* Add your custom CSS to style the progress bar */
+.progress-container {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.progress-label {
+  font-weight: bold;
+}
+
+.custom-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s;
+  background-color: #007bff; /* Change the progress bar color */
+  text-align: center;
+  line-height: 20px;
+  color: #fff; /* Change the text color inside the progress bar */
+}
